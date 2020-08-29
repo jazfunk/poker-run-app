@@ -12,7 +12,10 @@ class App extends Component {
     };
   }
 
-  componentDidMount = () => {};
+  componentDidMount = () => {
+    // Add On Mount methods
+    // Set State
+  };
 
   handleChange = (event) => {
     event.preventDefault();
@@ -23,7 +26,10 @@ class App extends Component {
     event.target.reset();
   };
 
-  componentDidUpdate = () => {};
+  componentDidUpdate = () => {
+    // Add update methods
+    // Update state
+  };
 
   render() {
     return (

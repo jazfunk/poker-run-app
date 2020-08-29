@@ -56,6 +56,18 @@ ul.dropdown-menu {
   filter: drop-shadow(0 0 0.5rem #D9B08C);
 }
 
+.form-container {
+  margin: 0 auto;
+  margin-top: 40px;
+  border: 1px #2C3531 solid;
+  background-color: #2C3531;
+  border-radius: 8px;
+  filter: drop-shadow(0 0 0.5rem #d1e8e2);
+  padding: 20px;
+  width: 75vw;
+  color: #feffff;
+}
+
 .footer {
   text-align: center;
   position: fixed;
