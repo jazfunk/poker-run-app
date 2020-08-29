@@ -34,13 +34,14 @@ a:active {
   color: #116466;
 }
 
-/* ul.dropdown-menu {
+ul.dropdown-menu {
   padding: 0px 0px
-} */
+}
 
 .dropdown-menu {
-  background-image: linear-gradient(#2C3531, #116466, #116466, #116466, #116466, #2C3531);
-  filter: drop-shadow(0 0 0.5rem #2C3531);
+  border-radius: 8px;
+  background-image: linear-gradient(#116466, #116466, #116466, #116466);
+  filter: drop-shadow(0 0 0.25rem #2C3531);
 }
 
 .navbar-dark .navbar-nav .nav-link {
@@ -54,9 +55,6 @@ a:active {
 .navbrand-glow-border {
   filter: drop-shadow(0 0 0.5rem #D9B08C);
 }
-
-
-
 
 .footer {
   text-align: center;
@@ -74,8 +72,9 @@ a:active {
 }
 
 .jklogo-glow-border {
-  filter: drop-shadow(0 0 0.3rem #116466);
+  filter: drop-shadow(0 0 0.2rem #116466);
 }
+
 /* 
 #footer a:link {
   color: #2c3531;
