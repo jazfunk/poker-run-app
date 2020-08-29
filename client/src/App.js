@@ -1,14 +1,39 @@
-import React from "react";
+import React, { Component } from "react";
 import "./App.css";
-import Test from "./Components/TestComponent";
+import Header from "./Components/Header";
+import Footer from "./Components/Footer";
+// import BodyContent from "./Components/BodyContent";
 
-function App() {
-  return (
-    <section className="App">
-      Poker Run
-      <Test />
-    </section>
-  );
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      content: [],
+    };
+  }
+
+  componentDidMount = () => {};
+
+  handleChange = (event) => {
+    event.preventDefault();
+  };
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    event.target.reset();
+  };
+
+  componentDidUpdate = () => {}
+
+  render() {
+    return (
+      <section className="App">
+        <Header />
+        {/* <BodyContent content={this.state.content} /> */}
+        <Footer />
+      </section>
+    );
+  }
 }
 
 export default App;
