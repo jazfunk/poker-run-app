@@ -11,7 +11,7 @@ import Logout from "./Logout";
 const Header = (props) => {
   return (
     <BrowserRouter>
-      <header>
+      <section>
         <Nav />
         <Switch>
           <Route path="/" exact component={Home} />
@@ -21,7 +21,7 @@ const Header = (props) => {
           <Route path="/signup" exact component={Signup} />
           <Route path="/logout" exact component={Logout} />
         </Switch>
-      </header>
+      </section>
     </BrowserRouter>
   );
 };

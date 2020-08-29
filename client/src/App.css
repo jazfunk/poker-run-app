@@ -1,15 +1,24 @@
 .App {
-  text-align: center;
+  flex: 1 0 auto;
+  background-color: #2C3531;   
+  color: #D1E8E2;
+}
+
+/* .content {
+  flex: 1 0 auto;
+} */
+
+.custom-nav {
+  background-color: #116466;
+  /* background-color: rgba(22, 52, 78, 0.8);; */
 }
 
 .main-app {
-  border: 1px solid black;  
+  border: 1px solid black; 
 }
 
-header {
-  border: 1px solid red;
-}
 
-footer {
-  border: 1px solid blue;
+.app-home {
+  background-color: #2C3531;   
+  color: #D1E8E2;
 }

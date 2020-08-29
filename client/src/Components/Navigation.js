@@ -3,7 +3,7 @@ import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 
 const Navigation = () => {
   return (
-    <Navbar variant="light" expand="md">
+    <Navbar className="custom-nav" variant="dark" expand="md">
       <Navbar.Brand href="/">
         Poker Run
       </Navbar.Brand>
