@@ -1,7 +1,7 @@
 import React from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import Col from "react-bootstrap/Col"
+import Col from "react-bootstrap/Col";
 
 const Signup = (props) => {
   return (
@@ -12,10 +12,10 @@ const Signup = (props) => {
             <Form.Label>First Name</Form.Label>
             <Form.Control
               onChange={props.handleChange}
-              defaultValue={props.firstName}
+              defaultValue={props.first_name}
               type="text"
               placeholder=""
-              name="firstName"
+              name="first_name"
               required={true}
             />
           </Form.Group>
@@ -23,10 +23,10 @@ const Signup = (props) => {
             <Form.Label>Last Name</Form.Label>
             <Form.Control
               onChange={props.handleChange}
-              defaultValue={props.lastName}
+              defaultValue={props.last_name}
               type="text"
               placeholder=""
-              name="lastName"
+              name="last_name"
               required={true}
             />
           </Form.Group>
@@ -47,16 +47,21 @@ const Signup = (props) => {
             <Form.Label>Password</Form.Label>
             <Form.Control
               onChange={props.handleChange}
-              defaultValue={props.passWord}
+              defaultValue={props.password}
               type="password"
               placeholder=""
-              name="passWord"
+              name="password"
               required={true}
             />
           </Form.Group>
         </Form.Row>
         <Form.Group controlId="formBasicCheckbox">
-          <Form.Check type="checkbox" label="Admin" />
+          <Form.Check
+            type="checkbox"
+            defaultChecked={props.is_admin}
+            name="is_admin"
+            label="Admin"
+          />
         </Form.Group>
         <Button variant="light" type="submit">
           Sign Up

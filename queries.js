@@ -33,16 +33,16 @@ const getUserById = (req, res) => {
 
 // POST a new user
 const createUser = (req, res) => {
-  const { firstName, lastName, email, password } = req.body;
+  const { first_name, last_name, email, password, is_admin } = req.body;
 
   pool.query(
-    "INSERT INTO users (firstName, lastName, email, password) VALUES ($1, $2, $3, $4",
-    [firstName, lastName, email, password],
-    (error, results) => {
+    "INSERT INTO users (first_name, last_name, email, password, is_admin) VALUES ($1, $2, $3, $4, $5)",
+    [first_name, last_name, email, password, is_admin],
+    (error, result) => {
       if (error) {
         throw error;
       }
-      res.status(201).send(`User added with ID: ${res.insertId}`);
+      res.status(201).send(`User added with ID: ${result.insertId}`);
     }
   );
 };
@@ -50,11 +50,11 @@ const createUser = (req, res) => {
 // PUT updated data in an existing user
 const updateUser = (req, res) => {
   const id = parseInt(req.params.id);
-  const { firstName, lastName, email, password } = req.body;
+  const { first_name, last_name, email, password, is_admin } = req.body;
 
   pool.query(
-    "UPDATE users SET first_name = $1, last_name = $2, email = $3, password = $4",
-    [firstName, lastName, email, password],
+    "UPDATE users SET first_name = $1, last_name = $2, email = $3, password = $4, is_admin = $5 WHERE id = $6",
+    [first_name, last_name, email, password, is_admin, id],
     (error, results) => {
       if (error) {
         throw error;

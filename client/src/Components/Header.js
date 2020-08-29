@@ -5,7 +5,7 @@ import Home from "./Home";
 import Standings from "./Standings";
 import Hands from "./Hands";
 import Login from "./Login";
-import Signup from "./Signup";
+import SignUp from "../SignUp";
 import Logout from "./Logout";
 
 const Header = (props) => {
@@ -18,7 +18,7 @@ const Header = (props) => {
           <Route path="/standings" exact component={Standings} />
           <Route path="/hands" exact component={Hands} />
           <Route path="/login" exact component={Login} />
-          <Route path="/signup" exact component={Signup} />
+          <Route path="/signup" exact component={SignUp} />
           <Route path="/logout" exact component={Logout} />
         </Switch>
       </section>
