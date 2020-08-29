@@ -1,24 +1,93 @@
 .App {
   flex: 1 0 auto;
-  background-color: #2C3531;   
-  color: #D1E8E2;
 }
 
-/* .content {
-  flex: 1 0 auto;
-} */
-
 .custom-nav {
-  background-color: #116466;
-  /* background-color: rgba(22, 52, 78, 0.8);; */
+  flex-shrink: 0;
+  background-image: linear-gradient(to bottom right, #116466, #2C3531);
+  border-bottom: 1px solid #2c3531;
+  /* background-color: rgba(0, 0, 0, 0.8);; */  
+  /* background-color: #2C3531;    */
 }
 
 .main-app {
   border: 1px solid black; 
 }
 
-
 .app-home {
-  background-color: #2C3531;   
+  color: #D1E8E2;
+  height: 80vh;
+}
+
+a:link {
   color: #D1E8E2;
 }
+a:visited {
+  color: #D1E8E2;
+}
+a:hover {
+  color: #FFCB9A;
+  text-decoration: none;
+}
+
+a:active {
+  color: #116466;
+}
+
+/* ul.dropdown-menu {
+  padding: 0px 0px
+} */
+
+.dropdown-menu {
+  background-image: linear-gradient(#2C3531, #116466, #116466, #116466, #116466, #2C3531);
+  filter: drop-shadow(0 0 0.5rem #2C3531);
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  color: #D1E8E2;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+  color: #FFCB9A;
+}
+
+.navbrand-glow-border {
+  filter: drop-shadow(0 0 0.5rem #D9B08C);
+}
+
+
+
+
+.footer {
+  text-align: center;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 8vh;
+  padding-top: 2px;
+  font-size: calc(10px + .2vh);
+  font-weight: bold;
+  border-bottom: 1px solid #2C3531;
+  background-image: linear-gradient(to bottom right, #D1E8E2, #116466);
+  color: #116466;
+}
+
+.jklogo-glow-border {
+  filter: drop-shadow(0 0 0.3rem #116466);
+}
+/* 
+#footer a:link {
+  color: #2c3531;
+}
+#footer a:visited {
+  color: #2c3531;
+}
+#footer a:hover {
+  color: #116466;
+  text-decoration: none;
+}
+
+#footer a:active {
+  color: #d9b08c;
+} */

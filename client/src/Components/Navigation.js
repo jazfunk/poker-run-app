@@ -1,11 +1,18 @@
 import React from "react";
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
+import AppLogo from "../Images/PokerRunKingLOGO_NEW_OPTIMIZED.svg"
 
 const Navigation = () => {
   return (
     <Navbar className="custom-nav" variant="dark" expand="md">
       <Navbar.Brand href="/">
-        Poker Run
+          <img
+            src={AppLogo}
+            width="30"
+            height="30"
+            className="d-inline-block align-top navbrand-glow-border"
+            alt="PokerRun"
+          />
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" className="navbar-toggler" />
       <Navbar.Collapse id="basic-navbar-nav">

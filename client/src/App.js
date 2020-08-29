@@ -23,13 +23,15 @@ class App extends Component {
     event.target.reset();
   };
 
-  componentDidUpdate = () => {}
+  componentDidUpdate = () => {};
 
   render() {
     return (
-      <section className="App">
-        <Header />
-        {/* <BodyContent content={this.state.content} /> */}
+      <section>
+        <div className="App">
+          <Header />
+          {/* <BodyContent content={this.state.content} /> */}
+        </div>        
         <Footer />
       </section>
     );
