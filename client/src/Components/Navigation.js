@@ -21,7 +21,7 @@ const Navigation = () => {
           <Nav.Link href="/standings">Standings</Nav.Link>
           <Nav.Link href="/hands">Hands</Nav.Link>
           <NavDropdown title="My Account" id="basic-nav-dropdown">
-            <NavDropdown.Item href="/login">Login</NavDropdown.Item>
+            <NavDropdown.Item href="/login">Log In</NavDropdown.Item>
             <NavDropdown.Item href="/signup">Sign Up</NavDropdown.Item>
             <NavDropdown.Divider />
             <NavDropdown.Item href="/logout">Log Out</NavDropdown.Item>

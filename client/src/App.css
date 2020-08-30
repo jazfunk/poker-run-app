@@ -59,8 +59,8 @@ ul.dropdown-menu {
 .form-container {
   margin: 0 auto;
   margin-top: 40px;
-  border: 1px #2C3531 solid;
-  background-color: #2C3531;
+  border: 1px #116466 solid;
+  background-image: linear-gradient(to bottom right,#116466, #2C3531);
   border-radius: 8px;
   filter: drop-shadow(0 0 0.5rem #d1e8e2);
   padding: 20px;
