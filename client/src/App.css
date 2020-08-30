@@ -65,7 +65,16 @@ ul.dropdown-menu {
   filter: drop-shadow(0 0 0.5rem #d1e8e2);
   padding: 20px;
   width: 75vw;
-  color: #feffff;
+  color: #FFCB9A;
+}
+
+.submitbtn-formgroup {
+  text-align: right;
+}
+
+.submit-btn {
+  width: 20vw;
+  color: #116466;
 }
 
 .footer {

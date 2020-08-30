@@ -8,7 +8,7 @@ const Signup = (props) => {
     <section className="form-container">
       <Form onSubmit={props.handleSubmit}>
         <Form.Row>
-          <Form.Group as={Col} controlId="frmFirstName">
+          <Form.Group as={Col} controlId="formAddUserFirstName">
             <Form.Label>First Name</Form.Label>
             <Form.Control
               onChange={props.handleChange}
@@ -19,7 +19,7 @@ const Signup = (props) => {
               required={true}
             />
           </Form.Group>
-          <Form.Group as={Col} controlId="frmLastName">
+          <Form.Group as={Col} controlId="formAddUserLastName">
             <Form.Label>Last Name</Form.Label>
             <Form.Control
               onChange={props.handleChange}
@@ -31,8 +31,9 @@ const Signup = (props) => {
             />
           </Form.Group>
         </Form.Row>
+
         <Form.Row>
-          <Form.Group as={Col} controlId="frmEmail">
+          <Form.Group as={Col} controlId="formAddUserEmail">
             <Form.Label>Email address</Form.Label>
             <Form.Control
               onChange={props.handleChange}
@@ -43,7 +44,10 @@ const Signup = (props) => {
               required={true}
             />
           </Form.Group>
-          <Form.Group as={Col} controlId="frmPassWord">
+        </Form.Row>
+
+        <Form.Row>
+          <Form.Group as={Col} controlId="formAddUserPassWord">
             <Form.Label>Password</Form.Label>
             <Form.Control
               onChange={props.handleChange}
@@ -55,17 +59,23 @@ const Signup = (props) => {
             />
           </Form.Group>
         </Form.Row>
-        <Form.Group controlId="formBasicCheckbox">
-          <Form.Check
-            type="checkbox"
-            defaultChecked={props.is_admin}
-            name="is_admin"
-            label="Admin"
-          />
-        </Form.Group>
-        <Button variant="light" type="submit">
-          Sign Up
-        </Button>
+
+        <Form.Row>
+          <Form.Group as={Col} controlId="formAddUserCheckbox">
+            <Form.Check
+              type="checkbox"
+              defaultChecked={props.is_admin}
+              name="is_admin"
+              label="Admin"
+            />
+          </Form.Group>
+
+          <Form.Group as={Col} controlId="formAddUserSubmitButton" className="submitbtn-formgroup">
+            <Button variant="light" type="submit" className="submit-btn">
+              Sign Up
+            </Button>
+          </Form.Group>
+        </Form.Row>
       </Form>
     </section>
   );
