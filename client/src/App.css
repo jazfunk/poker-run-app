@@ -58,7 +58,8 @@ ul.dropdown-menu {
 
 .form-container {
   margin: 0 auto;
-  margin-top: 40px;
+  margin-top: 10px;
+  margin-bottom: 50px;
   border: 1px #116466 solid;
   background-image: linear-gradient(to bottom right,#116466, #2C3531);
   border-radius: 8px;
