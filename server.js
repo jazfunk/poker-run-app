@@ -8,8 +8,8 @@ const db = require('./queries')
 
 // Todo: Install Morgan
 
-// app.use(express.static(__dirname + "/client/build"));
-app.use(express.static("/client/build"));
+app.use(express.static(__dirname + "/client/build"));
+// app.use(express.static("/client/build"));
 
 // for parsing application/json
 app.use(bodyParser.json());
