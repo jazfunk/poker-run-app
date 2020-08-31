@@ -4,7 +4,7 @@ import UsersTable from "./Components/UsersTable";
 import axios from "axios";
 
 class UsersList extends Component {
-  USERS_URL = "http://localhost:3000/users/";
+  // USERS_URL = "http://localhost:3000/users/";
 
   constructor(props) {
     super(props);
@@ -13,18 +13,24 @@ class UsersList extends Component {
       users: [],
       userSearch: "",
     };
+
+    let port = process.env.PORT;
+    if (port == null || port == "") {
+      port = 8000;
+    }
+     const USERS_URL = `http://localhost:${port}/users/`;
   }
 
   getData = (url) => {
     return axios.get(url).then((response) => response.data);
   };
 
-  componentDidMount = () => { 
+  componentDidMount = () => {
     axios
       .get(this.state.usersUrl)
       .then((response) => {
         this.setState({
-          users: response.data,          
+          users: response.data,
         });
       })
       .catch((error) => {
@@ -45,7 +51,7 @@ class UsersList extends Component {
       this.setState({
         usersUrl: this.USERS_URL,
         userSearch: "",
-      })
+      });
     }
   };
 
