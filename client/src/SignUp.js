@@ -3,7 +3,8 @@ import axios from "axios";
 import SignUpComponent from "./Components/SignupComponent";
 
 class SignUp extends Component {
-  ADD_USER_URL = "http://localhost:3000/users/";
+  port = process.env.PORT || 5000
+  ADD_USER_URL = `http://localhost:${this.port}/users/`;
   isLoggedIn = false;
 
   constructor(props) {
@@ -33,7 +34,6 @@ class SignUp extends Component {
     event.preventDefault();
     event.target.reset();
 
-    debugger;
     const user = {
       first_name: this.state.first_name,
       last_name: this.state.last_name,

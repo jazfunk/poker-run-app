@@ -2,10 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const app = express()
 // const port = 3000
-let port = process.env.PORT;
-if (port == null || port == "") {
-  port = 8000;
-}
+let port = process.env.PORT || 5000
 const path = require('path')
 const db = require('./queries')
 

@@ -4,8 +4,8 @@ import UsersTable from "./Components/UsersTable";
 import axios from "axios";
 
 class UsersList extends Component {
-  // USERS_URL = "http://localhost:3000/users/";
-
+  port = process.env.PORT || 5000
+  USERS_URL = `http://localhost:${this.port}/users/`;
   constructor(props) {
     super(props);
     this.state = {
@@ -13,12 +13,6 @@ class UsersList extends Component {
       users: [],
       userSearch: "",
     };
-
-    let port = process.env.PORT;
-    if (port == null || port == "") {
-      port = 8000;
-    }
-     const USERS_URL = `http://localhost:${port}/users/`;
   }
 
   getData = (url) => {
@@ -26,6 +20,7 @@ class UsersList extends Component {
   };
 
   componentDidMount = () => {
+    debugger;
     axios
       .get(this.state.usersUrl)
       .then((response) => {
