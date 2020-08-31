@@ -55,7 +55,7 @@ class UsersList extends Component {
 
   render() {
     return (
-      <section>
+      <section className="form-container">
         <section>
           <input
             id="search-text"
