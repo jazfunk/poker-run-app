@@ -4,7 +4,7 @@ import SignUpComponent from "./Components/SignupComponent";
 
 class SignUp extends Component {
   port = process.env.PORT || 5000
-  ADD_USER_URL = `http://localhost:${this.port}/users/`;
+  ADD_USER_URL = `/users/`;
   isLoggedIn = false;
 
   constructor(props) {

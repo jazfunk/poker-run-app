@@ -5,7 +5,7 @@ import axios from "axios";
 
 class UsersList extends Component {
   port = process.env.PORT || 5000
-  USERS_URL = `http://localhost:${this.port}/users/`;
+  USERS_URL = `/users/`;
   constructor(props) {
     super(props);
     this.state = {
