@@ -8,7 +8,7 @@
     "watch": "nodemon server.js",
     "client": "npm run watch --prefix client",
     "dev": "concurrently \"npm run watch\" \"npm run client\"",
-    "heroku-postbuild": "cd client && npm i --production && npm run build"
+    "heroku-postbuild": "cd client && npm i && npm run build"
   },
   "keywords": [
     "poker",
