@@ -3,7 +3,6 @@ import Button from "react-bootstrap/Button";
 import UsersTable from "./Components/UsersTable";
 import axios from "axios";
 
-
 class UsersList extends Component {
   port = process.env.PORT || 5000
   USERS_URL = `/users/`;
@@ -24,7 +23,6 @@ class UsersList extends Component {
     axios
       .get(this.state.usersUrl)
       .then((response) => {
-        console.log(process.env.PG_USER)
         this.setState({
           users: response.data,
         });

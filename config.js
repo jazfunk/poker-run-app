@@ -7,5 +7,6 @@ module.exports = {
   pw: process.env.PG_PASSWORD,
   pg_port: process.env.PG_PORT,
   endpoint: process.env.API_URL,
-  masterKey: process.env.API_KEY
+  masterKey: process.env.API_KEY,
+  client: process.env.CLIENT_URL
 };
