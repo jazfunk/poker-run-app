@@ -5,7 +5,9 @@ const path = require("path");
 const db = require("./queries");
 const port = process.env.PORT || 5000;
 const { client } = require("./config")
-// Todo: Install Morgan
+
+// Todo: Install Morgan to log all
+// HTTP Requests
 
 app.use(express.static(__dirname + "/client/build/"));
 
