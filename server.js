@@ -3,7 +3,8 @@ const bodyParser = require("body-parser");
 const app = express();
 const path = require("path");
 const db = require("./queries");
-const { port } = require("./config");
+const port = process.env.PORT;
+// const { port } = require("./config");
 // Todo: Install Morgan
 
 app.use(express.static(__dirname + "/client/build"));

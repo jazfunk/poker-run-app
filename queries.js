@@ -1,5 +1,5 @@
 const { response, request } = require("express");
-const { user, host, db, pw, port } = require("./config")
+const { user, host, db, pw, pg_port } = require("./config")
 
 const Pool = require("pg").Pool;
 const pool = new Pool({
@@ -7,7 +7,7 @@ const pool = new Pool({
   host: host,
   database: db,
   password: pw,
-  port: port,
+  port: pg_port,
 });
 
 // GET All Users Endpoint
