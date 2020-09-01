@@ -2,13 +2,6 @@ const { response, request } = require("express");
 const { user, host, db, pw, pg_port } = require("./config")
 
 const Pool = require("pg").Pool;
-// const pool = new Pool({
-//   user: "jktitgqp",
-//   host: "lallah.db.elephantsql.com",
-//   database: "jktitgqp",
-//   password: "7eJQWDJlYXDVyDBt4kkeLd7s7R1IxlUQ",
-//   port: 5432,
-// });
 const pool = new Pool({
   user: user,
   host: host,

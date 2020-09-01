@@ -17,6 +17,7 @@ class SignUp extends Component {
 
   componentDidMount = () => {
     const savedUser = JSON.parse(window.localStorage.getItem("user")) || {};
+    // TODO: Add User object to local storage
     this.setState({
       user: savedUser,
     });
@@ -34,6 +35,7 @@ class SignUp extends Component {
     event.preventDefault();
     event.target.reset();
 
+    // TODO:  Needs validation
     const user = {
       first_name: this.state.first_name,
       last_name: this.state.last_name,
