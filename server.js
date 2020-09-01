@@ -7,7 +7,7 @@ const port = process.env.PORT || 5000;
 const { client } = require("./config")
 // Todo: Install Morgan
 
-app.use(express.static(__dirname + client));
+app.use(express.static(__dirname + "/client/build/"));
 
 // for parsing application/json
 app.use(bodyParser.json());
@@ -26,7 +26,7 @@ app.put("/users/:id", db.updateUser);
 app.delete("/users/:id", db.deleteUser);
 
 app.get("/*", (req, res) => {
-  res.sendFile(path.join(__dirname + client + "index.html"));
+  res.sendFile(path.join(__dirname + "/client/build/index.html"));
 });
 
 app.listen(port, () => {
