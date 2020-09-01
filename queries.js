@@ -1,12 +1,13 @@
 const { response, request } = require("express");
+const { user, host, db, pw, port } = require("./config")
 
 const Pool = require("pg").Pool;
 const pool = new Pool({
-  user: "jktitgqp",
-  host: "lallah.db.elephantsql.com",
-  database: "jktitgqp",
-  password: "7eJQWDJlYXDVyDBt4kkeLd7s7R1IxlUQ",
-  port: 5432,
+  user: user,
+  host: host,
+  database: db,
+  password: pw,
+  port: port,
 });
 
 // GET All Users Endpoint

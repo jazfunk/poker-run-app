@@ -1,15 +1,12 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const app = express()
-// const port = 3000
-let port = process.env.PORT || 5000
 const path = require('path')
 const db = require('./queries')
-
+const { port } = require('./config')
 // Todo: Install Morgan
 
 app.use(express.static(__dirname + "/client/build"));
-// app.use(express.static("/client/build"));
 
 // for parsing application/json
 app.use(bodyParser.json());
@@ -29,7 +26,6 @@ app.delete('/users/:id', db.deleteUser)
 
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname + '/client/build/index.html'))
-  // res.json({ info: 'Poker Run API using React, Node, Express, and Postgres' })
 })
 
 app.listen(port, () => {
