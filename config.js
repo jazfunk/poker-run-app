@@ -1,5 +1,8 @@
-const dotenv = require('dotenv');
-dotenv.config();
+if (process.env.ENVIRONMENT === "DEV") {
+  const dotenv = require("dotenv");
+  dotenv.config();
+}
+
 module.exports = {
   user: process.env.PG_USER,
   host: process.env.PG_HOST,
@@ -8,5 +11,5 @@ module.exports = {
   pg_port: process.env.PG_PORT,
   endpoint: process.env.API_URL,
   masterKey: process.env.API_KEY,
-  client: process.env.CLIENT_URL
+  client: process.env.CLIENT_URL,
 };
