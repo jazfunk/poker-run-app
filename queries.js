@@ -34,11 +34,11 @@ const getUserById = (req, res) => {
 
 // POST a new user
 const createUser = (req, res) => {
-  const { first_name, last_name, email, password, is_admin } = req.body;
+  const { first_name, last_name, email, password } = req.body;
 
   pool.query(
-    "INSERT INTO users (first_name, last_name, email, password, is_admin) VALUES ($1, $2, $3, $4, $5)",
-    [first_name, last_name, email, password, is_admin],
+    "INSERT INTO users (first_name, last_name, email, password) VALUES ($1, $2, $3, $4)",
+    [first_name, last_name, email, password],
     (error, result) => {
       if (error) {
         throw error;
@@ -51,11 +51,11 @@ const createUser = (req, res) => {
 // PUT updated data in an existing user
 const updateUser = (req, res) => {
   const id = parseInt(req.params.id);
-  const { first_name, last_name, email, password, is_admin } = req.body;
+  const { first_name, last_name, email, password } = req.body;
 
   pool.query(
-    "UPDATE users SET first_name = $1, last_name = $2, email = $3, password = $4, is_admin = $5 WHERE id = $6",
-    [first_name, last_name, email, password, is_admin, id],
+    "UPDATE users SET first_name = $1, last_name = $2, email = $3, password = $4 WHERE id = $5",
+    [first_name, last_name, email, password, id],
     (error, results) => {
       if (error) {
         throw error;

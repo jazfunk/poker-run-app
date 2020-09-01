@@ -61,16 +61,10 @@ const Signup = (props) => {
         </Form.Row>
 
         <Form.Row>
-          <Form.Group as={Col} controlId="formAddUserCheckbox">
-            <Form.Check
-              type="checkbox"
-              defaultChecked={props.is_admin}
-              name="is_admin"
-              label="Admin"
-            />
-          </Form.Group>
-
-          <Form.Group as={Col} controlId="formAddUserSubmitButton" className="submitbtn-formgroup">
+          <Form.Group
+            controlId="formAddUserSubmitButton"
+            className="submitbtn-formgroup"
+          >
             <Button variant="light" type="submit" className="submit-btn">
               Sign Up
             </Button>

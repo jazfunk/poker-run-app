@@ -41,7 +41,6 @@ class SignUp extends Component {
       last_name: this.state.last_name,
       email: this.state.email,
       password: this.state.password,
-      is_admin: this.state.is_admin,
     };
 
     this.postNewUser(user);
