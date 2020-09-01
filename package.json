@@ -7,9 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "nodemon server.js",
     "client": "npm run watch --prefix client",
-    "dev": "concurrently \"npm run watch\" \"npm run client\"",
+    "dev": "concurrently \"npm run local\" \"npm run client\"",
     "heroku-postbuild": "cd client && npm i && npm run build",
-    "start-local": "node -r dotenv/config server.js"
+    "local": "node -r dotenv/config server.js"
   },
   "keywords": [
     "poker",
