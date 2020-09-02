@@ -2,7 +2,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
 const path = require("path");
-const db = require("./queries");
+const usersDb = require("./queries");
+const runsDb = require("./runqueries");
 const port = process.env.PORT || 5000;
 const { client, startPage } = require('./config')
 
@@ -16,11 +17,17 @@ app.use(
   })
 );
 
-app.get("/users", db.getUsers);
-app.get("/users/:id", db.getUserById);
-app.post("/users", db.createUser);
-app.put("/users/:id", db.updateUser);
-app.delete("/users/:id", db.deleteUser);
+app.get("/users", usersDb.getUsers);
+app.get("/users/:id", usersDb.getUserById);
+app.post("/users", usersDb.createUser);
+app.put("/users/:id", usersDb.updateUser);
+app.delete("/users/:id", usersDb.deleteUser);
+
+app.get("/runs", runsDb.getRuns);
+app.get("/runs/:id", runsDb.getRunById);
+app.post("/runs", runsDb.createRun);
+app.put("/runs/:id", runsDb.updateRun);
+app.delete("/runs/:id", runsDb.deleteRun);
 
 app.get("/*", (req, res) => {
   res.sendFile(path.join(__dirname + client + startPage));
