@@ -1,5 +1,5 @@
 const { response, request } = require("express");
-const { user, host, db, pw, pg_port } = require("./config")
+const { user, host, db, pw, pg_port } = require("./config");
 
 const Pool = require("pg").Pool;
 const pool = new Pool({
@@ -18,6 +18,19 @@ const getUsers = (req, res) => {
     }
     res.status(200).json(results.rows);
   });
+};
+
+// Get All Users Name & Id only Endpoint
+const getNameIdList = (req, res) => {
+  pool.query(
+    "SELECT CONCAT(first_name , ' ' , last_name) AS full_name, id FROM users ORDER BY last_name, first_name",
+    (error, results) => {
+      if (error) {
+        throw error;
+      }
+      res.status(200).json(results.rows);
+    }
+  );
 };
 
 // GET Single User by Id
@@ -79,8 +92,9 @@ const deleteUser = (req, res) => {
 
 module.exports = {
   getUsers,
+  getNameIdList,
   getUserById,
   createUser,
   updateUser,
   deleteUser,
-}
+};

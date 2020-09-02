@@ -9,7 +9,7 @@
     "client": "npm run watch --prefix client",
     "dev": "concurrently \"npm run local\" \"npm run client\"",
     "heroku-postbuild": "cd client && npm i && npm run build",
-    "local": "node -r dotenv/config server.js"
+    "local": "nodemon -r dotenv/config server.js"
   },
   "keywords": [
     "poker",

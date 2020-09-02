@@ -5,14 +5,35 @@ import AddNewRunComponent from "./Components/AddNewRunComponent";
 class AddNewRun extends Component {
   port = process.env.PORT || 5000
   ADD_RUN_URL = `/runs/`;
+  USERS_NAMES_URL = `/fullnames/`;
+
   constructor(props) {
     super(props);
     this.state = {
+      user: 1,
+      users: [],
       isLoggedIn: false,
     };
   }
 
-  componentDidMount = () => {};
+  
+  loadUsersNamesList = () => {    
+    axios
+      .get(this.USERS_NAMES_URL)
+      .then((response) => {
+        console.log(response.data)
+        this.setState({
+          users: response.data,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });      
+  }
+
+  componentDidMount = () => {
+    this.loadUsersNamesList();
+  };
   
   handleChange = (event) => {
     event.preventDefault();
@@ -22,11 +43,16 @@ class AddNewRun extends Component {
     });
   };
 
+  handleSelect = (event) => {
+    this.setState({ 
+      owner_id: event.target.value,
+    });
+    console.log((`Owner Id Selected: ${event.target.value}`))
+  }
+
   handleSubmit = (event) => {
     event.preventDefault();
     event.target.reset();
-
-    debugger;
     const run = {
       run_name: this.state.run_name,
       run_description: this.state.run_description,
@@ -68,8 +94,12 @@ class AddNewRun extends Component {
   render() {
     return (
       <AddNewRunComponent
+        users={this.state.users}
+        user={this.state.user}
+        validationError={this.state.validationError}
         handleChange={this.handleChange}
         handleSubmit={this.handleSubmit}
+        handleSelect={this.handleSelect}
       />
     );
   }

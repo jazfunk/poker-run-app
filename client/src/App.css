@@ -73,6 +73,10 @@ ul.dropdown-menu {
   text-align: right;
 }
 
+.dropdown-list {
+  width: 300px;
+}
+
 .submit-btn {
   width: 20vw;
   color: #116466;

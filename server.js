@@ -5,7 +5,7 @@ const path = require("path");
 const usersDb = require("./queries");
 const runsDb = require("./runqueries");
 const port = process.env.PORT || 5000;
-const { client, startPage } = require('./config')
+const { client, startPage } = require("./config");
 
 // Todo: Install Morgan to log all HTTP Requests
 
@@ -18,6 +18,7 @@ app.use(
 );
 
 app.get("/users", usersDb.getUsers);
+app.get("/fullnames", usersDb.getNameIdList);
 app.get("/users/:id", usersDb.getUserById);
 app.post("/users", usersDb.createUser);
 app.put("/users/:id", usersDb.updateUser);

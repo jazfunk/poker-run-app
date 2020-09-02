@@ -1,7 +1,9 @@
 import React from "react";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-import Col from "react-bootstrap/Col";
+import { Form, Button, Col } from "react-bootstrap";
+import Select from "react-select";
+// import Form from "react-bootstrap/Form";
+// import Button from "react-bootstrap/Button";
+// import Col from "react-bootstrap/Col";
 
 const AddNewRunComponent = (props) => {
   return (
@@ -56,6 +58,22 @@ const AddNewRunComponent = (props) => {
               name="owner_id"
               required={true}
             />
+          </Form.Group>
+        </Form.Row>
+
+        <Form.Row>
+          <Form.Group controlId="frmUsersNamesSelect">
+            <select
+              className="dropdown-list"
+              defaultValue={props.owner_id}
+              onChange={props.handleSelect}
+            >
+              {props.users.map((user) => (
+                <option key={user.id} value={user.id}>
+                  {user.full_name}
+                </option>
+              ))}
+            </select>
           </Form.Group>
         </Form.Row>
 
