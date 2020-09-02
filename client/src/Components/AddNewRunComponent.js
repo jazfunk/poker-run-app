@@ -47,7 +47,7 @@ const AddNewRunComponent = (props) => {
           </Form.Group>
         </Form.Row>
 
-        <Form.Row>
+        {/* <Form.Row>
           <Form.Group as={Col} controlId="formAddRunOwner">
             <Form.Label>Run Owner Id</Form.Label>
             <Form.Control
@@ -59,7 +59,7 @@ const AddNewRunComponent = (props) => {
               required={true}
             />
           </Form.Group>
-        </Form.Row>
+        </Form.Row> */}
 
         <Form.Row>
           <Form.Group controlId="frmUsersNamesSelect">
@@ -68,11 +68,12 @@ const AddNewRunComponent = (props) => {
               defaultValue={props.owner_id}
               onChange={props.handleSelect}
             >
+              <option>---Select Run Owner---</option>
               {props.users.map((user) => (
-                <option key={user.id} value={user.id}>
+                <option key={user.full_name} value={user.id}>
                   {user.full_name}
                 </option>
-              ))}
+              ))}             
             </select>
           </Form.Group>
         </Form.Row>

@@ -44,10 +44,11 @@ class AddNewRun extends Component {
   };
 
   handleSelect = (event) => {
+    const selectedOwner = event.target.selectedOptions[0];    
     this.setState({ 
-      owner_id: event.target.value,
+      owner_id: selectedOwner.value,
     });
-    console.log((`Owner Id Selected: ${event.target.value}`))
+    console.log((`Owner Selected: ${selectedOwner.textContent}`))
   }
 
   handleSubmit = (event) => {
@@ -89,7 +90,9 @@ class AddNewRun extends Component {
       });
   };
 
-  componentDidUpdate = () => {};
+  componentDidUpdate = () => {
+    console.log(this.state)
+  };
 
   render() {
     return (
