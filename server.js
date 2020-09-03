@@ -52,6 +52,9 @@ app.post("/api/handcards", handCardsDB.createHandCard);
 app.put("/api/handcards/:id", handCardsDB.updateHandCard);
 app.delete("/api/handcards/:id", handCardsDB.deleteHandCard);
 
+app.get("/api/usershand/:id/", handsDb.getAllUserHands);
+app.get("/api/usershand/:id/:hand_id", handsDb.getUserHand);
+
 app.get("/api/cards", cardsDb.getCards);
 
 app.get("/*", (req, res) => {

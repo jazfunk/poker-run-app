@@ -77,10 +77,80 @@ const deleteHand = (req, res) => {
   });
 };
 
+// GET Users hands by user.id, hand_cards.id
+const getUserHand = (req, res) => {
+  const id = parseInt(req.params.id);
+  const hand_id = parseInt(req.params.hand_id);
+
+  const selectStatement =
+    "SELECT users.first_name, users.last_name, hands.hand_rank, hands.hand_number, hand_cards.hand_id, hand_cards.card_id, cards.card_face, cards.card_suit, cards.card_value ";
+  const fromJoinStatement =
+    "FROM users INNER JOIN hands ON users.id = hands.user_id INNER JOIN hand_cards ON hand_cards.hand_id = hands.id INNER JOIN cards ON cards.id = hand_cards.card_id ";
+  const whereStatement = "WHERE users.id = $1 AND hand_cards.hand_id = $2";
+
+  pool.query(
+    `${selectStatement}${fromJoinStatement}${whereStatement}`,
+    [id, hand_id],
+    (error, result) => {
+      if (error) {
+        throw error;
+      }
+      res.status(200).json(result.rows);
+    }
+  );
+};
+
+
+// GET Users hands by user.id
+const getAllUserHands = (req, res) => {
+  const id = parseInt(req.params.id);
+
+  const selectStatement =
+    "SELECT users.first_name, users.last_name, hands.hand_rank, hands.hand_number, hand_cards.hand_id, hand_cards.card_id, cards.card_face, cards.card_suit, cards.card_value ";
+  const fromJoinStatement =
+    "FROM users INNER JOIN hands ON users.id = hands.user_id INNER JOIN hand_cards ON hand_cards.hand_id = hands.id INNER JOIN cards ON cards.id = hand_cards.card_id ";
+  const whereStatement = "WHERE users.id = $1";
+
+  pool.query(
+    `${selectStatement}${fromJoinStatement}${whereStatement}`,
+    [id],
+    (error, result) => {
+      if (error) {
+        throw error;
+      }
+      res.status(200).json(result.rows);
+    }
+  );
+};
+
+
+// SELECT
+//     users.first_name,
+//     users.last_name,
+//     hands.hand_rank,
+//     hands.hand_number,
+// 	hand_cards.hand_id,
+//     hand_cards.card_id,
+//     cards.card_face,
+//     cards.card_suit,
+//     cards.card_value
+// FROM
+//     users INNER JOIN hands ON
+//         users.id = hands.user_id
+//     INNER JOIN hand_cards ON
+//         hand_cards.hand_id = hands.id
+//     INNER JOIN cards ON
+//         cards.id = hand_cards.card_id
+// WHERE
+//     users.id = '2'
+// 	AND hand_cards.hand_id = '8'
+
 module.exports = {
   getAllHands,
   getHandById,
   createHand,
   updateHand,
   deleteHand,
-}
+  getUserHand,
+  getAllUserHands,
+};
