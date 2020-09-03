@@ -11,16 +11,24 @@
 }
 
 .main-app {
-  border: 1px solid black; 
+  border: 0px solid black; 
+  margin: 0 auto;
+  padding: 20px;
+  width: 33vw;
+}
+
+.dashboard {  
+  color: #FFCB9A;
+  padding: 20px;
 }
 
 .app-home {
   margin: 0 auto;
   margin-top: 10px;
-  padding: 10px;
+  padding: 5px;
   background-color: rgba(17, 100, 102, 0.8);
   color: #D1E8E2;
-  width: 300px;
+  width: 17vw;
 }
 
 a:link {

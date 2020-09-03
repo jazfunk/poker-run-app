@@ -1,30 +1,34 @@
 import React, { Component } from "react";
 import axios from "axios";
-import RunUserHands from "./Components/RunUserHands";
+import UserHandRow from "./Components/UserHandComponent";
+// import HandsDashboard from "./Components/HandsDashboard";
 
 class RunHome extends Component {
   port = process.env.PORT || 5000;
-  // TODO:  User is hard coded, need to get from props or state
-  USERS_HAND_URL = `/api/usershand/`;
+  USERS_HAND_URL = "/api/usershand/";
+  HANDS_USER_URL = "/api/handsuser/";
 
   constructor(props) {
     super(props);
     this.state = {
       isLoggedIn: true,
       user: 2,
+      users: [],
       hands: [],
+      userHands: [],
     };
   }
 
   componentDidMount = () => {
-    if(this.state.isLoggedIn) {
-      // Load users hands for this event
-      // Show top three winning hands
-      // Show a row of cards for each hand
-      axios
+    this.loadAllHandsByUser();
+    this.loadHandsUser();
+  };
+
+  // Joined data
+  loadAllHandsByUser = () => {
+    axios
       .get(`${this.USERS_HAND_URL}${this.state.user}`)
       .then((response) => {
-        console.log(response.data);
         this.setState({
           hands: response.data,
         });
@@ -32,17 +36,45 @@ class RunHome extends Component {
       .catch((error) => {
         console.log(error);
       });
-    }
+  };
+
+  // Raw table data for form select element
+  loadHandsUser = () => {
+    axios
+      .get(`${this.HANDS_USER_URL}${this.state.user}`)
+      .then((response) => {
+        this.setState({
+          userHands: response.data,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   handleChange = (event) => {};
   handleSubmit = (event) => {};
 
+  handleSelect = (event) => {
+    const selectedHand = event.target.selectedOptions[0];
+    this.setState({
+      hand_id: selectedHand.value,
+    });
+    console.log(`Hand Selected: ${selectedHand.textContent}`);
+  };
+
   componentDidUpdate = () => {};
 
   render() {
     return (
-        <RunUserHands hands={this.state.hands} />
+      <section>
+        {/* <HandsDashboard
+          userHands={this.state.userHands}
+          hands_id={this.state.hands_id}
+          handleSelect={this.handleSelect}
+        /> */}
+        <UserHandRow hands={this.state.hands} />
+      </section>
     );
   }
 }

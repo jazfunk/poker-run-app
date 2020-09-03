@@ -32,6 +32,20 @@ const getHandById = (req, res) => {
   });
 };
 
+// GET Hands by user id Endpoint
+const getHandsByUserId = (req, res) => {
+  const id = parseInt(req.params.id);
+
+  pool.query("SELECT * FROM hands WHERE user_id = $1 ORDER by hand_number", [id], (error, result) => {
+    if (error) {
+      throw error;
+    }
+    res.status(200).json(result.rows);
+  });
+};
+
+
+
 // POST a new hand Endpoint
 const createHand = (req, res) => {
   const { user_id, run_id, hand_rank, hand_number } = req.body;
@@ -148,6 +162,7 @@ const getAllUserHands = (req, res) => {
 module.exports = {
   getAllHands,
   getHandById,
+  getHandsByUserId,
   createHand,
   updateHand,
   deleteHand,

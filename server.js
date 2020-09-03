@@ -42,6 +42,7 @@ app.delete("/api/runadmin/:id", runAdminsDb.deleteRunAdmin);
 
 app.get("/api/hands", handsDb.getAllHands);
 app.get("/api/hands/:id", handsDb.getHandById);
+app.get("/api/handsuser/:id", handsDb.getHandsByUserId);
 app.post("/api/hands", handsDb.createHand);
 app.put("/api/hands/:id", handsDb.updateHand);
 app.delete("/api/hands/:id", handsDb.deleteHand);
