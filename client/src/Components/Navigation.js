@@ -20,6 +20,7 @@ const Navigation = () => {
           <Nav.Link href="/">Home</Nav.Link>
           <Nav.Link href="/userslist">Users</Nav.Link>
           <Nav.Link href="/addrun">Events</Nav.Link>
+          <Nav.Link href="/runhome">Run</Nav.Link>
           <Nav.Link href="/standings">Standings</Nav.Link>
           <Nav.Link href="/hands">Hands</Nav.Link>
           <NavDropdown title="My Account" id="basic-nav-dropdown">
