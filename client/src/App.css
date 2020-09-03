@@ -77,11 +77,19 @@ ul.dropdown-menu {
   text-align: right;
 }
 
-
 .submit-btn {
   /* width: 20vw; */
   color: #116466;
 }
+
+.hands {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+
+
 
 .footer {
   text-align: center;

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import RunHomeComponent from "./Components/RunHomeComponent";
+import RunUserHands from "./Components/RunUserHands";
 
 class RunHome extends Component {
   port = process.env.PORT || 5000;
@@ -42,7 +42,7 @@ class RunHome extends Component {
 
   render() {
     return (
-      <RunHomeComponent hands={this.state.hands} />
+        <RunUserHands hands={this.state.hands} />
     );
   }
 }
