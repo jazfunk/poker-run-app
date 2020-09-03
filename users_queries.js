@@ -12,7 +12,7 @@ const pool = new Pool({
 
 // GET All Users Endpoint
 const getUsers = (req, res) => {
-  pool.query("SELECT * FROM users ORDER BY id ASC", (error, results) => {
+  pool.query("SELECT first_name, last_name, email FROM users ORDER BY id ASC", (error, results) => {
     if (error) {
       throw error;
     }
@@ -33,11 +33,11 @@ const getNameIdList = (req, res) => {
   );
 };
 
-// GET Single User by Id
+// GET Single User by Id Endpoint
 const getUserById = (req, res) => {
   const id = parseInt(req.params.id);
 
-  pool.query("SELECT * FROM users WHERE id = $1", [id], (error, results) => {
+  pool.query("SELECT first_name, last_name, email FROM users WHERE id = $1", [id], (error, results) => {
     if (error) {
       throw error;
     }
@@ -45,7 +45,7 @@ const getUserById = (req, res) => {
   });
 };
 
-// POST a new user
+// POST a new user Endpoint
 const createUser = (req, res) => {
   const { first_name, last_name, email, password } = req.body;
 
@@ -61,7 +61,7 @@ const createUser = (req, res) => {
   );
 };
 
-// PUT updated data in an existing user
+// PUT updated data in an existing user Endpoint
 const updateUser = (req, res) => {
   const id = parseInt(req.params.id);
   const { first_name, last_name, email, password } = req.body;
@@ -78,7 +78,7 @@ const updateUser = (req, res) => {
   );
 };
 
-// DELETE a user
+// DELETE a user Endpoint
 const deleteUser = (req, res) => {
   const id = parseInt(req.params.id);
 

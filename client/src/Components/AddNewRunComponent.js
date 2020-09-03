@@ -1,8 +1,8 @@
 import React from "react";
-import { Form, Button, Col } from "react-bootstrap";
-import Select from "react-select";
-// import Form from "react-bootstrap/Form";
-// import Button from "react-bootstrap/Button";
+// import { Form, Button} from "react-bootstrap";
+// import Select from "react-select";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 // import Col from "react-bootstrap/Col";
 
 const AddNewRunComponent = (props) => {
@@ -10,7 +10,7 @@ const AddNewRunComponent = (props) => {
     <section className="form-container">
       <Form onSubmit={props.handleSubmit}>
         <Form.Row>
-          <Form.Group as={Col} controlId="formAddRunName">
+          <Form.Group controlId="formAddRunName">
             <Form.Label>Run Name</Form.Label>
             <Form.Control
               onChange={props.handleChange}
@@ -21,7 +21,10 @@ const AddNewRunComponent = (props) => {
               required={true}
             />
           </Form.Group>
-          <Form.Group as={Col} controlId="formAddRunDescription">
+        </Form.Row>
+
+        <Form.Row>
+          <Form.Group controlId="formAddRunDescription">
             <Form.Label>Run Description</Form.Label>
             <Form.Control
               onChange={props.handleChange}
@@ -34,7 +37,7 @@ const AddNewRunComponent = (props) => {
         </Form.Row>
 
         <Form.Row>
-          <Form.Group as={Col} controlId="formAddRunDate">
+          <Form.Group controlId="formAddRunDate">
             <Form.Label>Run Date</Form.Label>
             <Form.Control
               onChange={props.handleChange}
@@ -47,24 +50,9 @@ const AddNewRunComponent = (props) => {
           </Form.Group>
         </Form.Row>
 
-        {/* <Form.Row>
-          <Form.Group as={Col} controlId="formAddRunOwner">
-            <Form.Label>Run Owner Id</Form.Label>
-            <Form.Control
-              onChange={props.handleChange}
-              defaultValue={props.owner_id}
-              type="text"
-              placeholder=""
-              name="owner_id"
-              required={true}
-            />
-          </Form.Group>
-        </Form.Row> */}
-
         <Form.Row>
           <Form.Group controlId="frmUsersNamesSelect">
             <select
-              className="dropdown-list"
               defaultValue={props.owner_id}
               onChange={props.handleSelect}
             >
@@ -79,12 +67,9 @@ const AddNewRunComponent = (props) => {
         </Form.Row>
 
         <Form.Row>
-          <Form.Group
-            controlId="formAddRunSubmitButton"
-            className="submitbtn-formgroup"
-          >
+          <Form.Group controlId="formAddRunSubmitButton">
             <Button variant="light" type="submit" className="submit-btn">
-              Sign Up
+              Create Run Event
             </Button>
           </Form.Group>
         </Form.Row>

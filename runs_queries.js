@@ -20,7 +20,7 @@ const getRuns = (req, res) => {
   });
 };
 
-// Get Single Run by Id
+// Get Single Run by Id Endpoint
 const getRunById = (req, res) => {
   const id = parseInt(req.params.id);
 
@@ -32,9 +32,9 @@ const getRunById = (req, res) => {
   });
 };
 
-// POST a new Run
+// POST a new Run Endpoint
 const createRun = (req, res) => {
-  const {run_name, run_description, run_date, owner_id } = req.body;
+  const { run_name, run_description, run_date, owner_id } = req.body;
 
   pool.query(
     "INSERT INTO runs (run_name, run_description, run_date, owner_id) VALUES ($1, $2, $3, $4)",
@@ -48,7 +48,7 @@ const createRun = (req, res) => {
   );
 };
 
-// PUT update data in an existing Run
+// PUT update data in an existing Run Endpoint
 const updateRun = (req, res) => {
   const id = parseInt(req.params.id);
   const { run_name, run_description, run_date, owner_id } = req.body;
@@ -60,12 +60,12 @@ const updateRun = (req, res) => {
       if (error) {
         throw error;
       }
-      res.status(200).send(`User modified with ID:  ${id}`);
+      res.status(200).send(`Run modified with ID:  ${id}`);
     }
   );
 };
 
-// DELETE a run
+// DELETE a run Endpoint
 const deleteRun = (req, res) => {
   const id = parseInt(req.params.id);
 

@@ -4,8 +4,8 @@ import AddNewRunComponent from "./Components/AddNewRunComponent";
 
 class AddNewRun extends Component {
   port = process.env.PORT || 5000
-  ADD_RUN_URL = `/runs/`;
-  USERS_NAMES_URL = `/fullnames/`;
+  ADD_RUN_URL = `/api/runs/`;
+  USERS_NAMES_URL = `/api/fullnames/`;
 
   constructor(props) {
     super(props);

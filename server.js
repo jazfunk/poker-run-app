@@ -2,8 +2,11 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
 const path = require("path");
-const usersDb = require("./queries");
-const runsDb = require("./runqueries");
+const usersDb = require("./users_queries");
+const runsDb = require("./runs_queries");
+const runAdminsDb = require("./run_admins_queries");
+const handsDb = require("./hands_queries");
+const handCardsDB = require("./hand_cards_queries");
 const port = process.env.PORT || 5000;
 const { client, startPage } = require("./config");
 
@@ -17,18 +20,36 @@ app.use(
   })
 );
 
-app.get("/users", usersDb.getUsers);
-app.get("/fullnames", usersDb.getNameIdList);
-app.get("/users/:id", usersDb.getUserById);
-app.post("/users", usersDb.createUser);
-app.put("/users/:id", usersDb.updateUser);
-app.delete("/users/:id", usersDb.deleteUser);
+app.get("/api/users", usersDb.getUsers);
+app.get("/api/fullnames", usersDb.getNameIdList);
+app.get("/api/users/:id", usersDb.getUserById);
+app.post("/api/users", usersDb.createUser);
+app.put("/api/users/:id", usersDb.updateUser);
+app.delete("/api/users/:id", usersDb.deleteUser);
 
-app.get("/runs", runsDb.getRuns);
-app.get("/runs/:id", runsDb.getRunById);
-app.post("/runs", runsDb.createRun);
-app.put("/runs/:id", runsDb.updateRun);
-app.delete("/runs/:id", runsDb.deleteRun);
+app.get("/api/runs", runsDb.getRuns);
+app.get("/api/runs/:id", runsDb.getRunById);
+app.post("/api/runs", runsDb.createRun);
+app.put("/api/runs/:id", runsDb.updateRun);
+app.delete("/api/runs/:id", runsDb.deleteRun);
+
+app.get("/api/runadmin", runAdminsDb.getRunAdmins);
+app.get("/api/runadmin/:id", runAdminsDb.getRunAdminById);
+app.post("/api/runadmin", runAdminsDb.createRunAdmin);
+app.put("/api/runadmin/:id", runAdminsDb.updateRunAdmin);
+app.delete("/api/runadmin/:id", runAdminsDb.deleteRunAdmin);
+
+app.get("/api/hands", handsDb.getAllHands);
+app.get("/api/hands/:id", handsDb.getHandById);
+app.post("/api/hands", handsDb.createHand);
+app.put("/api/hands/:id", handsDb.updateHand);
+app.delete("/api/hands/:id", handsDb.deleteHand);
+
+app.get("/api/handcards", handCardsDB.getAllHandCards);
+app.get("/api/handcards/:id", handCardsDB.getHandCardById);
+app.post("/api/handcards", handCardsDB.createHandCard);
+app.put("/api/handcards/:id", handCardsDB.updateHandCard);
+app.delete("/api/handcards/:id", handCardsDB.deleteHandCard);
 
 app.get("/*", (req, res) => {
   res.sendFile(path.join(__dirname + client + startPage));

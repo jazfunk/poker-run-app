@@ -15,8 +15,12 @@
 }
 
 .app-home {
+  margin: 0 auto;
+  margin-top: 10px;
+  padding: 10px;
+  background-color: rgba(17, 100, 102, 0.8);
   color: #D1E8E2;
-  height: 80vh;
+  width: 300px;
 }
 
 a:link {
@@ -73,12 +77,9 @@ ul.dropdown-menu {
   text-align: right;
 }
 
-.dropdown-list {
-  width: 300px;
-}
 
 .submit-btn {
-  width: 20vw;
+  /* width: 20vw; */
   color: #116466;
 }
 
