@@ -7,6 +7,7 @@ const runsDb = require("./runs_queries");
 const runAdminsDb = require("./run_admins_queries");
 const handsDb = require("./hands_queries");
 const handCardsDB = require("./hand_cards_queries");
+const cardsDb = require("./cards_queries")
 const port = process.env.PORT || 5000;
 const { client, startPage } = require("./config");
 
@@ -50,6 +51,8 @@ app.get("/api/handcards/:id", handCardsDB.getHandCardById);
 app.post("/api/handcards", handCardsDB.createHandCard);
 app.put("/api/handcards/:id", handCardsDB.updateHandCard);
 app.delete("/api/handcards/:id", handCardsDB.deleteHandCard);
+
+app.get("/api/cards", cardsDb.getCards);
 
 app.get("/*", (req, res) => {
   res.sendFile(path.join(__dirname + client + startPage));
