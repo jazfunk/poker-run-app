@@ -81,10 +81,7 @@ class AddRunAdmin extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    event.target.reset;
-
-    debugger;
-
+    event.target.reset();
     const admin = {
       user_id: this.state.selectedUser,
       run_id: this.state.selectedRun,
