@@ -4,23 +4,24 @@
 
 .custom-nav {
   flex-shrink: 0;
-  background-image: linear-gradient(to bottom right, #116466, #2C3531);
+  background-image: linear-gradient(to bottom right, #116466, #2c3531);
   border-bottom: 1px solid #2c3531;
-  /* background-color: rgba(0, 0, 0, 0.8);; */  
+  /* background-color: rgba(0, 0, 0, 0.8);; */
   /* background-color: #2C3531;    */
 }
 
 .main-app {
-  border: 0px solid black; 
+  border: 0px solid black;
   margin: 0 auto;
   padding: 20px;
   width: 33vw;
 }
 
-.dashboard {  
-  margin: 0 auto;
-  color: #FFCB9A;
+.dashboard {
+  margin: 0 auto;  
+  color: #ffcb9a;
   padding-left: 20px;
+  padding-bottom: 100px;
 }
 
 .app-home {
@@ -28,18 +29,18 @@
   margin-top: 10px;
   padding: 5px;
   background-color: rgba(17, 100, 102, 0.8);
-  color: #D1E8E2;
+  color: #d1e8e2;
   width: 30vw;
 }
 
 a:link {
-  color: #D1E8E2;
+  color: #d1e8e2;
 }
 a:visited {
-  color: #D1E8E2;
+  color: #d1e8e2;
 }
 a:hover {
-  color: #FFCB9A;
+  color: #ffcb9a;
   text-decoration: none;
 }
 
@@ -48,25 +49,25 @@ a:active {
 }
 
 ul.dropdown-menu {
-  padding: 0px 0px
+  padding: 0px 0px;
 }
 
 .dropdown-menu {
   border-radius: 8px;
   background-image: linear-gradient(#116466, #116466, #116466, #116466);
-  filter: drop-shadow(0 0 0.25rem #2C3531);
+  filter: drop-shadow(0 0 0.25rem #2c3531);
 }
 
 .navbar-dark .navbar-nav .nav-link {
-  color: #D1E8E2;
+  color: #d1e8e2;
 }
 
 .navbar-dark .navbar-nav .nav-link:hover {
-  color: #FFCB9A;
+  color: #ffcb9a;
 }
 
 .navbrand-glow-border {
-  filter: drop-shadow(0 0 0.5rem #D9B08C);
+  filter: drop-shadow(0 0 0.5rem #d9b08c);
 }
 
 .form-container {
@@ -74,12 +75,12 @@ ul.dropdown-menu {
   margin-top: 10px;
   margin-bottom: 50px;
   border: 1px #116466 solid;
-  background-image: linear-gradient(to bottom right,#116466, #2C3531);
+  background-image: linear-gradient(to bottom right, #116466, #2c3531);
   border-radius: 8px;
   filter: drop-shadow(0 0 0.5rem #d1e8e2);
   padding: 20px;
   width: 75vw;
-  color: #FFCB9A;
+  color: #ffcb9a;
 }
 
 .submitbtn-formgroup {
@@ -100,17 +101,25 @@ ul.dropdown-menu {
 
 .hands-cards {
   text-align: center;
-  margin: 0px 0px 10px 10px;
+  margin: 0px 0px 30px 10px;
   padding: 10px 0px 0px 0px;
   border-radius: 12px;
-  background-image: linear-gradient(to bottom right,#D1E8E2, #DEF2F1); 
-  filter: drop-shadow(0 0 0.2rem #D1E8E2);
-  color: #116466;  
+  border: 1px solid #feffff;
+  background-image: linear-gradient(
+    to top left,
+    #d1e8e2,
+    #feffff,
+    #fFffff,
+    #def2f1,
+    #d1e8e2
+  );
+  filter: drop-shadow(0 0 0.5rem #116466);
+  color: #116466;
   width: 16vw;
 }
 
 .hands-img {
-  width: 10vw;
+  width: 9vw;
   margin: 0 auto;
 }
 
@@ -119,8 +128,9 @@ ul.dropdown-menu {
 }
 
 .card-face {
-  color: 116466;
-  font-size: 36px;
+  color: #116466;
+  font-size: 36px;  
+  text-shadow: 0 0 1px #2c3531, 0 0 3px #116466;
 }
 
 .footer {
@@ -131,14 +141,14 @@ ul.dropdown-menu {
   width: 100%;
   height: 8vh;
   padding-top: 2px;
-  font-size: calc(10px + .2vh);
+  font-size: calc(10px + 0.2vh);
   font-weight: bold;
-  border-bottom: 1px solid #2C3531;
-  background-image: linear-gradient(to bottom right, #D1E8E2, #116466);
+  border-bottom: 1px solid #2c3531;
+  background-image: linear-gradient(to bottom right, #d1e8e2, #116466);
   color: #116466;
 }
 
-.card-glow {  
+.card-glow {
   filter: drop-shadow(0 0 0.2rem #116466);
 }
 
