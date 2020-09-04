@@ -3,13 +3,16 @@ import Card from "react-bootstrap/Card";
 import logo from "../Images/PokerRunKingLOGO_NEW.png";
 
 let fullName = "";
+let imagePath = "";
 
 const RunUserHands = (props) => {
   let handsRows = props.hands.map((hand, index) => {
     fullName = `${hand.first_name} ${hand.last_name}` 
+    imagePath = `../Images/${hand.card_suit}.png`
+    // console.log(imagePath);
     return (
-      <Card className="app-home" key={index}>
-        <Card.Img variant="top" src={logo} />
+      <Card className ="app-home" key={index}>
+        <Card.Img variant="top" className="img-fluid" src={imagePath} alt="" />
         <Card.Body>
           <Card.Title>
             {hand.card_face}
@@ -33,7 +36,7 @@ const RunUserHands = (props) => {
 
   handsRows =
     handsRows.length === 0 ? (
-      <Card className="app-home">
+      <Card>
         <Card.Img variant="top" src={logo} />
         <Card.Body>
           <Card.Title>No Cards</Card.Title>
