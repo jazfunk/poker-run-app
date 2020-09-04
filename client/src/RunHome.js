@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import UserHandRow from "./Components/UserHandComponent";
+import UserHandComponent from "./Components/UserHandComponent";
 // import HandsDashboard from "./Components/HandsDashboard";
 
 class RunHome extends Component {
@@ -73,7 +73,7 @@ class RunHome extends Component {
           hands_id={this.state.hands_id}
           handleSelect={this.handleSelect}
         /> */}
-        <UserHandRow hands={this.state.hands} />
+        <UserHandComponent hands={this.state.hands} />
       </section>
     );
   }
