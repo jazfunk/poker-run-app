@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 
-class UserHome extends Component {
+class ClassCompTemplate extends Component {
   constructor(props) {
     super(props);
   }
@@ -17,9 +17,9 @@ class UserHome extends Component {
 
   render() {
     return(
-      <section>UserHome</section>
+      <section>Class Component Template</section>
     );
   };
 };
 
-export default UserHome;
+export default ClassCompTemplate;

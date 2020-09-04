@@ -18,8 +18,6 @@ const Navigation = () => {
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
           <Nav.Link href="/">Home</Nav.Link>
-          <Nav.Link href="/userslist">Users</Nav.Link>
-          <Nav.Link href="/addrun">Events</Nav.Link>
           <Nav.Link href="/runhome">Run</Nav.Link>
           <Nav.Link href="/standings">Standings</Nav.Link>
           <NavDropdown title="My Account" id="basic-nav-dropdown">
@@ -27,6 +25,18 @@ const Navigation = () => {
             <NavDropdown.Item href="/signup">Sign Up</NavDropdown.Item>
             <NavDropdown.Divider />
             <NavDropdown.Item href="/logout">Log Out</NavDropdown.Item>
+          </NavDropdown>
+          <NavDropdown title="Admin" id="basic-nav-dropdown">
+            <NavDropdown.Item href="/addrun">Add New Run</NavDropdown.Item>
+            <NavDropdown.Item href="/userslist">Users List</NavDropdown.Item>
+            <NavDropdown.Item href="/addrunadmin">Add Run Admin</NavDropdown.Item>
+            <NavDropdown.Item href="#">TODO: Add User Hand</NavDropdown.Item>
+            <NavDropdown.Item href="#">TODO: add Cards to Hand</NavDropdown.Item>
+            <NavDropdown.Divider />
+            <NavDropdown.Item href="#">TODO: Standings Endpoint</NavDropdown.Item>
+            <NavDropdown.Item href="#">TODO: UserHome list runs</NavDropdown.Item>
+            <NavDropdown.Item href="#">TODO: RunHome list hands</NavDropdown.Item>
+            <NavDropdown.Item href="#">Empty Item</NavDropdown.Item>
           </NavDropdown>
         </Nav>
       </Navbar.Collapse>

@@ -24,12 +24,16 @@ const getRunAdmins = (req, res) => {
 const getRunAdminById = (req, res) => {
   const id = parseInt(req.params.id);
 
-  pool.query("SELECT * FROM run_admins WHERE id = $1", [id], (error, results) => {
-    if (error) {
-      throw error;
+  pool.query(
+    "SELECT * FROM run_admins WHERE id = $1",
+    [id],
+    (error, results) => {
+      if (error) {
+        throw error;
+      }
+      res.status(200).json(results.rows);
     }
-    res.status(200).json(results.rows);
-  });
+  );
 };
 
 // POST a new Run Admin Endpoint
@@ -74,8 +78,47 @@ const deleteRunAdmin = (req, res) => {
       throw error;
     }
     res.status(200).send(`User deleted with ID:  ${id}`);
-  });  
+  });
 };
+
+// Joined Queries
+const getRunAdminsByRun = (req, res) => {
+  const id = parseInt(req.params.id);
+
+  const selectStatement =
+    "SELECT CONCAT(users.first_name , ' ' , users.last_name) AS full_name, runs.run_description, run_admins.admin_role, run_admins.created_at ";
+  const fromJoinStatement =
+    "FROM users INNER JOIN run_admins ON users.id = run_admins.user_id INNER JOIN runs ON runs.id = run_admins.run_id ";
+  const whereStatement = "WHERE  runs.id = $1";
+
+  pool.query(
+    `${selectStatement}${fromJoinStatement}${whereStatement}`,
+    [id],
+    (error, result) => {
+      if (error) {
+        throw error;
+      }
+      res.status(200).json(result.rows);
+    }
+  );
+};
+
+// SELECT CONCAT(users.first_name , ' ' , users.last_name) AS full_name, runs.run_description, run_admins.admin_role, run_admins.created_at
+// FROM users INNER JOIN run_admins ON users.id = run_admins.user_id INNER JOIN runs ON runs.id = run_admins.run_id
+// WHERE  runs.id = '1'
+
+// SELECT
+// 	CONCAT(users.first_name , ' ' , users.last_name) AS full_name,
+// 	runs.run_description,
+// 	run_admins.admin_role,
+// 	run_admins.created_at
+// FROM
+// 	users INNER JOIN run_admins ON
+// 		users.id = run_admins.user_id
+// 	INNER JOIN runs ON
+// 		runs.id = run_admins.run_id
+// WHERE
+// 	runs.id = '1'
 
 module.exports = {
   getRunAdmins,
@@ -83,4 +126,5 @@ module.exports = {
   createRunAdmin,
   updateRunAdmin,
   deleteRunAdmin,
-}
+  getRunAdminsByRun,
+};

@@ -4,6 +4,7 @@ import Nav from "./Navigation";
 import Home from "./Home";
 import UsersList from "../UsersList";
 import AddNewRun from "../AddNewRun";
+import AddRunAdmin from "../AddRunAdmin";
 import Standings from "./Standings";
 import RunHome from "../RunHome";
 import LogIn from "./Login";
@@ -19,6 +20,7 @@ const Header = (props) => {
           <Route path="/" exact component={Home} />
           <Route path="/userslist" exact component={UsersList} />
           <Route path="/addrun" exact component={AddNewRun} />
+          <Route path="/addrunadmin" exact component={AddRunAdmin} />
           <Route path="/runhome" exact component={RunHome} />
           <Route path="/standings" exact component={Standings} />
           <Route path="/login" exact component={LogIn} />

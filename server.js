@@ -36,9 +36,11 @@ app.delete("/api/runs/:id", runsDb.deleteRun);
 
 app.get("/api/runadmin", runAdminsDb.getRunAdmins);
 app.get("/api/runadmin/:id", runAdminsDb.getRunAdminById);
+app.get("/api/runadminsbyrun/:id", runAdminsDb.getRunAdminsByRun)
 app.post("/api/runadmin", runAdminsDb.createRunAdmin);
 app.put("/api/runadmin/:id", runAdminsDb.updateRunAdmin);
 app.delete("/api/runadmin/:id", runAdminsDb.deleteRunAdmin);
+
 
 app.get("/api/hands", handsDb.getAllHands);
 app.get("/api/hands/:id", handsDb.getHandById);
