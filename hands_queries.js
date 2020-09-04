@@ -123,7 +123,7 @@ const getAllUserHands = (req, res) => {
     "SELECT users.first_name, users.last_name, hands.hand_rank, hands.hand_number, hand_cards.hand_id, hand_cards.card_id, cards.card_face, cards.card_suit, cards.card_value ";
   const fromJoinStatement =
     "FROM users INNER JOIN hands ON users.id = hands.user_id INNER JOIN hand_cards ON hand_cards.hand_id = hands.id INNER JOIN cards ON cards.id = hand_cards.card_id ";
-  const whereStatement = "WHERE users.id = $1";
+  const whereStatement = "WHERE users.id = $1 ORDER BY cards.card_face, cards.card_suit";
 
   pool.query(
     `${selectStatement}${fromJoinStatement}${whereStatement}`,
