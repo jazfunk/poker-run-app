@@ -133,7 +133,6 @@ class AddRunAdmin extends Component {
 
   deleteAdmin = (event) => {
     console.log("Delete Button clicked");
-
     // The delete api request for api/runadmin/:id
   };
 

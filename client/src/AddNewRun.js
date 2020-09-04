@@ -21,7 +21,7 @@ class AddNewRun extends Component {
     axios
       .get(this.USERS_NAMES_URL)
       .then((response) => {
-        console.log(response.data)
+        // console.log(response.data)
         this.setState({
           users: response.data,
         });
@@ -77,9 +77,8 @@ class AddNewRun extends Component {
 
     axios(config)
       .then((response) => {
-        console.log(JSON.stringify(response.data));
+        // console.log(JSON.stringify(response.data));
         alert(`New Run Added titled: \n${run.run_name}`)
-
         this.setState({
           run: run,
         });
@@ -91,7 +90,7 @@ class AddNewRun extends Component {
   };
 
   componentDidUpdate = () => {
-    console.log(this.state)
+    // console.log(this.state)
   };
 
   render() {

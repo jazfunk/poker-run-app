@@ -1,9 +1,6 @@
 import React from "react";
-// import { Form, Button} from "react-bootstrap";
-// import Select from "react-select";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-// import Col from "react-bootstrap/Col";
 
 const AddNewRunComponent = (props) => {
   return (

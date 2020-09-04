@@ -38,11 +38,11 @@ const RunUserHands = (props) => {
 
   handsRows =
     handsRows.length === 0 ? (
-      <Card>
+      <Card className="hands-cards" >
         <Card.Img variant="top" src={logo} />
         <Card.Body>
           <Card.Title className="card-face">No Cards</Card.Title>
-          <Card.Text>No cards found</Card.Text>
+          <Card.Text className="hands-number">No cards found</Card.Text>
         </Card.Body>
       </Card>
     ) : (

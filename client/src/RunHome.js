@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
 import UserHandComponent from "./Components/UserHandComponent";
-// import HandsDashboard from "./Components/HandsDashboard";
 
 class RunHome extends Component {
   port = process.env.PORT || 5000;
@@ -68,11 +67,6 @@ class RunHome extends Component {
   render() {
     return (
       <section>
-        {/* <HandsDashboard
-          userHands={this.state.userHands}
-          hands_id={this.state.hands_id}
-          handleSelect={this.handleSelect}
-        /> */}
         <UserHandComponent hands={this.state.hands} />
       </section>
     );

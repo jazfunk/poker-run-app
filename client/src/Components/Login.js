@@ -16,10 +16,6 @@ const Login = (props) => {
           <Form.Control type="password" placeholder="" />
         </Form.Group>
 
-        {/* <Form.Group controlId="formLoginCheckbox">
-          <Form.Check type="checkbox" label="Admin" />
-        </Form.Group> */}
-
         <Form.Group controlId="formLoginSubmit" className="submitbtn-formgroup">
           <Button variant="light" type="submit" className="submit-btn">
             Sign In
