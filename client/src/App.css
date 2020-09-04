@@ -18,8 +18,9 @@
 }
 
 .dashboard {  
+  margin: 0 auto;
   color: #FFCB9A;
-  /* padding: 20px; */
+  padding-left: 20px;
 }
 
 .app-home {
@@ -28,7 +29,7 @@
   padding: 5px;
   background-color: rgba(17, 100, 102, 0.8);
   color: #D1E8E2;
-  width: 17vw;
+  width: 30vw;
 }
 
 a:link {
@@ -91,13 +92,36 @@ ul.dropdown-menu {
 }
 
 .hands {
+  margin: 0 auto;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
 }
 
+.hands-cards {
+  text-align: center;
+  margin: 0px 0px 10px 10px;
+  padding: 10px 0px 0px 0px;
+  border-radius: 12px;
+  background-image: linear-gradient(to bottom right,#D1E8E2, #DEF2F1); 
+  filter: drop-shadow(0 0 0.2rem #D1E8E2);
+  color: #116466;  
+  width: 16vw;
+}
 
+.hands-img {
+  width: 10vw;
+  margin: 0 auto;
+}
 
+.hands-number {
+  font-size: x-small;
+}
+
+.card-face {
+  color: 116466;
+  font-size: 36px;
+}
 
 .footer {
   text-align: center;
@@ -112,6 +136,10 @@ ul.dropdown-menu {
   border-bottom: 1px solid #2C3531;
   background-image: linear-gradient(to bottom right, #D1E8E2, #116466);
   color: #116466;
+}
+
+.card-glow {  
+  filter: drop-shadow(0 0 0.2rem #116466);
 }
 
 .jklogo-glow-border {
