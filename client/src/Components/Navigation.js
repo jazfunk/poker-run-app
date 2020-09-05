@@ -50,7 +50,7 @@ const Navigation = () => {
               <NavDropdown.Item href="#">
                 TODO: RunHome list hands
               </NavDropdown.Item>
-              <NavDropdown.Item href="#">Empty Item</NavDropdown.Item>
+              <NavDropdown.Item href="/admin">Root Admin</NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>

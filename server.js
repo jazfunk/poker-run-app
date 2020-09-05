@@ -22,6 +22,7 @@ app.use(
 );
 
 app.get("/api/users", usersDb.getUsers);
+app.get("/api/admin/usersraw", usersDb.getRawUsers);
 app.get("/api/fullnames", usersDb.getNameIdList);
 app.get("/api/users/:id", usersDb.getUserById);
 app.post("/api/users", usersDb.createUser);

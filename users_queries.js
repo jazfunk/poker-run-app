@@ -20,6 +20,16 @@ const getUsers = (req, res) => {
   });
 };
 
+// GET RAW ALL Users Endpoint
+const getRawUsers = (req, res) => {
+  pool.query("SELECT id, first_name, last_name, email, created_at FROM users ORDER BY id ASC", (error, results) => {
+    if (error) {
+      throw error;
+    }
+    res.status(200).json(results.rows);
+  });
+};
+
 // Get All Users Name & Id only Endpoint
 const getNameIdList = (req, res) => {
   pool.query(
@@ -92,6 +102,7 @@ const deleteUser = (req, res) => {
 
 module.exports = {
   getUsers,
+  getRawUsers,
   getNameIdList,
   getUserById,
   createUser,

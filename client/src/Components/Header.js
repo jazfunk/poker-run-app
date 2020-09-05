@@ -10,6 +10,7 @@ import RunHome from "../RunHome";
 import LogIn from "./Login";
 import SignUp from "../SignUp";
 import Logout from "./Logout";
+import AdminTable from "../AdminTables";
 
 const Header = (props) => {
   return (
@@ -26,6 +27,7 @@ const Header = (props) => {
           <Route path="/login" exact component={LogIn} />
           <Route path="/signup" exact component={SignUp} />
           <Route path="/logout" exact component={Logout} />
+          <Route path="/admin" exact component={AdminTable} />
         </Switch>
       </section>
     </BrowserRouter>

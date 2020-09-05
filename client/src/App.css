@@ -31,6 +31,14 @@
   text-align: center;
 }
 
+.admin-tables {
+  padding: 20px;
+}
+
+.hide-text {
+  -webkit-text-security: circle;
+}
+
 .app-home {
   margin: 0 auto;
   margin-top: 10px;
