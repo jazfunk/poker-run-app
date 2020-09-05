@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import RawUsersTable from "./Components/RawUsersTable";
 import RawHandsTable from "./Components/RawHandsTable";
-import RawHandsCardsTable from "./Components/RawHandsCardsTable";
+// import RawHandsCardsTable from "./Components/RawHandsCardsTable";
 import RawRunsTable from "./Components/RawRunsTable";
 import RawRunAdminsTable from "./Components/RawRunAdminsTable";
 import RawCardsTable from "./Components/RawCardsTable";

@@ -1,14 +1,15 @@
-const { response, request } = require("express");
-const { user, host, db, pw, pg_port } = require("./config");
+const { pool } = require("./data_access");
+// const { response, request } = require("express");
+// const { user, host, db, pw, pg_port } = require("./config");
 
-const Pool = require("pg").Pool;
-const pool = new Pool({
-  user: user,
-  host: host,
-  database: db,
-  password: pw,
-  port: pg_port,
-});
+// const Pool = require("pg").Pool;
+// const pool = new Pool({
+//   user: user,
+//   host: host,
+//   database: db,
+//   password: pw,
+//   port: pg_port,
+// });
 
 // GET All cards Endpoint
 const getCards = (req, res) => {
