@@ -3,7 +3,7 @@ import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 
 const RawHandsCardsTable = (props) => {
-  let handsCardsRows = props.handscards.map((card, index) => {
+  let handsCardsRows = props.handsCards.map((card, index) => {
     return (
       <tr key={index}>
         <td>{card.id}</td>
@@ -26,6 +26,7 @@ const RawHandsCardsTable = (props) => {
 
   return (
     <section className="body-main-table table-responsive">
+      Raw Hands Cards Table
       <Table className="table-dark table-striped table-borderless table-hover table-bg-trans text-nowrap">
         <thead className="thead-dark">
           <tr>

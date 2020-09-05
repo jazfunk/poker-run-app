@@ -11,7 +11,7 @@ class RunHome extends Component {
     super(props);
     this.state = {
       isLoggedIn: true,
-      user: 1,
+      user: 2,
       users: [],
       hands: [],
       userHands: [],

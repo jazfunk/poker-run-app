@@ -32,7 +32,9 @@
 }
 
 .admin-tables {
-  padding: 20px;
+  padding: 10px;
+  color: #ffcb9a;
+  padding-bottom: 100px;
 }
 
 .hide-text {

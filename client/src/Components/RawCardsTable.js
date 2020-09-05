@@ -9,7 +9,7 @@ const RawCardsTable = (props) => {
         <td>{card.card_face}</td>
         <td>{card.card_suit}</td>
         <td>{card.card_value}</td>
-        <td>{card.created_at}</td>
+        {/* <td>{card.created_at}</td> */}
       </tr>
     );
   });
@@ -25,6 +25,7 @@ const RawCardsTable = (props) => {
 
   return (
     <section className="body-main-table table-responsive">
+      Raw Cards Table
       <Table className="table-dark table-striped table-borderless table-hover table-bg-trans text-nowrap">
         <thead className="thead-dark">
           <tr>
@@ -32,7 +33,7 @@ const RawCardsTable = (props) => {
             <th>card_face</th>
             <th>card_suit</th>
             <th>card_value</th>
-            <th>created_at</th>
+            {/* <th>created_at</th> */}
           </tr>
         </thead>
         <tbody>{cardsRows}</tbody>

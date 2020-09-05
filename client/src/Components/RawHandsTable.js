@@ -1,9 +1,11 @@
 import React from "react";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
+import moment from "moment";
 
 const RawHandsTable = (props) => {
-  let handsRows = props.hands.map((hand, index) => {
+  let handsRows = props.hands.map((hand, index) => {  
+    const dateMoment = moment(hand.created_at);
     return (
       <tr key={index}>
         <td>{hand.id}</td>
@@ -11,7 +13,7 @@ const RawHandsTable = (props) => {
         <td>{hand.run_id}</td>
         <td>{hand.hand_rank}</td>
         <td>{hand.hand_number}</td>
-        <td>{hand.created_at}</td>
+        <td>{dateMoment.format("MM-DD-YYYY hh:mm a")}</td>
         <td>{<Button onClick={props.deleteHand} variant="light">Remove</Button>}</td>
       </tr>
     );
@@ -28,6 +30,7 @@ const RawHandsTable = (props) => {
 
   return (
     <section className="body-main-table table-responsive">
+      Raw Hands Table
       <Table className="table-dark table-striped table-borderless table-hover table-bg-trans text-nowrap">
         <thead className="thead-dark">
           <tr>

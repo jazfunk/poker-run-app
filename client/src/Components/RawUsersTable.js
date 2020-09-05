@@ -30,6 +30,7 @@ const RawUsersTable = (props) => {
 
   return (
     <section className="body-main-table table-responsive">
+      Raw Users Table
       <Table className="table-dark table-striped table-borderless table-hover table-bg-trans text-nowrap">
         <thead className="thead-dark">
           <tr>
