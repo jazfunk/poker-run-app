@@ -1,34 +1,55 @@
 const { pool } = require("./data_access");
-// const { response, request } = require("express");
-// const { user, host, db, pw, pg_port } = require("./config");
+const { json } = require("express");
 
-// const Pool = require("pg").Pool;
-// const pool = new Pool({
-//   user: user,
-//   host: host,
-//   database: db,
-//   password: pw,
-//   port: pg_port,
-// });
+// pool.on('error', (err, client) => {
+//   console.error('Unexpected error on idle client', err)
+//   process.exit(-1)
+// })
+
+// async/await - check out a client
+const getUsersNew = async () => {
+  pool.connect().then(async (client) => {
+    try {
+      const res = await client
+        .query("SELECT first_name, last_name, email FROM users ORDER BY id ASC");
+      client.release();
+      console.log(res.rows);
+      return res.rows;
+    }
+    catch (err) {
+      client.release();
+      console.log(err.stack);
+      return [];
+    }
+  });
+};
+
+//().catch((err) => console.log(err.stack));
 
 // GET All Users Endpoint
 const getUsers = (req, res) => {
-  pool.query("SELECT first_name, last_name, email FROM users ORDER BY id ASC", (error, results) => {
-    if (error) {
-      throw error;
+  pool.query(
+    "SELECT first_name, last_name, email FROM users ORDER BY id ASC",
+    (error, results) => {
+      if (error) {
+        throw error;
+      }
+      res.status(200).json(results.rows);
     }
-    res.status(200).json(results.rows);
-  });
+  );
 };
 
 // GET RAW ALL Users Endpoint
 const getRawUsers = (req, res) => {
-  pool.query("SELECT id, first_name, last_name, email, created_at FROM users ORDER BY id ASC", (error, results) => {
-    if (error) {
-      throw error;
+  pool.query(
+    "SELECT id, first_name, last_name, email, created_at FROM users ORDER BY id ASC",
+    (error, results) => {
+      if (error) {
+        throw error;
+      }
+      res.status(200).json(results.rows);
     }
-    res.status(200).json(results.rows);
-  });
+  );
 };
 
 // Get All Users Name & Id only Endpoint
@@ -48,12 +69,16 @@ const getNameIdList = (req, res) => {
 const getUserById = (req, res) => {
   const id = parseInt(req.params.id);
 
-  pool.query("SELECT first_name, last_name, email FROM users WHERE id = $1", [id], (error, results) => {
-    if (error) {
-      throw error;
+  pool.query(
+    "SELECT first_name, last_name, email FROM users WHERE id = $1",
+    [id],
+    (error, results) => {
+      if (error) {
+        throw error;
+      }
+      res.status(200).json(results.rows);
     }
-    res.status(200).json(results.rows);
-  });
+  );
 };
 
 // POST a new user Endpoint
@@ -102,6 +127,7 @@ const deleteUser = (req, res) => {
 };
 
 module.exports = {
+  getUsersNew,
   getUsers,
   getRawUsers,
   getNameIdList,

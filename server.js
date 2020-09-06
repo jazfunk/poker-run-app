@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
 const path = require("path");
+const morgan = require('morgan');
 const usersDb = require("./users_queries");
 const runsDb = require("./runs_queries");
 const runAdminsDb = require("./run_admins_queries");
@@ -11,7 +12,7 @@ const cardsDb = require("./cards_queries")
 const port = process.env.PORT || 5000;
 const { client, startPage } = require("./config");
 
-// Todo: Install Morgan to log all HTTP Requests
+// app.use(morgan('combined'));
 
 app.use(express.static(__dirname + client));
 app.use(bodyParser.json());
@@ -22,7 +23,8 @@ app.use(
 );
 
 app.get("/api/users", usersDb.getUsers);
-app.get("/api/admin/usersraw", usersDb.getRawUsers);
+app.get("/api/userstest", usersDb.getUsersNew);
+app.get("/api/usersraw", usersDb.getRawUsers);
 app.get("/api/fullnames", usersDb.getNameIdList);
 app.get("/api/users/:id", usersDb.getUserById);
 app.post("/api/users", usersDb.createUser);

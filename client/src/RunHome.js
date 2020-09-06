@@ -5,7 +5,7 @@ import UserHandComponent from "./Components/UserHandComponent";
 class RunHome extends Component {
   port = process.env.PORT || 5000;
   USERS_HAND_URL = "/api/usershand/";
-  HANDS_USER_URL = "/api/handsuser/";
+  // HANDS_USER_URL = "/api/handsuser/";
 
   constructor(props) {
     super(props);
@@ -14,13 +14,13 @@ class RunHome extends Component {
       user: 2,
       users: [],
       hands: [],
-      userHands: [],
+      // userHands: [],
     };
   }
 
   componentDidMount = () => {
     this.loadAllHandsByUser();
-    this.loadHandsUser();
+    // this.loadHandsUser();
   };
 
   // Joined data
@@ -37,30 +37,30 @@ class RunHome extends Component {
       });
   };
 
-  // Raw table data for form select element
-  loadHandsUser = () => {
-    axios
-      .get(`${this.HANDS_USER_URL}${this.state.user}`)
-      .then((response) => {
-        this.setState({
-          userHands: response.data,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  // // Raw table data for form select element
+  // loadHandsUser = () => {
+  //   axios
+  //     .get(`${this.HANDS_USER_URL}${this.state.user}`)
+  //     .then((response) => {
+  //       this.setState({
+  //         userHands: response.data,
+  //       });
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
 
   handleChange = (event) => {};
   handleSubmit = (event) => {};
 
-  handleSelect = (event) => {
-    const selectedHand = event.target.selectedOptions[0];
-    this.setState({
-      hand_id: selectedHand.value,
-    });
-    console.log(`Hand Selected: ${selectedHand.textContent}`);
-  };
+  // handleSelect = (event) => {
+  //   const selectedHand = event.target.selectedOptions[0];
+  //   this.setState({
+  //     hand_id: selectedHand.value,
+  //   });
+  //   console.log(`Hand Selected: ${selectedHand.textContent}`);
+  // };
 
   componentDidUpdate = () => {};
 

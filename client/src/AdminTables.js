@@ -9,7 +9,7 @@ import RawCardsTable from "./Components/RawCardsTable";
 
 class AdminTables extends Component {
   port = process.env.PORT || 5000;
-  USERS_URL = `/api/admin/usersraw`;
+  USERS_URL = `/api/usersraw`;
   HANDS_URL = `/api/hands`;
   HANDS_CARDS_URL = `/api/handcards`;
   RUNS_URL = `/api/runs`;
