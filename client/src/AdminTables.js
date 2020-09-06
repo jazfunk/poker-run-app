@@ -45,10 +45,6 @@ class AdminTables extends Component {
     this.loadRuns();
     this.loadRunAdmins();
     this.loadCards();
-    // if(props.user.isLoggedIn) {
-    //   // Load Run Events (if any) User is signed up for
-    //   //
-    // }
   };
 
   handleChange = (event) => {};

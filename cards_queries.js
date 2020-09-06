@@ -2,6 +2,7 @@ const { pool } = require("./data_access");
 
 
 // // async/await - check out a client
+// GET All cards Endpoint
 const getCards = async (req, res) => {
   pool.connect().then(async (client) => {
     try {
@@ -9,7 +10,6 @@ const getCards = async (req, res) => {
         "SELECT id, card_face, card_suit, card_value, card_font FROM cards ORDER BY id ASC"
       );
       client.release();
-      // console.log(cardsReturned.rows);
       res.json(cardsReturned.rows);
     } catch (err) {
       client.release();
@@ -18,9 +18,6 @@ const getCards = async (req, res) => {
     }
   });
 };
-
-
-
 // // GET All cards Endpoint
 // const getCards = (req, res) => {
 //   pool.query("SELECT id, card_face, card_suit, card_value, card_font FROM cards ORDER BY id ASC", (error, result) => {

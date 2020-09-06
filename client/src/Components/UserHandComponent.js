@@ -20,7 +20,7 @@ const RunUserHands = (props) => {
           <Card.Body>
             <Card.Title className="card-face">{hand.card_face}</Card.Title>
             <Card.Text className="hands-number">
-              {hand.hand_number}-{hand.hand_id}
+              {hand.hand_number}-{hand.hand_id}-{hand.card_value}
             </Card.Text>
           </Card.Body>
         </Card>
