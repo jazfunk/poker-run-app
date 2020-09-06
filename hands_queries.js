@@ -1,25 +1,37 @@
 const { pool } = require("./data_access");
-// const { response, request } = require("express");
-// const { user, host, db, pw, pg_port } = require("./config");
 
-// const Pool = require("pg").Pool;
-// const pool = new Pool({
-//   user: user,
-//   host: host,
-//   database: db,
-//   password: pw,
-//   port: pg_port,
-// });
-
-// GET All Hands Endpoint
-const getAllHands = (req, res) => {
-  pool.query("SELECT * FROM hands ORDER BY id ASC", (error, result) => {
-    if (error) {
-      throw error;
+// // async/await - check out a client
+const getAllHands = async (req, res) => {
+  pool.connect().then(async (client) => {
+    try {
+      const handsReturned = await client.query(
+        "SELECT * FROM hands ORDER BY id ASC"
+      );
+      client.release();
+      res.json(handsReturned.rows);
+    } catch (err) {
+      client.release();
+      console.log(err.stack);
+      return [];
     }
-    res.status(200).json(result.rows);
   });
 };
+
+// // GET All Hands Endpoint
+// const getAllHands = (req, res) => {
+//   pool.query("SELECT * FROM hands ORDER BY id ASC", (error, result) => {
+//     if (error) {
+//       throw error;
+//     }
+//     res.status(200).json(result.rows);
+//   });
+// };
+
+
+
+
+
+/// REWRITE ALL OF THESE TO USE ASYNC/AWAIT
 
 // GET Single Hand by Id Endpoint
 const getHandById = (req, res) => {

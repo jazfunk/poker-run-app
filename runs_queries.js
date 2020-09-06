@@ -1,25 +1,32 @@
 const { pool } = require("./data_access");
-// const { response, request } = require("express");
-// const { user, host, db, pw, pg_port } = require("./config")
 
-// const Pool = require("pg").Pool;
-// const pool = new Pool({
-//   user: user,
-//   host: host,
-//   database: db,
-//   password: pw,
-//   port: pg_port,
-// });
-
-// Get All Runs Endpoint
-const getRuns = (req, res) => {
-  pool.query("SELECT * FROM runs ORDER BY id ASC", (error, results) => {
-    if (error) {
-      throw error;
+// // async/await - check out a client
+const getRuns = async (req, res) => {
+  pool.connect().then(async (client) => {
+    try {
+      const runsReturned = await client.query(
+        "SELECT * FROM runs ORDER BY id ASC"
+      );
+      client.release();
+      res.json(runsReturned.rows);
+    } catch (err) {
+      client.release();
+      console.log(err.stack);
+      return [];
     }
-    res.status(200).json(results.rows);
   });
 };
+
+
+// // Get All Runs Endpoint
+// const getRuns = (req, res) => {
+//   pool.query("SELECT * FROM runs ORDER BY id ASC", (error, results) => {
+//     if (error) {
+//       throw error;
+//     }
+//     res.status(200).json(results.rows);
+//   });
+// };
 
 // Get Single Run by Id Endpoint
 const getRunById = (req, res) => {

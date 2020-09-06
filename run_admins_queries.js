@@ -1,25 +1,36 @@
 const { pool } = require("./data_access");
-// const { response, request } = require("express");
-// const { user, host, db, pw, pg_port } = require("./config");
 
-// const Pool = require("pg").Pool;
-// const pool = new Pool({
-//   user: user,
-//   host: host,
-//   database: db,
-//   password: pw,
-//   port: pg_port,
-// });
-
-// Get All Run Admins Endpoint
-const getRunAdmins = (req, res) => {
-  pool.query("SELECT * FROM run_admins ORDER BY id ASC", (error, results) => {
-    if (error) {
-      throw error;
+// // async/await - check out a client
+const getRunAdmins = async (req, res) => {
+  pool.connect().then(async (client) => {
+    try {
+      const runAdminsReturned = await client.query(
+        "SELECT * FROM run_admins ORDER BY id ASC"
+      );
+      client.release();
+      res.json(runAdminsReturned.rows);
+    } catch (err) {
+      client.release();
+      console.log(err.stack);
+      return [];
     }
-    res.status(200).json(results.rows);
   });
 };
+
+// // Get All Run Admins Endpoint
+// const getRunAdmins = (req, res) => {
+//   pool.query("SELECT * FROM run_admins ORDER BY id ASC", (error, results) => {
+//     if (error) {
+//       throw error;
+//     }
+//     res.status(200).json(results.rows);
+//   });
+// };
+
+
+
+
+// REWRITE ALL OF THESE TO USE ASYNC/AWAIT
 
 // Get Single Run Admin by Id Endpoint Endpint
 const getRunAdminById = (req, res) => {

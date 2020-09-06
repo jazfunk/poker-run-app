@@ -1,30 +1,31 @@
 const { pool } = require("./data_access");
-const { json } = require("express");
 
-// pool.on('error', (err, client) => {
-//   console.error('Unexpected error on idle client', err)
-//   process.exit(-1)
-// })
+// pool.on("error", (err, client) => {
+//   console.error("Unexpected error on idle client", err);
+//   process.exit(-1);
+// });
 
-// async/await - check out a client
-const getUsersNew = async () => {
+
+
+// Change all methods to use this technique:
+
+// // async/await - check out a client
+const getUsersNew = async (req, res) => {
   pool.connect().then(async (client) => {
     try {
-      const res = await client
-        .query("SELECT first_name, last_name, email FROM users ORDER BY id ASC");
+      const usersReturned = await client.query(
+        "SELECT first_name, last_name, email FROM users ORDER BY id ASC"
+      );
       client.release();
-      console.log(res.rows);
-      return res.rows;
-    }
-    catch (err) {
+      // console.log(usersReturned.rows);
+      res.json(usersReturned.rows);
+    } catch (err) {
       client.release();
       console.log(err.stack);
       return [];
     }
   });
 };
-
-//().catch((err) => console.log(err.stack));
 
 // GET All Users Endpoint
 const getUsers = (req, res) => {
@@ -39,18 +40,38 @@ const getUsers = (req, res) => {
   );
 };
 
+
+
+// // async/await - check out a client
 // GET RAW ALL Users Endpoint
-const getRawUsers = (req, res) => {
-  pool.query(
-    "SELECT id, first_name, last_name, email, created_at FROM users ORDER BY id ASC",
-    (error, results) => {
-      if (error) {
-        throw error;
-      }
-      res.status(200).json(results.rows);
+const getRawUsers = async (req, res) => {
+  pool.connect().then(async (client) => {
+    try {
+      const usersReturned = await client.query(
+        "SELECT id, first_name, last_name, email, created_at FROM users ORDER BY id ASC"
+      );
+      client.release();
+      res.json(usersReturned.rows);
+    } catch (err) {
+      client.release();
+      console.log(err.stack);
+      return [];
     }
-  );
+  });
 };
+
+// // GET RAW ALL Users Endpoint
+// const getRawUsers = (req, res) => {
+//   pool.query(
+//     "SELECT id, first_name, last_name, email, created_at FROM users ORDER BY id ASC",
+//     (error, results) => {
+//       if (error) {
+//         throw error;
+//       }
+//       res.status(200).json(results.rows);
+//     }
+//   );
+// };
 
 // Get All Users Name & Id only Endpoint
 const getNameIdList = (req, res) => {
