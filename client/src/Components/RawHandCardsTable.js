@@ -3,7 +3,7 @@ import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 
 const RawHandsCardsTable = (props) => {
-  let handsCardsRows = props.handsCards.map((card, index) => {
+  let handCardsRows = props.handCards.map((card, index) => {
     return (
       <tr key={index}>
         <td>{card.id}</td>
@@ -15,13 +15,13 @@ const RawHandsCardsTable = (props) => {
     );
   });
 
-  handsCardsRows =
-    handsCardsRows.length === 0 ? (
+  handCardsRows =
+    handCardsRows.length === 0 ? (
       <tr>
         <td coolspan="3">No cards found!</td>
       </tr>
     ) : (
-      handsCardsRows
+      handCardsRows
     );
 
   return (
@@ -37,7 +37,7 @@ const RawHandsCardsTable = (props) => {
             <th>Action</th>
           </tr>
         </thead>
-        <tbody>{handsCardsRows}</tbody>
+        <tbody>{handCardsRows}</tbody>
       </Table>
     </section>
   );

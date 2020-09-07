@@ -11,6 +11,8 @@ import LogIn from "./Login";
 import SignUp from "../SignUp";
 import Logout from "./Logout";
 import AdminTable from "../AdminTables";
+import AddUserHand from "../AddUserHand";
+import AddHandCard from "../AddHandCard";
 
 const Header = (props) => {
   return (
@@ -22,6 +24,8 @@ const Header = (props) => {
           <Route path="/userslist" exact component={UsersList} />
           <Route path="/addrun" exact component={AddNewRun} />
           <Route path="/addrunadmin" exact component={AddRunAdmin} />
+          <Route path="/adduserhand" exact component={AddUserHand} />
+          <Route path="/addhandcard" exact component={AddHandCard} />
           <Route path="/runhome" exact component={RunHome} />
           <Route path="/standings" exact component={Standings} />
           <Route path="/login" exact component={LogIn} />

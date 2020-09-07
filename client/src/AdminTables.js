@@ -2,137 +2,54 @@ import React, { Component } from "react";
 import axios from "axios";
 import RawUsersTable from "./Components/RawUsersTable";
 import RawHandsTable from "./Components/RawHandsTable";
-// import RawHandsCardsTable from "./Components/RawHandsCardsTable";
+import RawHandCardsTable from "./Components/RawHandCardsTable";
 import RawRunsTable from "./Components/RawRunsTable";
 import RawRunAdminsTable from "./Components/RawRunAdminsTable";
 import RawCardsTable from "./Components/RawCardsTable";
 
 class AdminTables extends Component {
   port = process.env.PORT || 5000;
-  USERS_URL = `/api/usersraw`;
-  HANDS_URL = `/api/hands`;
-  HANDS_CARDS_URL = `/api/handcards`;
-  RUNS_URL = `/api/runs`;
-  RUN_ADMINS_URL = `/api/runadmin`;
-  CARDS_URL = `/api/cards`;
+  ADMIN_DASHBOARD = "/api/dashboard";
 
   constructor(props) {
     super(props);
     this.state = {
-      usersUrl: this.USERS_URL,
-      handsUrl: this.HANDS_URL,
-      handsCardsUrl: this.HANDS_CARDS_URL,
-      runsUrl: this.RUNS_URL,
-      runAdminsUrl: this.RUN_ADMINS_URL,
-      cardsUrl: this.CARDS_URL,
+      dashBoardUrl: this.ADMIN_DASHBOARD,
+      dashBoard: {},
       users: [],
       hands: [],
-      handsCards: [],
+      handCards: [],
       runs: [],
       admins: [],
       cards: [],
     };
   }
 
-  getData = (url) => {
-    return axios.get(url).then((response) => response.data);
-  };
-
-  componentDidMount = () => {
-    this.loadUsers();
-    this.loadHands();
-    // this.loadHandsCards();
-    this.loadRuns();
-    this.loadRunAdmins();
-    this.loadCards();
+   componentDidMount = () => {
+    this.loadDashboard();
   };
 
   handleChange = (event) => {};
   handleSubmit = (event) => {};
 
-  loadUsers = () => {
+  loadDashboard = () => {
     axios
-      .get(this.state.usersUrl)
+      .get(this.state.dashBoardUrl)
       .then((response) => {
-        // console.log(response.data)
         this.setState({
-          users: response.data,
+          dashBoard: response.data,
+          users: response.data.users,
+          hands: response.data.hands,
+          handCards: response.data.handCards,
+          runs: response.data.runs,
+          admins: response.data.runAdmins,
+          cards: response.data.cards,
         });
       })
       .catch((error) => {
         console.log(error);
       });
   };
-
-  loadHands = () => {
-    axios
-      .get(this.state.handsUrl)
-      .then((response) => {
-        // console.log(response.data)
-        this.setState({
-          hands: response.data,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  loadHandsCards = () => {
-    axios
-      .get(this.state.handsCardsUrl)
-      .then((response) => {
-        // console.log(response.data);
-        this.setState({
-          handsCards: response.data,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  loadRuns = () => {
-    axios
-      .get(this.state.runsUrl)
-      .then((response) => {
-        // console.log(response.data);
-        this.setState({
-          runs: response.data,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  loadRunAdmins = () => {
-    axios
-      .get(this.state.runAdminsUrl)
-      .then((response) => {
-        // console.log(response.data);
-        this.setState({
-          admins: response.data,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  loadCards = () => {
-    axios
-    .get(this.state.cardsUrl)
-    .then((response) => {
-      console.log(response.data);
-      this.setState({
-        cards: response.data,
-      });
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-  }
 
   deleteUser = (event) => {
     console.log("Remove button clicked");
@@ -162,10 +79,10 @@ class AdminTables extends Component {
         AdminTables
         <RawUsersTable users={this.state.users} deleteUser={this.deleteUser} />
         <RawHandsTable hands={this.state.hands} deleteHand={this.deleteHand} />
-        {/* <RawHandsCardsTable
-          handsCards={this.state.handsCards}
+        <RawHandCardsTable
+          handCards={this.state.handCards}
           deleteHandsCard={this.deleteHandsCard}
-        /> */}
+        />
         <RawRunsTable runs={this.state.runs} deleteRun={this.deleteRun} />
         <RawRunAdminsTable
           admins={this.state.admins}

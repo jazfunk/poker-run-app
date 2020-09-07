@@ -26,20 +26,18 @@ const Navigation = () => {
             <Nav.Link href="/standings">Standings</Nav.Link>
             <NavDropdown title="My Account" id="basic-nav-dropdown">
               <NavDropdown.Item href="/login">Log In</NavDropdown.Item>
-              <NavDropdown.Item href="/signup">Sign Up</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item href="/logout">Log Out</NavDropdown.Item>
             </NavDropdown>
             <NavDropdown title="Admin" id="basic-nav-dropdown">
+              <NavDropdown.Item href="/signup">Sign Up</NavDropdown.Item>
               <NavDropdown.Item href="/addrun">Add New Run</NavDropdown.Item>
               <NavDropdown.Item href="/userslist">Users List</NavDropdown.Item>
               <NavDropdown.Item href="/addrunadmin">
                 Add Run Admin
               </NavDropdown.Item>
-              <NavDropdown.Item href="#">TODO: Add User Hand</NavDropdown.Item>
-              <NavDropdown.Item href="#">
-                TODO: add Cards to Hand
-              </NavDropdown.Item>
+              <NavDropdown.Item href="/adduserhand">Add User Hand</NavDropdown.Item>
+              <NavDropdown.Item href="/addhandcard">Add Cards to Hand</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item href="#">
                 TODO: Standings Endpoint
