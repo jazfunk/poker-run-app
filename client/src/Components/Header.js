@@ -7,7 +7,7 @@ import AddNewRun from "../AddNewRun";
 import AddRunAdmin from "../AddRunAdmin";
 import Standings from "./Standings";
 import RunHome from "../RunHome";
-import LogIn from "./Login";
+import LogIn from "../Login";
 import SignUp from "../SignUp";
 import Logout from "./Logout";
 import AdminTable from "../AdminTables";

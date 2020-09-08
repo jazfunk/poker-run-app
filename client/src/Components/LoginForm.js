@@ -2,18 +2,18 @@ import React from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-const Login = (props) => {
+const LoginForm = (props) => {
   return (
     <section className="form-container">
-      <Form>
+      <Form onSubmit={props.handleSubmit}>
         <Form.Group controlId="formLoginEmail">
           <Form.Label>Email address</Form.Label>
-          <Form.Control type="email" placeholder="" />
+          <Form.Control name="email" type="email" placeholder="" onChange={props.handleChange} />
         </Form.Group>
 
         <Form.Group controlId="formLoginPassword">
           <Form.Label>Password</Form.Label>
-          <Form.Control type="password" placeholder="" />
+          <Form.Control name="password" type="password" placeholder="" onChange={props.handleChange} />
         </Form.Group>
 
         <Form.Group controlId="formLoginSubmit" className="submitbtn-formgroup">
@@ -26,4 +26,4 @@ const Login = (props) => {
   );
 };
 
-export default Login;
+export default LoginForm;

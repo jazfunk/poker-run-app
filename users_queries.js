@@ -13,9 +13,7 @@ const getUsers = async (req, res) => {
       const usersReturned = await client.query(
         "SELECT first_name, last_name, email FROM users ORDER BY id ASC"
       );
-      // client.release();
-      // console.log(usersReturned.rows);
-      // res.json(usersReturned.rows);
+      client.release();
       return usersReturned.rows;
     } catch (err) {
       client.release();
@@ -34,8 +32,26 @@ const getRawUsers = async () => {
         "SELECT id, first_name, last_name, email, created_at FROM users ORDER BY id ASC"
       );
       client.release();
-      // res.json(usersReturned.rows);
       return usersReturned.rows;
+    } catch (err) {
+      client.release();
+      console.log(err.stack);
+      return [];
+    }
+  });
+};
+
+// Check if user password exists Endpoint
+// async/await - check out a client
+const checkUser = async (email) => {
+  return pool.connect().then(async (client) => {
+    try {
+      const userReturned = await client.query(
+        "SELECT id, email, password FROM users WHERE email = $1",
+        [email]
+      );
+      client.release();
+      return userReturned;
     } catch (err) {
       client.release();
       console.log(err.stack);
@@ -53,7 +69,6 @@ const getNameIdList = async () => {
         "SELECT CONCAT(first_name , ' ' , last_name) AS full_name, id FROM users ORDER BY last_name, first_name"
       );
       client.release();
-      // res.json(nameIdReturned.rows);
       return nameIdReturned.rows;
     } catch (err) {
       client.release();
@@ -68,7 +83,6 @@ const getNameIdList = async () => {
 const getUserById = async (id) => {
   return pool.connect().then(async (client) => {
     try {
-      // const id = parseInt(req.id);
       const userReturned = await client.query(
         "SELECT first_name, last_name, email FROM users WHERE id = $1",
         [id]
@@ -141,6 +155,7 @@ const deleteUser = async (id) => {
 };
 
 module.exports = {
+  checkUser,
   getUsers,
   getRawUsers,
   getNameIdList,

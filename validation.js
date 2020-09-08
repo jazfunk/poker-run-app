@@ -1,4 +1,5 @@
 // import env from './env';
+import bcrypt from 'bcrypt';
 
 /**
    * isValidEmail helper method
