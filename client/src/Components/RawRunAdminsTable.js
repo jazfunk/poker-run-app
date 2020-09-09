@@ -1,16 +1,20 @@
 import React from "react";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
+import moment from "moment";
 
 const RawRunAdminsTable = (props) => {
   let runAdminsRows = props.admins.map((admin, index) => {
+    const createdAtMoment = moment(admin.created_at);
+    const timeFormat = "MM-DD-YYYY hh:mm a";
+    
     return (
       <tr key={index}>
         <td>{admin.id}</td>
         <td>{admin.user_id}</td>
         <td>{admin.run_id}</td>
         <td>{admin.admin_role}</td>
-        <td>{admin.created_at}</td>
+        <td>{createdAtMoment.format(timeFormat)}</td>
         <td>{<Button onClick={props.deleteRunAdmin} variant="light">Remove</Button>}</td>
       </tr>
     );

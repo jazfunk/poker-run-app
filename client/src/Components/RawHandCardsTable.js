@@ -1,15 +1,17 @@
 import React from "react";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
+import moment from "moment";
 
 const RawHandsCardsTable = (props) => {
   let handCardsRows = props.handCards.map((card, index) => {
+    const dateMoment = moment(card.created_at);
     return (
       <tr key={index}>
         <td>{card.id}</td>
         <td>{card.hand_id}</td>
         <td>{card.card_id}</td>
-        <td>{card.created_at}</td>
+        <td>{dateMoment.format("MM-DD-YYYY hh:mm a")}</td>
         <td>{<Button onClick={props.deleteHandsCard} variant="light">Remove</Button>}</td>
       </tr>
     );

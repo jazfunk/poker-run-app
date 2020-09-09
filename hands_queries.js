@@ -120,6 +120,8 @@ const deleteHand = async (id) => {
   });
 };
 
+
+// Joined Queries
 // GET Users hands by user.id, hand_cards.id
 // async/await - check out a client
 const getUserHand = async (id, hand_id) => {
@@ -170,26 +172,31 @@ const getAllUserHands = async (id) => {
   });
 };
 
-// SELECT
-//     users.first_name,
-//     users.last_name,
-//     hands.hand_rank,
-//     hands.hand_number,
-// 	hand_cards.hand_id,
-//     hand_cards.card_id,
-//     cards.card_face,
-//     cards.card_suit,
-//     cards.card_value
-// FROM
-//     users INNER JOIN hands ON
-//         users.id = hands.user_id
-//     INNER JOIN hand_cards ON
-//         hand_cards.hand_id = hands.id
-//     INNER JOIN cards ON
-//         cards.id = hand_cards.card_id
-// WHERE
-//     users.id = '2'
-// 	AND hand_cards.hand_id = '8'
+
+// GET joined full_name, run_name
+// async/await - check out a client
+const getHandsNameRun = async () => {
+  return pool.connect().then(async (client) => {
+    const selectStatement =
+    "SELECT hands.id, CONCAT(users.first_name , ' ' , users.last_name) AS full_name, runs.run_name, hands.hand_rank, hands.hand_number ";
+    const fromJoinStatement =
+    "FROM users INNER JOIN hands ON users.id = hands.user_id INNER JOIN runs ON runs.id = hands.run_id ";    
+    const orderByStatement = 
+    "ORDER BY runs.id, users.last_name, users.first_name, hands.hand_number";
+
+    try {
+      const joinedHandsReturned = await client.query(
+        `${selectStatement}${fromJoinStatement}${orderByStatement}`
+      );
+      client.release();
+      return joinedHandsReturned.rows;
+    } catch (err) {
+      client.release();
+      console.log(err.stack);
+      return [];
+    }
+  });
+};
 
 module.exports = {
   getAllHands,
@@ -200,4 +207,5 @@ module.exports = {
   deleteHand,
   getUserHand,
   getAllUserHands,
+  getHandsNameRun,
 };

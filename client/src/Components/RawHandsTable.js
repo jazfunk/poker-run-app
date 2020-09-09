@@ -9,8 +9,8 @@ const RawHandsTable = (props) => {
     return (
       <tr key={index}>
         <td>{hand.id}</td>
-        <td>{hand.user_id}</td>
-        <td>{hand.run_id}</td>
+        <td>{hand.full_name}</td>
+        <td>{hand.run_name}</td>
         <td>{hand.hand_rank}</td>
         <td>{hand.hand_number}</td>
         <td>{dateMoment.format("MM-DD-YYYY hh:mm a")}</td>
@@ -34,12 +34,12 @@ const RawHandsTable = (props) => {
       <Table className="table-dark table-striped table-borderless table-hover table-bg-trans text-nowrap">
         <thead className="thead-dark">
           <tr>
-            <th>id</th>
-            <th>user_id</th>
-            <th>run_id</th>
-            <th>hand_rank</th>
-            <th>hand_number</th>
-            <th>created_at</th>
+            <th>hands.id</th>
+            <th>users.full_name</th>
+            <th>runs.run_name</th>
+            <th>hands.hand_rank</th>
+            <th>hands.hand_number</th>
+            <th>hands.created_at</th>
             <th>Action</th>
           </tr>
         </thead>

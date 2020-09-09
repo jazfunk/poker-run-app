@@ -1,17 +1,22 @@
 import React from "react";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
+import moment from "moment";
 
 const RawRunsTable = (props) => {
   let runsRows = props.runs.map((run, index) => {
+    const runDateMoment = moment(run.run_date);
+    const createdAtMoment = moment(run.created_at);
+    const timeFormat = "MM-DD-YYYY hh:mm a";
+  
     return (
       <tr key={index}>
         <td>{run.id}</td>
         <td>{run.run_name}</td>
         <td>{run.run_description}</td>
-        <td>{run.run_date}</td>
+        <td>{runDateMoment.format(timeFormat)}</td>
         <td>{run.owner_id}</td>
-        <td>{run.created_at}</td>
+        <td>{createdAtMoment.format(timeFormat)}</td>
         <td>{<Button onClick={props.deleteRun} variant="light">Remove</Button>}</td>
       </tr>
     );
