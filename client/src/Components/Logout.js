@@ -22,17 +22,22 @@ class Logout extends Component {
   };
 
   componentDidMount = () => {
-    this.importSavedState();
+    // this.importSavedState();
+    this.setState({
+      isLoggedIn: false,
+    })
   }
 
-  componentDidUpdate = () => {}
-
-  saveLocal = (stateItem, stateValue) => {
-    localStorage.setItem(stateItem, JSON.stringify(stateValue))
+  componentDidUpdate = () => {
+    this.saveLocal();
   }
+
+  saveLocal = () => {
+    localStorage.setItem("localState", JSON.stringify(this.state));
+  };
 
   render() {
-    return <section className="main-app">Logout</section>
+    return <section className="main-app">You've been successfully logged out.</section>
   }
 
   

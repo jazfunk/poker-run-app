@@ -7,6 +7,7 @@ class AddUserHand extends Component {
   USERS_FULL_NAME_URL = "/api/fullnames/";
   RUNS_URL = "/api/runs/";
   ADD_USERS_HAND = "/api/hands/";
+  USERS_HANDS_COUNT_URL = "/api/handsuser/";
 
   constructor(props) {
     super(props);
@@ -14,13 +15,32 @@ class AddUserHand extends Component {
       usersFullNamesUrl: this.USERS_FULL_NAME_URL,
       addUserHandUrl: this.ADD_USERS_HAND,
       runsUrl: this.RUNS_URL,
+      userHandsCounturl: this.USERS_HANDS_COUNT_URL,
       users: [],
       selectedUser: "",
       runs: [],
       selectedRun: "",
-      handsNumber: 0,
     };
   }
+
+  importSavedState = () => {
+    const localState =
+      JSON.parse(window.localStorage.getItem("localState")) || [];
+
+    if (localState.length > 0 || localState.constructor === Object) {
+      console.log(localState);
+      this.setState({
+        email: localState.email || "",
+        isLoggedIn: localState.isLoggedIn || false,
+        password: localState.password || "",
+        userId: localState.userId || 0,
+      });
+    } else {
+      this.setState({
+        isLoggedIn: false,
+      });
+    }
+  };
 
   componentDidMount = () => {
     this.loadUsers();
@@ -45,11 +65,12 @@ class AddUserHand extends Component {
       });
   };
 
+  // Remove this for initial production deployment
+  // Only one run for now, and saves on connections
   loadRuns = () => {
     axios
       .get(`${this.state.runsUrl}`)
       .then((response) => {
-        console.log(response.data);
         this.setState({
           runs: response.data,
         });
@@ -59,17 +80,22 @@ class AddUserHand extends Component {
       });
   };
 
-  handleUserSelect = (event) => {
+  handleUserSelect = async (event) => {
     event.preventDefault();
     const selectedUser = event.target.selectedOptions[0];
-    console.log(
-      `Selected user: ${selectedUser.textContent}-${selectedUser.value}`
-    );
     if (selectedUser.textContent === "Select User") {
       return alert("You must select a user - " + selectedUser.value);
     }
+
+    console.log(
+      `Selected user: ${selectedUser.textContent}-${selectedUser.value}`
+    );
+
+    this.getUserHandsCount(selectedUser.value);
+
     this.setState({
       selectedUser: selectedUser.value,
+      selectedUserName: selectedUser.textContent,
     });
   };
 
@@ -79,6 +105,7 @@ class AddUserHand extends Component {
     console.log(`Selected Run: ${selectedRun.textContent}`);
     this.setState({
       selectedRun: selectedRun.value,
+      selectedRunName: selectedRun.textContent,
     });
   };
 
@@ -93,23 +120,31 @@ class AddUserHand extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     event.target.reset();
-    // loop through this.state.handsNumber
-    for (let i = 0; i < this.state.handsNumber; i++) {
-      // TODO:  Need to get number of hands
-      // already entered for user
-      // If none, then loop this.state.handsNumber of times
-      // If hands already entered, find last hand number, add one
-      
-      // insert hand for each.
-      const hand = {
-        user_id: this.state.selectedUser,
-        run_id: this.state.selectedRun,
-        hand_rank: 1,
-        hand_number: i + 1,
-      };
 
-      this.postNewUserHand(hand);
-    }
+    const nextHand = this.state.handsCount + 1;
+
+    const hand = {
+      user_id: this.state.selectedUser,
+      run_id: this.state.selectedRun,
+      hand_rank: 1,
+      hand_number: nextHand,
+    };
+
+    this.postNewUserHand(hand);
+  };
+
+  getUserHandsCount = (user_id) => {
+    axios
+      .get(`${this.state.userHandsCounturl}${user_id}`)
+      .then((response) => {
+        console.log(response.data.length);
+        this.setState({
+          handsCount: response.data.length,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   postNewUserHand = (hand) => {
@@ -148,8 +183,9 @@ class AddUserHand extends Component {
                 as="select"
                 // defaultValue={this.state.selectedRun}
                 onChange={this.handleRunSelect}
+                value={this.state.selectedRun}
               >
-                <option>Select Run Event</option>
+                <option>Select Run</option>
                 {this.state.runs.map((run) => (
                   <option key={run.id} value={run.id}>
                     {run.run_name}
@@ -166,8 +202,9 @@ class AddUserHand extends Component {
                 as="select"
                 // defaultValue={this.state.selectedUser}
                 onChange={this.handleUserSelect}
+                value={this.state.selectedUser}
               >
-                <option>Select User</option>
+                {/* <option>Select User</option> */}
                 {this.state.users.map((user) => (
                   <option key={user.id} value={user.id}>
                     {user.full_name}
@@ -176,7 +213,7 @@ class AddUserHand extends Component {
               </Form.Control>
             </Form.Group>
             &nbsp;&nbsp;&nbsp;
-            <Form.Group controlId="frmNumberofHands">
+            {/* <Form.Group controlId="frmNumberofHands">
               <Form.Label>Number of Hands</Form.Label>
               <Form.Control
                 className="controls-space"
@@ -185,19 +222,23 @@ class AddUserHand extends Component {
                 onChange={this.handleChange}
                 defaultValue="1"
               />
-            </Form.Group>
+            </Form.Group> */}
             &nbsp;&nbsp;&nbsp;
             <Form.Group controlId="frmAddUserHandButton">
+              <Form.Label>Add New Hand</Form.Label>
+              <br></br>
               <Button variant="light" type="submit">
-                Add User Hand(s)
+                Submit Hand #{this.state.handsCount + 1 || "?"}
               </Button>
             </Form.Group>
           </Form.Row>
+          <Form.Row>
+            <Form.Group>
+          <Form.Label>{`${this.state.selectedUserName} currently has ${this.state.handsCount} hand(s)`}</Form.Label>
+            </Form.Group>
+          </Form.Row>
         </Form>
-        {/* <RunAdminsTable
-          runAdmins={this.state.runAdmins}
-          deleteAdmin={this.deleteAdmin}
-        /> */}
+        <section>Add Table Component</section>
       </section>
     );
   }
