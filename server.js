@@ -327,9 +327,9 @@ app.get("/api/dashboard", async (req, res) => {
     const dashboardData = {
       users: await usersDb.getRawUsers(),
       hands: await handsDb.getHandsNameRun(),
-      handCards: await handCardsDb.getAllHandCards(),
+      handCards: await handCardsDb.getAllHandCardsNameFaceSuit(),
       runs: await runsDb.getRuns(),
-      runAdmins: await runAdminsDb.getRunAdmins(),
+      runAdmins: await runAdminsDb.getAllRunAdminNameRun(),
       cards: await cardsDb.getCards(),
     };
     res.send(dashboardData);

@@ -9,8 +9,12 @@ const RawHandsCardsTable = (props) => {
     return (
       <tr key={index}>
         <td>{card.id}</td>
-        <td>{card.hand_id}</td>
+        <td>{card.user_id}</td>
+        <td>{card.full_name}</td>
+        <td>{card.hand_number}</td>
         <td>{card.card_id}</td>
+        <td>{card.card_face}</td>
+        <td>{card.card_suit}</td>        
         <td>{dateMoment.format("MM-DD-YYYY hh:mm a")}</td>
         <td>{<Button onClick={props.deleteHandsCard} variant="light">Remove</Button>}</td>
       </tr>
@@ -32,10 +36,13 @@ const RawHandsCardsTable = (props) => {
       <Table className="table-dark table-striped table-borderless table-hover table-bg-trans text-nowrap">
         <thead className="thead-dark">
           <tr>
-            <th>id</th>
-            <th>hand_id</th>
-            <th>card_id</th>
-            <th>created_at</th>
+            <th>hand_cards.id</th>
+            <th>hand_cards.user_id</th>
+            <th>users.full_name</th>
+            <th>hand_cards.hand_number</th>
+            <th>hand_cards.card_id</th>
+            <th>cards.card_face</th>
+            <th>cards.card_suit</th>
             <th>Action</th>
           </tr>
         </thead>

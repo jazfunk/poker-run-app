@@ -121,6 +121,79 @@ const getRunAdminsByRun = async (id) => {
   });
 };
 
+const getRunAdminFullRun = async (id) => {
+  return pool.connect().then(async (client) => {
+    const selectStatement =
+      "";
+    const fromJoinStatement =
+      "";
+
+    try {
+      const runAdminsReturned = await client.query(
+        `${selectStatement}${fromJoinStatement}`,
+        [id]
+      );
+      client.release();
+      return runAdminsReturned.rows;
+    } catch (err) {
+      client.release();
+      console.log(err.stack);
+      return [];
+    }
+  });
+};
+
+const getAllRunAdminNameRun = async (id) => {
+  return pool.connect().then(async (client) => {
+    const selectStatement =
+    "SELECT run_admins.id, run_admins.user_id, CONCAT(users.first_name , ' ' , users.last_name) AS full_name, run_admins.run_id, runs.run_name, run_admins.admin_role, run_admins.created_at ";
+    const fromJoinStatement =
+    "FROM run_admins INNER JOIN users ON run_admins.user_id = users.id INNER JOIN runs ON runs.id = run_admins.run_id ";
+    const orderByStatement = 
+    "ORDER BY users.last_name, users.first_name, run_admins.user_id";
+
+    try {
+      const runAdminsReturned = await client.query(
+        `${selectStatement}${fromJoinStatement}${orderByStatement}`
+      );
+      client.release();
+      return runAdminsReturned.rows;
+    } catch (err) {
+      client.release();
+      console.log(err.stack);
+      return [];
+    }
+  });
+};
+
+
+
+// "SELECT run_admins.id, run_admins.user_id, CONCAT(users.first_name , ' ' , users.last_name) AS full_name, run_admins.run_id, runs.run_name, run_admins.admin_role, run_admins.created_at ";
+// "FROM run_admins INNER JOIN users ON run_admins.user_id = users.id INNER JOIN runs ON runs.id = run_admins.run_id ";
+// "ORDER BY users.last_name, users.first_name, run_admins.user_id";
+
+
+// SELECT
+// 	run_admins.id,
+// 	run_admins.user_id,
+//     CONCAT(users.first_name , ' ' , users.last_name) AS full_name,
+//     run_admins.run_id,
+// 	runs.run_name,
+// 	run_admins.admin_role,
+// 	run_admins.created_at
+// FROM
+//     run_admins INNER JOIN users ON
+//         run_admins.user_id = users.id
+//     INNER JOIN runs ON
+//         runs.id = run_admins.run_id
+// ORDER BY
+// 	users.last_name, users.first_name, run_admins.user_id
+
+
+
+
+
+
 // SELECT CONCAT(users.first_name , ' ' , users.last_name) AS full_name, runs.run_description, run_admins.admin_role, run_admins.created_at
 // FROM users INNER JOIN run_admins ON users.id = run_admins.user_id INNER JOIN runs ON runs.id = run_admins.run_id
 // WHERE  runs.id = '1'
@@ -145,4 +218,6 @@ module.exports = {
   updateRunAdmin,
   deleteRunAdmin,
   getRunAdminsByRun,
+  getRunAdminFullRun,
+  getAllRunAdminNameRun,
 };

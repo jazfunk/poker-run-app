@@ -95,10 +95,64 @@ const deleteHandCard = async (id) => {
   });
 };
 
+
+
+// Joined Queries
+// Get all raw and joined hand_cards table data
+const getAllHandCardsNameFaceSuit = async (id) => {
+  return pool.connect().then(async (client) => {    
+    const selectStatement =
+    "SELECT hand_cards.id, hands.user_id, CONCAT(users.first_name , ' ' , users.last_name) AS full_name, hand_cards.hand_id, hands.hand_number, hand_cards.card_id, cards.card_face, cards.card_suit, hand_cards.created_at ";;
+    const fromJoinStatement =
+    "FROM hand_cards INNER JOIN hands ON hand_cards.hand_id = hands.id INNER JOIN users ON users.id = hands.user_id INNER JOIN cards ON cards.id = hand_cards.card_id ";;
+    const orderByStatement =
+    "ORDER BY users.id, hand_cards.hand_id, hands.id, hand_cards.card_id";
+
+    try {
+      const handCardsFullReturned = await client.query(
+        `${selectStatement}${fromJoinStatement}${orderByStatement}`
+      );
+      client.release();
+      return handCardsFullReturned.rows;
+    } catch (err) {
+      client.release();
+      console.log(err.stack);
+      return [];
+    }
+  });
+};
+
 module.exports = {
   getAllHandCards,
   getHandCardById,
   createHandCard,
   updateHandCard,
   deleteHandCard,
+  getAllHandCardsNameFaceSuit,
 };
+
+
+
+// "SELECT hand_cards.id, users.id, CONCAT(users.first_name , ' ' , users.last_name) AS full_name, hand_cards.hand_id, hands.hand_number, hand_cards.card_id, cards.card_face, cards.card_suit, hand_cards.created_at ";
+// "FROM hand_cards INNER JOIN hands ON hand_cards.hand_id = hands.id INNER JOIN users ON users.id = hands.user_id INNER JOIN cards ON cards.id = hand_cards.card_id ";
+// "ORDER BY users.id, hand_cards.hand_id, hands.id, hand_cards.card_id";
+
+// SELECT
+// 	hand_cards.id,
+// 	hands.user_id,
+//     CONCAT(users.first_name , ' ' , users.last_name) AS full_name,
+//     hand_cards.hand_id,
+// 	hands.hand_number,
+// 	hand_cards.card_id,
+// 	cards.card_face,
+// 	cards.card_suit,
+// 	hand_cards.created_at
+// FROM
+//     hand_cards INNER JOIN hands ON
+//         hand_cards.hand_id = hands.id
+//     INNER JOIN users ON
+//         users.id = hands.user_id
+// 	INNER JOIN cards ON
+// 		cards.id = hand_cards.card_id
+// ORDER BY
+// 	users.id, hand_cards.hand_id, hands.id, hand_cards.card_id

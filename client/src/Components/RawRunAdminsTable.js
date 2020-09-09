@@ -12,7 +12,9 @@ const RawRunAdminsTable = (props) => {
       <tr key={index}>
         <td>{admin.id}</td>
         <td>{admin.user_id}</td>
+        <td>{admin.full_name}</td>
         <td>{admin.run_id}</td>
+        <td>{admin.run_name}</td>
         <td>{admin.admin_role}</td>
         <td>{createdAtMoment.format(timeFormat)}</td>
         <td>{<Button onClick={props.deleteRunAdmin} variant="light">Remove</Button>}</td>
@@ -35,11 +37,13 @@ const RawRunAdminsTable = (props) => {
       <Table className="table-dark table-striped table-borderless table-hover table-bg-trans text-nowrap">
         <thead className="thead-dark">
           <tr>
-            <th>id</th>
-            <th>user_id</th>
-            <th>run_id</th>
-            <th>admin_role</th>
-            <th>created_at</th>
+            <th>run_admins.id</th>
+            <th>run_admins.user_id</th>
+            <th>users.full_name</th>
+            <th>run_admins.run_id</th>
+            <th>runs.run_name</th>
+            <th>run_admins.admin_role</th>
+            <th>run_admins.created_at</th>
             <th>Action</th>
           </tr>
         </thead>
