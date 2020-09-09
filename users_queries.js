@@ -47,7 +47,7 @@ const checkUser = async (email) => {
   return pool.connect().then(async (client) => {
     try {
       const userReturned = await client.query(
-        "SELECT id, email, password FROM users WHERE email = $1",
+        "SELECT id, CONCAT(first_name , ' ' , last_name) AS full_name, email, password FROM users WHERE email = $1",
         [email]
       );
       client.release();

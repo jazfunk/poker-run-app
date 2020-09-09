@@ -7,18 +7,38 @@ class RunHome extends Component {
   USERS_HAND_URL = "/api/usershand/";
   // HANDS_USER_URL = "/api/handsuser/";
 
+  
+  importSavedState = () => {
+    const localState =
+      JSON.parse(window.localStorage.getItem("localState")) || [];
+
+    if (localState.length > 0 || localState.constructor === Object) {
+      console.log(localState);
+      this.setState({
+        email: localState.email || "",
+        isLoggedIn: localState.isLoggedIn || false,
+        password: localState.password || "",
+        userId: localState.userId || 0,
+      });
+    } else {
+      this.setState({
+        isLoggedIn: false,
+      })
+    }
+  };
+
   constructor(props) {
     super(props);
     this.state = {
-      isLoggedIn: true,
-      user: 1,
+      userId: 40,
       users: [],
       hands: [],
       // userHands: [],
     };
   }
 
-  componentDidMount = () => {
+  componentDidMount = async () => {
+    this.importSavedState();
     this.loadAllHandsByUser();
     // this.loadHandsUser();
   };
@@ -26,7 +46,7 @@ class RunHome extends Component {
   // Joined data
   loadAllHandsByUser = () => {
     axios
-      .get(`${this.USERS_HAND_URL}${this.state.user}`)
+      .get(`${this.USERS_HAND_URL}${this.state.userId}`)
       .then((response) => {
         this.setState({
           hands: response.data,

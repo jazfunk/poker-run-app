@@ -7,6 +7,25 @@ class AddNewRun extends Component {
   ADD_RUN_URL = `/api/runs/`;
   USERS_NAMES_URL = `/api/fullnames/`;
 
+  importSavedState = () => {
+    const localState =
+      JSON.parse(window.localStorage.getItem("localState")) || [];
+
+    if (localState.length > 0 || localState.constructor === Object) {
+      console.log(localState);
+      this.setState({
+        email: localState.email || "",
+        isLoggedIn: localState.isLoggedIn || false,
+        password: localState.password || "",
+        userId: localState.userId || 0,
+      });
+    } else {
+      this.setState({
+        isLoggedIn: false,
+      })
+    }
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -32,6 +51,7 @@ class AddNewRun extends Component {
   }
 
   componentDidMount = () => {
+    this.importSavedState();
     this.loadUsersNamesList();
   };
   

@@ -6,14 +6,28 @@ class Login extends Component {
   port = process.env.PORT || 5000;
   LOGIN_URL = "/api/user/login";
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      isLoggedIn: false,
-    }
-  }
+  importSavedState = () => {
+    const localState =
+      JSON.parse(window.localStorage.getItem("localState")) || [];
 
-  componentDidMount = () => {};
+    if (localState.length > 0 || localState.constructor === Object) {
+      console.log(localState);
+      this.setState({
+        email: localState.email || "",
+        isLoggedIn: localState.isLoggedIn || false,
+        password: localState.password || "",
+        userId: localState.userId || 0,
+      });
+    } else {
+      this.setState({
+        isLoggedIn: false,
+      })
+    }
+  };
+
+  componentDidMount = () => {
+    this.importSavedState();
+  };
 
   handleChange = (event) => {
     event.preventDefault();
@@ -46,31 +60,35 @@ class Login extends Component {
 
     axios(config)
       .then((response) => {
-        const id = parseInt(response.data);
+        const id = response.data;
         if (id < 0) {
-          alert("That email address doesn't exist in our records")
+          return alert("That email address doesn't exist in our records");
         }
-
         if (id > 0) {
-          alert("Logged in successfully")
+          alert("Logged in successfully");
           this.setState({
+            userName: response.data.full_name,
             isLoggedIn: true,
             userId: id,
-          })
+            password: "hidden",
+          });
         } else {
-          alert("Wrong password")
+          alert("Wrong password");
         }
-
-        
         console.log(response.data);
       })
-
       .catch((error) => {
         console.log(error);
       });
   };
 
-  componentDidUpdate = () => {};
+  componentDidUpdate = () => {
+    this.saveLocal(this.state);
+  };
+
+  saveLocal = () => {
+    localStorage.setItem("localState", JSON.stringify(this.state));
+  };
 
   render() {
     return (

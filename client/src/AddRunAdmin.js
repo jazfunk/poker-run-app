@@ -26,10 +26,6 @@ class AddRunAdmin extends Component {
     this.loadUsers();
     this.loadRunAdmins(this.state.selectedRun);
     this.loadRuns();
-    // if (props.user.isLoggedIn) {
-    //   // Load Run Events (if any) User is signed up for
-    //   //
-    // }
   };
 
   loadUsers = () => {
