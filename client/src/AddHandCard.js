@@ -33,7 +33,7 @@ class AddHandCard extends Component {
 
     this.setState({
       randomDeck: this.getRandomDeck(52),
-    })
+    });
   };
 
   addCardsToHand = () => {
@@ -45,14 +45,11 @@ class AddHandCard extends Component {
       newHand.push(card);
       console.log(card);
     }
-    
+
     this.setState({
       randomDeck: deck,
       newHand: newHand,
-    })
-
-
-
+    });
   };
 
   getRandomDeck = (cardCount) => {
@@ -156,14 +153,15 @@ class AddHandCard extends Component {
     event.preventDefault();
     event.target.reset();
 
+    // TODO:  Loop through Deck array
+    // to get newHand card id
     const handCard = {
       hand_id: this.state.selectedHand,
       card_id: this.state.newHand[0],
-    }
+    };
 
     this.postNewHandCard(handCard);
   };
-
 
   postNewHandCard = (handCard) => {
     var data = JSON.stringify(handCard);
@@ -184,7 +182,7 @@ class AddHandCard extends Component {
       .catch((error) => {
         console.log(error);
       });
-  }
+  };
 
   componentDidUpdate = () => {};
 
@@ -194,30 +192,26 @@ class AddHandCard extends Component {
         <Form onSubmit={this.handleSubmit}>
           <Form.Row>
             <Form.Group controlId="frmRunSelect">
-              <Form.Label>Select Run</Form.Label>
-              <Form.Control
+              <select
                 name="selectedRun"
-                className="controls-space"
-                as="select"
-                // defaultValue={this.state.selectedRun}
+                className="form-control"
+                defaultValue={this.state.selectedRun}
                 onChange={this.handleRunSelect}
               >
-                <option>Select Run Event</option>
+                <option>Select Run</option>
                 {this.state.runs.map((run) => (
                   <option key={run.id} value={run.id}>
                     {run.run_name}
                   </option>
                 ))}
-              </Form.Control>
+              </select>
             </Form.Group>
             &nbsp;&nbsp;&nbsp;
             <Form.Group controlId="frmUserSelect">
-              <Form.Label>Select User</Form.Label>
-              <Form.Control
+              <select
                 name="selectedUser"
-                className="controls-space"
-                as="select"
-                // defaultValue={this.state.selectedUser}
+                className="form-control"
+                defaultValue={this.state.selectedUser}
                 onChange={this.handleUserSelect}
               >
                 <option>Select User</option>
@@ -226,24 +220,14 @@ class AddHandCard extends Component {
                     {user.full_name}
                   </option>
                 ))}
-              </Form.Control>
+              </select>
             </Form.Group>
             &nbsp;&nbsp;&nbsp;
-            <Form.Group controlId="frmAddUserHandButton">
-              <Button variant="light" type="submit">
-                Add User Hand(s)
-              </Button>
-            </Form.Group>
-          </Form.Row>
-
-          <Form.Row>
             <Form.Group controlId="frmUserHandSelect">
-              <Form.Label>Select Hand</Form.Label>
-              <Form.Control
+              <select
                 name="selectedHand"
-                className="controls-space"
-                as="select"
-                // defaultValue={this.state.selectedRun}
+                className="form-control"
+                defaultValue={this.state.selectedHand}
                 onChange={this.handleHandSelect}
               >
                 <option>Select Hand</option>
@@ -252,9 +236,33 @@ class AddHandCard extends Component {
                     {hand.hand_number}-{hand.run_id}
                   </option>
                 ))}
-              </Form.Control>
+              </select>
+            </Form.Group>
+            &nbsp;&nbsp;&nbsp;
+            <Form.Group controlId="frmAddUserHandButton">
+              <Button variant="light" type="submit">
+                Add Hand
+              </Button>
             </Form.Group>
           </Form.Row>
+
+          {/* <Form.Row>
+            <Form.Group controlId="frmUserHandSelect">
+              <select
+                name="selectedHand"
+                className="form-control"
+                defaultValue={this.state.selectedHand}
+                onChange={this.handleHandSelect}
+              >
+                <option>Select Hand</option>
+                {this.state.userHands.map((hand) => (
+                  <option key={hand.id} value={hand.id}>
+                    {hand.hand_number}-{hand.run_id}
+                  </option>
+                ))}
+              </select>
+            </Form.Group>
+          </Form.Row> */}
         </Form>
         {/* <RunAdminsTable
           runAdmins={this.state.runAdmins}

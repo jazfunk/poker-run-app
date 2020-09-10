@@ -176,7 +176,6 @@ class AddUserHand extends Component {
         <Form onSubmit={this.handleSubmit}>
           <Form.Row>
             <Form.Group controlId="frmRunSelect">
-              <Form.Label>Select Run</Form.Label>
               <select
                 name="selectedRun"
                 className="form-control"
@@ -191,9 +190,10 @@ class AddUserHand extends Component {
                 ))}
               </select>
             </Form.Group>
+
             &nbsp;&nbsp;&nbsp;
+            
             <Form.Group controlId="frmUserSelect">
-              <Form.Label>Select User</Form.Label>
               <select
                 name="selectedUser"
                 className="form-control"
@@ -208,10 +208,10 @@ class AddUserHand extends Component {
                 ))}
               </select>
             </Form.Group>
+
             &nbsp;&nbsp;&nbsp;
+
             <Form.Group controlId="frmAddUserHandButton">
-              <Form.Label>Add New Hand</Form.Label>
-              <br></br>
               <Button variant="light" type="submit">
                 Submit Hand #{this.state.handsCount + 1 || "?"}
               </Button>
@@ -223,7 +223,7 @@ class AddUserHand extends Component {
             </Form.Group>
           </Form.Row>
         </Form>
-        <section>Add Table Component</section>
+        <section>--Add Table Component--</section>
       </section>
     );
   }

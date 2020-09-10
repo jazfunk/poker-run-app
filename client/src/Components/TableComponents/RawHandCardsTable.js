@@ -48,7 +48,7 @@ const RawHandsCardsTable = (props) => {
   return (
     <section className="form-container">
       <section className="body-main-table table-responsive">
-        Raw Hands Cards Table
+        Hands Cards Table
         <Table className="table-dark table-striped table-borderless table-hover table-bg-trans text-nowrap">
           <thead className="thead-dark">
             <tr>

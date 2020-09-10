@@ -14,31 +14,32 @@ class RunHome extends Component {
 
     if (localState.length > 0 || localState.constructor === Object) {
       console.log(localState);
-      this.setState({
+      this.state = {
         email: localState.email || "",
         isLoggedIn: localState.isLoggedIn || false,
         password: localState.password || "",
         userId: localState.userId || 0,
-      });
+        users: [],
+        hands: [],
+      };
     } else {
       this.setState({
         isLoggedIn: false,
+        users: [],
+        hands: [],
       })
     }
   };
 
   constructor(props) {
     super(props);
-    this.state = {
-      userId: 2,
-      users: [],
-      hands: [],
-      // userHands: [],
-    };
+
+    // I expect to use props 
+    // at some point in this constructor
+    this.importSavedState();
   }
 
   componentDidMount = async () => {
-    this.importSavedState();
     this.loadAllHandsByUser();
     // this.loadHandsUser();
   };
