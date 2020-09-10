@@ -13,6 +13,7 @@ import Logout from "./Logout";
 import AdminTable from "../AdminTables";
 import AddUserHand from "../AddUserHand";
 import AddHandCard from "../AddHandCard";
+import CardDeck from "../CardDeck";
 
 const Header = (props) => {
   return (
@@ -32,6 +33,7 @@ const Header = (props) => {
           <Route path="/signup" exact component={SignUp} />
           <Route path="/logout" exact component={Logout} />
           <Route path="/admin" exact component={AdminTable} />
+          <Route path="/deck" exact component={CardDeck} />
         </Switch>
       </section>
     </BrowserRouter>

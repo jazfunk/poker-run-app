@@ -154,6 +154,30 @@ ul.dropdown-menu {
   margin: 0 auto;
 }
 
+.deck-cards {
+  text-align: center;
+  margin: 0px 3px 15px 3px;
+  padding: 10px 0px 0px 0px;
+  border-radius: 6px;
+  border: 1px solid #feffff;
+  background-image: linear-gradient(
+    to top left,
+    #d1e8e2,
+    #feffff,
+    #ffffff,
+    #def2f1,
+    #d1e8e2
+  );
+  filter: drop-shadow(0 0 0.5rem #116466);
+  color: #116466;
+  width: 7vw;
+}
+
+.cards-img {
+  width: 3vw;
+  margin: 0 auto;
+}
+
 .hands-number {
   font-size: x-small;
 }
@@ -161,6 +185,13 @@ ul.dropdown-menu {
 .card-face {
   color: #116466;
   font-size: 34px;
+  /* text-shadow: 0 0 1px #2c3531, 0 0 3px #116466; */
+  text-shadow: 1px 1px 2px #116466;
+}
+
+.card-face-small {
+  color: #116466;
+  font-size: 18px;
   /* text-shadow: 0 0 1px #2c3531, 0 0 3px #116466; */
   text-shadow: 1px 1px 2px #116466;
 }

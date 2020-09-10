@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import logo from "../Images/PokerRunKingLOGO_NEW.png";
+// import LogIn from "../Login";
 
 class Home extends Component {
   importSavedState = () => {
@@ -27,7 +28,10 @@ class Home extends Component {
     this.importSavedState();
   };
 
-  handleSubmit = (event) => {};
+  handleSubmit = (event) => {
+    console.log("clicked");
+  };
+
   handleChange = (event) => {};
 
   componentDidUpdate = () => {
@@ -55,7 +59,7 @@ class Home extends Component {
               This component will determine if the user is logged in. If so,
               direct to events user is signed up for.
             </Card.Text>
-            <Button variant="primary">Sign In</Button>
+            <Button onClick={this.handleSubmit} variant="primary">Sign In</Button>
           </Card.Body>
         </Card>
       </section>

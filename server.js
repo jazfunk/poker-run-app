@@ -11,7 +11,6 @@ const cardsDb = require("./cards_queries");
 const port = process.env.PORT || 5000;
 const { client, startPage } = require("./config");
 const bcrypt = require("bcrypt");
-const { send } = require("process");
 
 // const morgan = require("morgan");
 // app.use(morgan('combined'));

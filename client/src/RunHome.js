@@ -30,7 +30,7 @@ class RunHome extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userId: 40,
+      userId: 1,
       users: [],
       hands: [],
       // userHands: [],
