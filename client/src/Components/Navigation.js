@@ -22,7 +22,7 @@ const Navigation = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/runhome">Run</Nav.Link>
+            <Nav.Link href="/runhome">My Hand</Nav.Link>
             <Nav.Link href="/standings">Standings</Nav.Link>
             <NavDropdown title="My Account" id="basic-nav-dropdown">
               <NavDropdown.Item href="/login">Log In</NavDropdown.Item>

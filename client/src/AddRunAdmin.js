@@ -89,7 +89,7 @@ class AddRunAdmin extends Component {
 
   handleUserSelect = (event) => {
     const selectedUser = event.target.selectedOptions[0];
-    // console.log(`Selected user: ${selectedUser.textContent}`);
+    console.log(`Selected user: ${selectedUser.textContent}`);
     this.setState({
       selectedUser: selectedUser.value,
     });
@@ -97,7 +97,7 @@ class AddRunAdmin extends Component {
 
   handleRunSelect = (event) => {
     const selectedRun = event.target.selectedOptions[0];
-    // console.log(`Selected Run: ${selectedRun.textContent}`);
+    console.log(`Selected Run: ${selectedRun.textContent}`);
     this.setState({
       selectedRun: selectedRun.value,
     });
@@ -142,7 +142,22 @@ class AddRunAdmin extends Component {
         <Form onSubmit={this.handleSubmit}>
           <Form.Row>
             <Form.Group controlId="frmRunSelect">
-              <Form.Control
+
+            <select
+                name="selectedRun"
+                className="form-control"
+                defaultValue={this.state.selectedRun}
+                onChange={this.handleRunSelect}
+              >
+                <option>Select Run</option>
+                {this.state.runs.map((run) => (
+                  <option key={run.id} value={run.id}>
+                    {run.run_name}
+                  </option>
+                ))}
+              </select>
+              
+              {/* <Form.Control
                 className="controls-space"
                 as="select"
                 defaultValue={this.state.selectedRun}
@@ -154,11 +169,29 @@ class AddRunAdmin extends Component {
                     {run.run_name}
                   </option>
                 ))}
-              </Form.Control>
+              </Form.Control> */}
+
             </Form.Group>
+
             &nbsp;&nbsp;&nbsp;
+
             <Form.Group controlId="frmUserSelect">
-              <Form.Control
+
+            <select
+                name="selectedUser"
+                className="form-control"
+                defaultValue={this.state.selectedUser}
+                onChange={this.handleUserSelect}
+              >
+                <option>Select User</option>
+                {this.state.users.map((user) => (
+                  <option key={user.id} value={user.id}>
+                    {user.full_name}
+                  </option>
+                ))}
+              </select>
+
+              {/* <Form.Control
                 className="controls-space"
                 as="select"
                 defaultValue={this.state.selectedUser}
@@ -170,9 +203,12 @@ class AddRunAdmin extends Component {
                     {user.full_name}
                   </option>
                 ))}
-              </Form.Control>
+              </Form.Control> */}
+
             </Form.Group>
+
             &nbsp;&nbsp;&nbsp;
+
             <Form.Group controlId="frmAdminRoleInput">
               <Form.Control
                 className="controls-space"
@@ -182,7 +218,9 @@ class AddRunAdmin extends Component {
                 defaultValue={this.state.admin_role}
               />
             </Form.Group>
+
             &nbsp;&nbsp;&nbsp;
+
             <Form.Group controlId="frmAddRunAdminButton">
               <Button variant="light" type="submit">
                 Add Run Administrator

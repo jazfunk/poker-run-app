@@ -215,6 +215,10 @@ ul.dropdown-menu {
   filter: drop-shadow(0 0 0.2rem #116466);
 }
 
+.img-glow {
+  filter: drop-shadow(0 0 0.2rem #d9b08c);
+}
+
 .jklogo-glow-border {
   filter: drop-shadow(0 0 0.2rem #116466);
 }

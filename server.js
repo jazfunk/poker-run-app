@@ -12,8 +12,8 @@ const port = process.env.PORT || 5000;
 const { client, startPage, saltRounds } = require("./config");
 const bcrypt = require("bcrypt");
 
-const morgan = require("morgan");
-app.use(morgan('combined'));
+// const morgan = require("morgan");
+// app.use(morgan('combined'));
 
 app.use(express.static(__dirname + client));
 app.use(bodyParser.json());

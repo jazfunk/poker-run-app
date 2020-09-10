@@ -17,6 +17,7 @@ const RawHandsCardsTable = (props) => {
         <td>{card.card_face}</td>
         <td>
           <img
+            className="img-glow"
             src={require(`../../Images/${card.card_suit}.png`)}
             width="20%"
             alt=""
