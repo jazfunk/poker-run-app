@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
-import DefaultLanding from "./Components/DefaultLanding";
+import Login from "./Login"
 
 class App extends Component {
   constructor(props) {
@@ -19,21 +19,17 @@ class App extends Component {
       this.state = {
         email: localState.email || "",
         isLoggedIn: localState.isLoggedIn || false,
-        auth: "isLoggedInTrue",
         password: localState.password || "",
         userId: localState.userId || 0,
       };
     } else {
       this.state = {
         isLoggedIn: false,
-        auth: "isLoggedInFalse"
-      }
+      };
     }
   };
 
-
-
-  componentDidMount = () => {
+  componentDidMount = (prevProps) => {
     // Check localStorage for logged in "key"
     // Allow access to app only if "key" exists.
     if (this.state.isLoggedIn) {
@@ -41,8 +37,7 @@ class App extends Component {
       // Load app
     } else {
       console.log("Not Logged In")
-
-      // Set up variable to toggle 
+      // Set up variable to toggle
       // in the render() method
       // if logged in, open Header component
       // if not logged in, load only the login component
@@ -58,29 +53,42 @@ class App extends Component {
     event.target.reset();
   };
 
-  componentDidUpdate = () => {
-    // Add update methods
-    // Update state
-  };
+  componentDidUpdate = () => {};
 
-  render() {
-
-    // debugger;
-    // const componentToSend = {
-    //   isLoggedInTrue: <Header />,
-    //   isLoggedInFalse: <DefaultLanding />,
-    // }
-
-    // const CurrentComponent = componentToSend[this.state.auth]
-
+  showHeader = () => {
     return (
       <section>
         <div className="App">
-          <Header />
-        </div>        
+          <Header isLoggedIn={this.state.isLoggedIn} />
+        </div>
         <Footer />
       </section>
     );
+  }
+
+  showAuthCheck = () => {
+    return (
+      <div className="App">
+        <Login />
+      </div>
+    )
+  }
+
+  render() {
+
+    if(this.state.isLoggedIn) {
+      return this.showHeader()
+    } else {
+      return this.showAuthCheck()
+    }
+    // return (
+    //   <section>
+    //     <div className="App">
+    //       <Header isLoggedIn={this.state.isLoggedIn} />
+    //     </div>
+    //     {/* <Footer /> */}
+    //   </section>
+    // );
   }
 }
 

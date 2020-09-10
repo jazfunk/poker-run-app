@@ -33,7 +33,6 @@ class RunHome extends Component {
 
   constructor(props) {
     super(props);
-
     // I expect to use props 
     // at some point in this constructor
     this.importSavedState();

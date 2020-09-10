@@ -83,7 +83,10 @@ class Login extends Component {
   };
 
   componentDidUpdate = () => {
-    this.saveLocal(this.state);
+    this.saveLocal();
+    if (this.state.isLoggedIn) {
+      window.location.reload(true);
+    }
   };
 
   saveLocal = () => {

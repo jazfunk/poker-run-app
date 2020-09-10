@@ -1,42 +1,44 @@
 import React, { Component } from "react";
 import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/Button";
 import logo from "../Images/PokerRunKingLOGO_NEW.png";
 
 class Home extends Component {
+  constructor(props) {
+    super(props);
+    this.importSavedState();
+  }
+
   importSavedState = () => {
     const localState =
       JSON.parse(window.localStorage.getItem("localState")) || [];
 
     if (localState.length > 0 || localState.constructor === Object) {
       console.log(localState);
-      this.setState({
+      this.state = {
         email: localState.email || "",
         isLoggedIn: localState.isLoggedIn || false,
         password: localState.password || "",
         userId: localState.userId || 0,
-      });
+      };
     } else {
-      this.setState({
+      this.state = {
         isLoggedIn: false,
-      })
+      };
     }
   };
 
-  componentDidMount = async () => {
-    this.importSavedState();
-  };
+  componentDidMount = async () => {};
 
-  handleSubmit = (event) => {
-    console.log("clicked");
-  };
+  handleSubmit = (event) => {};
 
   handleChange = (event) => {};
 
-  componentDidUpdate = () => {};
+  componentDidUpdate = () => {
+    this.saveLocal();
+  };
 
-  saveLocal = (stateItem, stateValue) => {
-    localStorage.setItem(stateItem, JSON.stringify(stateValue));
+  saveLocal = () => {
+    localStorage.setItem("localState", JSON.stringify(this.state));
   };
 
   render() {
@@ -45,12 +47,8 @@ class Home extends Component {
         <Card className="app-home">
           <Card.Img variant="top" src={logo} />
           <Card.Body>
-            <Card.Title>Welcome!</Card.Title>
-            <Card.Text>
-              This component will determine if the user is logged in. If so,
-              direct to events user is signed up for.
-            </Card.Text>
-            <Button onClick={this.handleSubmit} variant="primary">Sign In</Button>
+            <Card.Title>Welcome {this.state.email}!</Card.Title>
+            <Card.Text>Go to 'My Hand' to see your cards</Card.Text>            
           </Card.Body>
         </Card>
       </section>
