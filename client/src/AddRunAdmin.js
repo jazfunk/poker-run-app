@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import axios from "axios";
-import RunAdminsTable from "./Components/RunAdminsTable";
+import RunAdminsTable from "./Components/TableComponents/RunAdminsTable";
 
 class AddRunAdmin extends Component {
   port = process.env.PORT || 5000;

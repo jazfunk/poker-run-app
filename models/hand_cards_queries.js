@@ -1,4 +1,4 @@
-const { pool } = require("./data_access");
+const { pool } = require("../data_access");
 
 // Get All Hand cards Endpoint Endpoint
 // async/await - check out a client

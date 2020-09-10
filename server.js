@@ -2,21 +2,18 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
 const path = require("path");
-const usersDb = require("./users_queries");
-const runsDb = require("./runs_queries");
-const runAdminsDb = require("./run_admins_queries");
-const handsDb = require("./hands_queries");
-const handCardsDb = require("./hand_cards_queries");
-const cardsDb = require("./cards_queries");
+const usersDb = require("./models/users_queries");
+const runsDb = require("./models/runs_queries");
+const runAdminsDb = require("./models/run_admins_queries");
+const handsDb = require("./models/hands_queries");
+const handCardsDb = require("./models/hand_cards_queries");
+const cardsDb = require("./models/cards_queries");
 const port = process.env.PORT || 5000;
-const { client, startPage } = require("./config");
+const { client, startPage, saltRounds } = require("./config");
 const bcrypt = require("bcrypt");
 
-// const morgan = require("morgan");
-// app.use(morgan('combined'));
-
-// Move this variable to config.js to hide it
-const saltRounds = 12;
+const morgan = require("morgan");
+app.use(morgan('combined'));
 
 app.use(express.static(__dirname + client));
 app.use(bodyParser.json());
@@ -346,7 +343,11 @@ app.get("/api/cards", async (req, res) => {
 });
 
 app.get("/*", (req, res) => {
-  res.sendFile(path.join(__dirname + client + startPage));
+  try {
+    res.sendFile(path.join(__dirname + client + startPage));
+  } catch (error) {
+    res.status(500).send(error);
+  }
 });
 
 app.listen(port, () => {

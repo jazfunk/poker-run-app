@@ -12,8 +12,8 @@ class App extends Component {
   }
 
   componentDidMount = () => {
-    // Add On Mount methods
-    // Set State
+    // Check localStorage for logged in "key"
+    // Allow access to app only if "key" exists.
   };
 
   handleChange = (event) => {
@@ -35,7 +35,6 @@ class App extends Component {
       <section>
         <div className="App">
           <Header />
-          {/* <BodyContent content={this.state.content} /> */}
         </div>        
         <Footer />
       </section>

@@ -10,7 +10,7 @@ const RawCardsTable = (props) => {
         <td>{card.card_face}</td>
         <td>
           <img
-            src={require(`../Images/${card.card_suit}.png`)}
+            src={require(`../../Images/${card.card_suit}.png`)}
             width="6%"
             alt=""
           />

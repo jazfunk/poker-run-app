@@ -1,4 +1,4 @@
-const { pool } = require("./data_access");
+const { pool } = require("../data_access");
 
 // pool.on("error", (err, client) => {
 //   console.error("Unexpected error on idle client", err);

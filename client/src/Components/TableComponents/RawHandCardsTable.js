@@ -5,6 +5,7 @@ import moment from "moment";
 
 const RawHandsCardsTable = (props) => {
   let handCardsRows = props.handCards.map((card, index) => {
+    
     const dateMoment = moment(card.created_at);
     return (
       <tr key={index}>
@@ -16,7 +17,7 @@ const RawHandsCardsTable = (props) => {
         <td>{card.card_face}</td>
         <td>
           <img
-            src={require(`../Images/${card.card_suit}.png`)}
+            src={require(`../../Images/${card.card_suit}.png`)}
             width="20%"
             alt=""
           />

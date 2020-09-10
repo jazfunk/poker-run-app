@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
-import UsersTable from "./Components/UsersTable";
+import UsersTable from "./Components/TableComponents/UsersTable";
 import axios from "axios";
 
 class UsersList extends Component {

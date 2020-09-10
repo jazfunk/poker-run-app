@@ -49,7 +49,7 @@ const AddNewRunComponent = (props) => {
 
         <Form.Row>
           <Form.Group controlId="frmUsersNamesSelect">
-            <select
+            <select className="form-control"
               defaultValue={props.owner_id}
               onChange={props.handleSelect}
             >

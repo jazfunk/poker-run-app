@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import axios from "axios";
-import RawUsersTable from "./Components/RawUsersTable";
-import RawHandsTable from "./Components/RawHandsTable";
-import RawHandCardsTable from "./Components/RawHandCardsTable";
-import RawRunsTable from "./Components/RawRunsTable";
-import RawRunAdminsTable from "./Components/RawRunAdminsTable";
-import RawCardsTable from "./Components/RawCardsTable";
+import RawUsersTable from "./Components/TableComponents/RawUsersTable";
+import RawHandsTable from "./Components/TableComponents/RawHandsTable";
+import RawHandCardsTable from "./Components/TableComponents/RawHandCardsTable";
+import RawRunsTable from "./Components/TableComponents/RawRunsTable";
+import RawRunAdminsTable from "./Components/TableComponents/RawRunAdminsTable";
+import RawCardsTable from "./Components/TableComponents/RawCardsTable";
 
 class AdminTables extends Component {
   port = process.env.PORT || 5000;

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import logo from "../Images/PokerRunKingLOGO_NEW.png";
-// import LogIn from "../Login";
 
 class Home extends Component {
   importSavedState = () => {
@@ -34,15 +33,7 @@ class Home extends Component {
 
   handleChange = (event) => {};
 
-  componentDidUpdate = () => {
-    // Update local storage with
-    // data held in state    
-    if (this.state.isLoggedIn) {
-      console.log("Logged In")
-    } else {
-      console.log("Not Logged In")
-    }
-  };
+  componentDidUpdate = () => {};
 
   saveLocal = (stateItem, stateValue) => {
     localStorage.setItem(stateItem, JSON.stringify(stateValue));

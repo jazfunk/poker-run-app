@@ -177,13 +177,11 @@ class AddUserHand extends Component {
           <Form.Row>
             <Form.Group controlId="frmRunSelect">
               <Form.Label>Select Run</Form.Label>
-              <Form.Control
+              <select
                 name="selectedRun"
-                className="controls-space"
-                as="select"
-                // defaultValue={this.state.selectedRun}
+                className="form-control"
+                defaultValue={this.state.selectedRun}
                 onChange={this.handleRunSelect}
-                value={this.state.selectedRun}
               >
                 <option>Select Run</option>
                 {this.state.runs.map((run) => (
@@ -191,38 +189,25 @@ class AddUserHand extends Component {
                     {run.run_name}
                   </option>
                 ))}
-              </Form.Control>
+              </select>
             </Form.Group>
             &nbsp;&nbsp;&nbsp;
             <Form.Group controlId="frmUserSelect">
               <Form.Label>Select User</Form.Label>
-              <Form.Control
+              <select
                 name="selectedUser"
-                className="controls-space"
-                as="select"
-                // defaultValue={this.state.selectedUser}
+                className="form-control"
+                defaultValue={this.state.selectedUser}
                 onChange={this.handleUserSelect}
-                value={this.state.selectedUser}
               >
-                {/* <option>Select User</option> */}
+                <option>Select User</option>
                 {this.state.users.map((user) => (
                   <option key={user.id} value={user.id}>
                     {user.full_name}
                   </option>
                 ))}
-              </Form.Control>
+              </select>
             </Form.Group>
-            &nbsp;&nbsp;&nbsp;
-            {/* <Form.Group controlId="frmNumberofHands">
-              <Form.Label>Number of Hands</Form.Label>
-              <Form.Control
-                className="controls-space"
-                name="handsNumber"
-                type="number"
-                onChange={this.handleChange}
-                defaultValue="1"
-              />
-            </Form.Group> */}
             &nbsp;&nbsp;&nbsp;
             <Form.Group controlId="frmAddUserHandButton">
               <Form.Label>Add New Hand</Form.Label>
@@ -234,7 +219,7 @@ class AddUserHand extends Component {
           </Form.Row>
           <Form.Row>
             <Form.Group>
-          <Form.Label>{`${this.state.selectedUserName} currently has ${this.state.handsCount} hand(s)`}</Form.Label>
+              <Form.Label>{`${this.state.selectedUserName} currently has ${this.state.handsCount} hand(s)`}</Form.Label>
             </Form.Group>
           </Form.Row>
         </Form>

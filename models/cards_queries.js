@@ -1,4 +1,4 @@
-const { pool } = require("./data_access");
+const { pool } = require("../data_access");
 
 // GET All cards Endpoint
 // async/await - check out a client

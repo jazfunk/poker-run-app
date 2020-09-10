@@ -1,4 +1,4 @@
-const { pool } = require("./data_access");
+const { pool } = require("../data_access");
 
 // Get All Runs Endpoint
 // async/await - check out a client
