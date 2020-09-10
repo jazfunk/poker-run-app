@@ -7,7 +7,7 @@ const RawRunAdminsTable = (props) => {
   let runAdminsRows = props.admins.map((admin, index) => {
     const createdAtMoment = moment(admin.created_at);
     const timeFormat = "MM-DD-YYYY hh:mm a";
-    
+
     return (
       <tr key={index}>
         <td>{admin.id}</td>
@@ -17,7 +17,13 @@ const RawRunAdminsTable = (props) => {
         <td>{admin.run_name}</td>
         <td>{admin.admin_role}</td>
         <td>{createdAtMoment.format(timeFormat)}</td>
-        <td>{<Button onClick={props.deleteRunAdmin} variant="light">Remove</Button>}</td>
+        <td>
+          {
+            <Button onClick={props.deleteRunAdmin} variant="light">
+              Remove
+            </Button>
+          }
+        </td>
       </tr>
     );
   });
@@ -32,23 +38,25 @@ const RawRunAdminsTable = (props) => {
     );
 
   return (
-    <section className="body-main-table table-responsive">
-      Raw Run Admins Table
-      <Table className="table-dark table-striped table-borderless table-hover table-bg-trans text-nowrap">
-        <thead className="thead-dark">
-          <tr>
-            <th>run_admins.id</th>
-            <th>run_admins.user_id</th>
-            <th>users.full_name</th>
-            <th>run_admins.run_id</th>
-            <th>runs.run_name</th>
-            <th>run_admins.admin_role</th>
-            <th>run_admins.created_at</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>{runAdminsRows}</tbody>
-      </Table>
+    <section className="form-container">
+      <section className="body-main-table table-responsive">
+        Raw Run Admins Table
+        <Table className="table-dark table-striped table-borderless table-hover table-bg-trans text-nowrap">
+          <thead className="thead-dark">
+            <tr>
+              <th>id</th>
+              <th>user_id</th>
+              <th>full_name</th>
+              <th>run_id</th>
+              <th>run_name</th>
+              <th>admin_role</th>
+              <th>created_at</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>{runAdminsRows}</tbody>
+        </Table>
+      </section>
     </section>
   );
 };

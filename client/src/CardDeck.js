@@ -21,7 +21,6 @@ class CardDeck extends Component {
   };
 
   loadCards = () => {
-    debugger;
     axios
       .get(this.CARDS_URL)
       .then((response) => {

@@ -8,7 +8,7 @@ const RawRunsTable = (props) => {
     const runDateMoment = moment(run.run_date);
     const createdAtMoment = moment(run.created_at);
     const timeFormat = "MM-DD-YYYY hh:mm a";
-  
+
     return (
       <tr key={index}>
         <td>{run.id}</td>
@@ -17,7 +17,13 @@ const RawRunsTable = (props) => {
         <td>{runDateMoment.format(timeFormat)}</td>
         <td>{run.owner_id}</td>
         <td>{createdAtMoment.format(timeFormat)}</td>
-        <td>{<Button onClick={props.deleteRun} variant="light">Remove</Button>}</td>
+        <td>
+          {
+            <Button onClick={props.deleteRun} variant="light">
+              Remove
+            </Button>
+          }
+        </td>
       </tr>
     );
   });
@@ -32,22 +38,24 @@ const RawRunsTable = (props) => {
     );
 
   return (
-    <section className="body-main-table table-responsive">
-      Raw Runs Table
-      <Table className="table-dark table-striped table-borderless table-hover table-bg-trans text-nowrap">
-        <thead className="thead-dark">
-          <tr>
-            <th>id</th>
-            <th>run_name</th>
-            <th>run_description</th>
-            <th>run_date</th>
-            <th>owner_id</th>
-            <th>created_at</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>{runsRows}</tbody>
-      </Table>
+    <section className="form-container">
+      <section className="body-main-table table-responsive">
+        Raw Runs Table
+        <Table className="table-dark table-striped table-borderless table-hover table-bg-trans text-nowrap">
+          <thead className="thead-dark">
+            <tr>
+              <th>id</th>
+              <th>run_name</th>
+              <th>run_description</th>
+              <th>run_date</th>
+              <th>owner_id</th>
+              <th>created_at</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>{runsRows}</tbody>
+        </Table>
+      </section>
     </section>
   );
 };

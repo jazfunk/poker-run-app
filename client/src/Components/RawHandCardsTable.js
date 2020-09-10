@@ -14,9 +14,22 @@ const RawHandsCardsTable = (props) => {
         <td>{card.hand_number}</td>
         <td>{card.card_id}</td>
         <td>{card.card_face}</td>
-        <td>{card.card_suit}</td>        
+        <td>
+          <img
+            src={require(`../Images/${card.card_suit}.png`)}
+            width="20%"
+            alt=""
+          />
+        </td>
+        {/* <td>{card.card_suit}</td>         */}
         <td>{dateMoment.format("MM-DD-YYYY hh:mm a")}</td>
-        <td>{<Button onClick={props.deleteHandsCard} variant="light">Remove</Button>}</td>
+        <td>
+          {
+            <Button onClick={props.deleteHandsCard} variant="light">
+              Remove
+            </Button>
+          }
+        </td>
       </tr>
     );
   });
@@ -31,23 +44,25 @@ const RawHandsCardsTable = (props) => {
     );
 
   return (
-    <section className="body-main-table table-responsive">
-      Raw Hands Cards Table
-      <Table className="table-dark table-striped table-borderless table-hover table-bg-trans text-nowrap">
-        <thead className="thead-dark">
-          <tr>
-            <th>hand_cards.id</th>
-            <th>hand_cards.user_id</th>
-            <th>users.full_name</th>
-            <th>hand_cards.hand_number</th>
-            <th>hand_cards.card_id</th>
-            <th>cards.card_face</th>
-            <th>cards.card_suit</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>{handCardsRows}</tbody>
-      </Table>
+    <section className="form-container">
+      <section className="body-main-table table-responsive">
+        Raw Hands Cards Table
+        <Table className="table-dark table-striped table-borderless table-hover table-bg-trans text-nowrap">
+          <thead className="thead-dark">
+            <tr>
+              <th>id</th>
+              <th>user_id</th>
+              <th>full_name</th>
+              <th>hand_number</th>
+              <th>card_id</th>
+              <th>card_face</th>
+              <th>card_suit</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>{handCardsRows}</tbody>
+        </Table>
+      </section>
     </section>
   );
 };
