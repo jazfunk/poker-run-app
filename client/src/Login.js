@@ -18,7 +18,6 @@ class Login extends Component {
       console.log(localState);
       this.state = {
         email: localState.email || "",
-        redirect: null,
         isLoggedIn: localState.isLoggedIn || false,
         password: localState.password || "",
         userId: localState.userId || 0,
@@ -26,7 +25,6 @@ class Login extends Component {
     } else {
       this.state = {
         isLoggedIn: false,
-        redirect: "/login",
       };
     }
   };
@@ -64,12 +62,14 @@ class Login extends Component {
 
     axios(config)
       .then((response) => {
-        const id = response.data;
+        // debugger;
+        const id = response.data.user_id;
         if (id < 0) {
           return alert("That email address doesn't exist in our records");
         }
         if (id > 0) {
           alert("Logged in successfully");
+          // debugger;
           this.setState({
             userName: response.data.full_name,
             isLoggedIn: true,
@@ -89,7 +89,7 @@ class Login extends Component {
   componentDidUpdate = () => {
     this.saveLocal();
     if (this.state.isLoggedIn) {
-      window.location.reload(true);
+      // window.location.reload(true);
       // debugger;
       // this.props.history.push("/");
     }

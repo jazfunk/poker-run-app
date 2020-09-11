@@ -97,14 +97,19 @@ app.delete("/api/users/:id", async (req, res) => {
 app.post("/api/user/login", (req, res) => {
   try {
     const { email, password } = req.body;
-    usersDb.checkUser(email).then((user) => {
-      if (user.rows < 1) {
+    usersDb.checkUser(email).then((userDb) => {
+      if (userDb.rows < 1) {
         res.send("-1");
       } else {
-        bcrypt.compare(password, user.rows[0].password, (err, result) => {
+        bcrypt.compare(password, userDb.rows[0].password, (err, result) => {
           if (result == true) {
-            const user_id = user.rows[0].id;
-            res.send(`${user_id}`);
+            const user = {
+              user_id: userDb.rows[0].id,
+              full_name: userDb.rows[0].full_name,
+            }
+            res.send(user);
+            // const user_id = user.rows[0].id;
+            // res.send(`${user_id}`);
           } else {
             res.send("0");
           }

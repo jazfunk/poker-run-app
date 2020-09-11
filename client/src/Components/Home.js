@@ -43,7 +43,7 @@ class Home extends Component {
   };
 
   render() {
-    debugger;
+    // debugger;
     const isLoggedOut = !this.state.isLoggedIn ? (
       <Redirect to="/login" />
     ) : null;
