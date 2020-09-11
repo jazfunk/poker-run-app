@@ -30,15 +30,6 @@ class Header extends Component {
           <Nav />
           <Switch>
             <Route path="/" exact component={Home} />
-
-            {/* <Route
-              exact
-              path="/"
-              render={(props) => (
-                <Home {...props} history={this.newHistory} />
-              )}
-            /> */}
-
             <Route path="/userslist" exact component={UsersList} />
             <Route path="/addrun" exact component={AddNewRun} />
             <Route path="/addrunadmin" exact component={AddRunAdmin} />
@@ -47,15 +38,6 @@ class Header extends Component {
             <Route path="/runhome" exact component={RunHome} />
             <Route path="/standings" exact component={Standings} />
             <Route path="/login" exact component={LogIn} />
-
-            {/* <Route 
-              exact 
-              path="/login"
-              render={(props) => (
-                <LogIn {...props} history={this.newHistory} />
-              )}            
-            /> */}
-
             <Route path="/signup" exact component={SignUp} />
             <Route path="/logout" exact component={Logout} />
             <Route path="/admin" exact component={AdminTable} />
@@ -68,3 +50,24 @@ class Header extends Component {
 }
 
 export default Header;
+
+
+
+
+
+            {/* <Route
+              exact
+              path="/"
+              render={(props) => (
+                <Home {...props} history={this.newHistory} />
+              )}
+            /> */}
+
+            
+            {/* <Route 
+              exact 
+              path="/login"
+              render={(props) => (
+                <LogIn {...props} history={this.newHistory} />
+              )}            
+            /> */}

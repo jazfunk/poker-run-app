@@ -1,11 +1,17 @@
 import React, { Component } from "react";
 import axios from "axios";
 import AddNewRunComponent from "./Components/AddNewRunComponent";
+import { Redirect } from "react-router-dom";
 
 class AddNewRun extends Component {
-  port = process.env.PORT || 5000
+  port = process.env.PORT || 5000;
   ADD_RUN_URL = `/api/runs/`;
   USERS_NAMES_URL = `/api/fullnames/`;
+  
+  constructor(props) {
+    super(props);    
+    this.importSavedState();    
+  }
 
   importSavedState = () => {
     const localState =
@@ -13,30 +19,21 @@ class AddNewRun extends Component {
 
     if (localState.length > 0 || localState.constructor === Object) {
       console.log(localState);
-      this.setState({
+      this.state = {
         email: localState.email || "",
         isLoggedIn: localState.isLoggedIn || false,
         password: localState.password || "",
         userId: localState.userId || 0,
-      });
+        users: [],
+      };
     } else {
-      this.setState({
+      this.state = {
         isLoggedIn: false,
-      })
+      };
     }
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      user: 1,
-      users: [],
-      isLoggedIn: false,
-    };
-  }
-
-  
-  loadUsersNamesList = () => {    
+  loadUsersNamesList = () => {
     axios
       .get(this.USERS_NAMES_URL)
       .then((response) => {
@@ -47,14 +44,15 @@ class AddNewRun extends Component {
       })
       .catch((error) => {
         console.log(error);
-      });      
-  }
+      });
+  };
 
   componentDidMount = () => {
-    this.importSavedState();
-    this.loadUsersNamesList();
+    if(this.state.isLoggedIn) {
+      this.loadUsersNamesList();
+    }
   };
-  
+
   handleChange = (event) => {
     event.preventDefault();
     const { name, value } = event.target;
@@ -64,12 +62,12 @@ class AddNewRun extends Component {
   };
 
   handleSelect = (event) => {
-    const selectedOwner = event.target.selectedOptions[0];    
-    this.setState({ 
+    const selectedOwner = event.target.selectedOptions[0];
+    this.setState({
       owner_id: selectedOwner.value,
     });
-    console.log((`Owner Selected: ${selectedOwner.textContent}`))
-  }
+    console.log(`Owner Selected: ${selectedOwner.textContent}`);
+  };
 
   handleSubmit = (event) => {
     event.preventDefault();
@@ -98,7 +96,7 @@ class AddNewRun extends Component {
     axios(config)
       .then((response) => {
         // console.log(JSON.stringify(response.data));
-        alert(`New Run Added titled: \n${run.run_name}`)
+        alert(`New Run Added titled: \n${run.run_name}`);
         this.setState({
           run: run,
         });
@@ -110,21 +108,46 @@ class AddNewRun extends Component {
   };
 
   componentDidUpdate = () => {
-    // console.log(this.state)
+    this.saveLocal();
+  };
+
+  saveLocal = () => {
+    localStorage.setItem("localState", JSON.stringify(this.state));
   };
 
   render() {
+    debugger;
+    const isLoggedOut = !this.state.isLoggedIn ? (
+      <Redirect to="/login" />
+    ) : null;
     return (
-      <AddNewRunComponent
-        users={this.state.users}
-        user={this.state.user}
-        validationError={this.state.validationError}
-        handleChange={this.handleChange}
-        handleSubmit={this.handleSubmit}
-        handleSelect={this.handleSelect}
-      />
+      <>
+        {isLoggedOut}
+        <section>
+          {console.log("AddNewRun")}
+          <AddNewRunComponent
+            users={this.state.users}
+            user={this.state.userId}
+            validationError={this.state.validationError}
+            handleChange={this.handleChange}
+            handleSubmit={this.handleSubmit}
+            handleSelect={this.handleSelect}
+          />
+        </section>
+      </>
     );
   }
 }
 
 export default AddNewRun;
+
+{
+  /* <AddNewRunComponent
+  users={this.state.users}
+  user={this.state.user}
+  validationError={this.state.validationError}
+  handleChange={this.handleChange}
+  handleSubmit={this.handleSubmit}
+  handleSelect={this.handleSelect}
+/> */
+}

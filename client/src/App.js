@@ -94,22 +94,21 @@ class App extends Component {
 
 
 
-    if(this.state.isLoggedIn) {
-      return this.showHeader()
-    } else {
-      return this.showAuthCheck()
-    }
+    // if(this.state.isLoggedIn) {
+    //   return this.showHeader()
+    // } else {
+    //   return this.showAuthCheck()
+    // }
 
 
-
-    // return (
-    //   <section>
-    // <div className="App">
-    //   <Header isLoggedIn={this.state.isLoggedIn} />
-    // </div>
-    // {/* <Footer /> */}
-    //   </section>
-    // );
+    return (
+      <section>
+    <div className="App">
+      <Header isLoggedIn={this.state.isLoggedIn} />
+    </div>
+    {/* <Footer /> */}
+      </section>
+    );
   }
 }
 
