@@ -5,6 +5,10 @@ import axios from "axios";
 class Login extends Component {
   port = process.env.PORT || 5000;
   LOGIN_URL = "/api/user/login";
+  constructor(props) {
+    super(props);
+    this.importSavedState();
+  }
 
   importSavedState = () => {
     const localState =
@@ -12,22 +16,22 @@ class Login extends Component {
 
     if (localState.length > 0 || localState.constructor === Object) {
       console.log(localState);
-      this.setState({
+      this.state = {
         email: localState.email || "",
+        redirect: null,
         isLoggedIn: localState.isLoggedIn || false,
         password: localState.password || "",
         userId: localState.userId || 0,
-      });
+      };
     } else {
-      this.setState({
+      this.state = {
         isLoggedIn: false,
-      })
+        redirect: "/login",
+      };
     }
   };
 
-  componentDidMount = () => {
-    this.importSavedState();
-  };
+  componentDidMount = () => {};
 
   handleChange = (event) => {
     event.preventDefault();
@@ -86,6 +90,8 @@ class Login extends Component {
     this.saveLocal();
     if (this.state.isLoggedIn) {
       window.location.reload(true);
+      // debugger;
+      // this.props.history.push("/");
     }
   };
 
