@@ -25,7 +25,7 @@ class AddNewRun extends Component {
         isLoggedIn: localState.isLoggedIn || false,
         password: localState.password || "",
         userId: localState.userId || 0,
-        users: [],
+        users: localState.users || [],
       };
     } else {
       this.state = {
@@ -50,9 +50,9 @@ class AddNewRun extends Component {
   };
 
   componentDidMount = () => {
-    this.loadUsersNamesList();
-    // if(this.state.isLoggedIn) {
-    // }
+    if(this.state.isLoggedIn) {
+      this.loadUsersNamesList();      
+    }
   };
 
   handleChange = (event) => {

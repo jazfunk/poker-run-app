@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import axios from "axios";
+import { Redirect } from "react-router-dom";
 
 class AddHandCard extends Component {
   USERS_FULL_NAME_URL = "/api/fullnames/";
@@ -11,29 +12,52 @@ class AddHandCard extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      usersFullNamesUrl: this.USERS_FULL_NAME_URL,
-      addHandcardUrl: this.ADD_HAND_CARD_URL,
-      userHandsUrl: this.USER_HANDS_URL,
-      runsUrl: this.RUNS_URL,
-      users: [],
-      userHands: [],
-      selectedUser: "",
-      runs: [],
-      selectedRun: "",
-      selectedHand: "",
-      randomDeck: [],
-      newHand: [],
-    };
+    this.importSavedState();
   }
 
-  componentDidMount = () => {
-    this.loadUsers();
-    this.loadRuns();
+  importSavedState = () => {
+    const localState =
+      JSON.parse(window.localStorage.getItem("localState")) || [];
 
-    this.setState({
-      randomDeck: this.getRandomDeck(52),
-    });
+    if (localState.length > 0 || localState.constructor === Object) {
+      console.log(localState);
+      this.state = {
+        email: localState.email || "",
+        full_name: localState.full_name || "",
+        isLoggedIn: localState.isLoggedIn || false,
+        password: localState.password || "",
+        userId: localState.userId || 0,
+        users: localState.users || [],
+        selectedUser: localState.selectedUser || "",
+        selectedRun: localState.selectedRun || 1,
+        runs: localState.runs || [],
+        runAdmins: localState.runAdmins || [],
+        userHands: localState.userHands || [],
+        selectedHand: localState.selectedHand || "",
+        randomDeck: localState.randomDeck || [],
+        newHand: localState.newHand || [],
+      };
+    } else {
+      this.state = {
+        isLoggedIn: false,
+        users: [],
+        selectedUser: "",
+        selectedRun: 1,
+        runs: [],
+        runAdmins: [],
+      };
+    }
+  };
+
+  componentDidMount = () => {
+    if (this.state.isLoggedIn) {
+      this.loadUsers();
+      this.loadRuns();
+
+      this.setState({
+        randomDeck: this.getRandomDeck(52),
+      });
+    }
   };
 
   addCardsToHand = () => {
@@ -66,7 +90,7 @@ class AddHandCard extends Component {
 
   loadUsers = () => {
     axios
-      .get(`${this.state.usersFullNamesUrl}`)
+      .get(`${this.USERS_FULL_NAME_URL}`)
       .then((response) => {
         this.setState({
           users: response.data,
@@ -79,7 +103,7 @@ class AddHandCard extends Component {
 
   loadRuns = () => {
     axios
-      .get(`${this.state.runsUrl}`)
+      .get(`${this.RUNS_URL}`)
       .then((response) => {
         this.setState({
           runs: response.data,
@@ -92,7 +116,7 @@ class AddHandCard extends Component {
 
   loadUserHands = (id) => {
     axios
-      .get(`${this.state.userHandsUrl}${id}`)
+      .get(`${this.USER_HANDS_URL}${id}`)
       .then((response) => {
         this.setState({
           userHands: response.data,
@@ -167,7 +191,7 @@ class AddHandCard extends Component {
     var data = JSON.stringify(handCard);
     var config = {
       method: "post",
-      url: this.state.addHandcardUrl,
+      url: this.ADD_HAND_CARD_URL,
       headers: {
         "Content-Type": "Application/json",
       },
@@ -184,91 +208,87 @@ class AddHandCard extends Component {
       });
   };
 
-  componentDidUpdate = () => {};
+  componentDidUpdate = () => {
+    this.saveLocal();
+  };
+
+  saveLocal = () => {
+    localStorage.setItem("localState", JSON.stringify(this.state));
+  };
 
   render() {
+    // debugger;
+    const isLoggedOut = !this.state.isLoggedIn ? (
+      <Redirect to="/login" />
+    ) : null;
     return (
-      <section className="form-container">
-        <Form onSubmit={this.handleSubmit}>
-          <Form.Row>
-            <Form.Group controlId="frmRunSelect">
-              <select
-                name="selectedRun"
-                className="form-control"
-                defaultValue={this.state.selectedRun}
-                onChange={this.handleRunSelect}
-              >
-                <option>Select Run</option>
-                {this.state.runs.map((run) => (
-                  <option key={run.id} value={run.id}>
-                    {run.run_name}
-                  </option>
-                ))}
-              </select>
-            </Form.Group>
-            &nbsp;&nbsp;&nbsp;
-            <Form.Group controlId="frmUserSelect">
-              <select
-                name="selectedUser"
-                className="form-control"
-                defaultValue={this.state.selectedUser}
-                onChange={this.handleUserSelect}
-              >
-                <option>Select User</option>
-                {this.state.users.map((user) => (
-                  <option key={user.id} value={user.id}>
-                    {user.full_name}
-                  </option>
-                ))}
-              </select>
-            </Form.Group>
-            &nbsp;&nbsp;&nbsp;
-            <Form.Group controlId="frmUserHandSelect">
-              <select
-                name="selectedHand"
-                className="form-control"
-                defaultValue={this.state.selectedHand}
-                onChange={this.handleHandSelect}
-              >
-                <option>Select Hand</option>
-                {this.state.userHands.map((hand) => (
-                  <option key={hand.id} value={hand.id}>
-                    {hand.hand_number}-{hand.run_id}
-                  </option>
-                ))}
-              </select>
-            </Form.Group>
-            &nbsp;&nbsp;&nbsp;
-            <Form.Group controlId="frmAddUserHandButton">
-              <Button variant="light" type="submit">
-                Add Hand
-              </Button>
-            </Form.Group>
-          </Form.Row>
-
-          {/* <Form.Row>
-            <Form.Group controlId="frmUserHandSelect">
-              <select
-                name="selectedHand"
-                className="form-control"
-                defaultValue={this.state.selectedHand}
-                onChange={this.handleHandSelect}
-              >
-                <option>Select Hand</option>
-                {this.state.userHands.map((hand) => (
-                  <option key={hand.id} value={hand.id}>
-                    {hand.hand_number}-{hand.run_id}
-                  </option>
-                ))}
-              </select>
-            </Form.Group>
-          </Form.Row> */}
-        </Form>
-        {/* <RunAdminsTable
-          runAdmins={this.state.runAdmins}
-          deleteAdmin={this.deleteAdmin}
-        /> */}
-      </section>
+      <>
+        {isLoggedOut}
+          {console.log("AddHandCard")}
+        <section className="form-container">
+          <Form onSubmit={this.handleSubmit}>
+            <Form.Row>
+              <Form.Group controlId="frmRunSelect">
+                <select
+                  name="selectedRun"
+                  className="form-control"
+                  defaultValue={this.state.selectedRun}
+                  onChange={this.handleRunSelect}
+                >
+                  <option>Select Run</option>
+                  {this.state.runs.map((run) => (
+                    <option key={run.id} value={run.id}>
+                      {run.run_name}
+                    </option>
+                  ))}
+                </select>
+              </Form.Group>
+              &nbsp;&nbsp;&nbsp;
+              <Form.Group controlId="frmUserSelect">
+                <select
+                  name="selectedUser"
+                  className="form-control"
+                  defaultValue={this.state.selectedUser}
+                  onChange={this.handleUserSelect}
+                >
+                  <option>Select User</option>
+                  {this.state.users.map((user) => (
+                    <option key={user.id} value={user.id}>
+                      {user.full_name}
+                    </option>
+                  ))}
+                </select>
+              </Form.Group>
+              &nbsp;&nbsp;&nbsp;
+              <Form.Group controlId="frmUserHandSelect">
+                <select
+                  name="selectedHand"
+                  className="form-control"
+                  defaultValue={this.state.selectedHand}
+                  onChange={this.handleHandSelect}
+                >
+                  <option>Select Hand</option>
+                  {this.state.userHands.map((hand) => (
+                    <option key={hand.id} value={hand.id}>
+                      {hand.hand_number}-{hand.run_id}
+                    </option>
+                  ))}
+                </select>
+              </Form.Group>
+              &nbsp;&nbsp;&nbsp;
+              <Form.Group controlId="frmAddUserHandButton">
+                <Button variant="light" type="submit">
+                  Add Hand
+                </Button>
+              </Form.Group>
+            </Form.Row>
+          </Form>
+          {/* <RunAdminsTable
+            runAdmins={this.state.runAdmins}
+            deleteAdmin={this.deleteAdmin}
+          /> */}
+        </section>
+      </>
     );
   }
 }

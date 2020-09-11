@@ -1,13 +1,18 @@
 import React, { Component } from "react";
 import axios from "axios";
 import UserHandComponent from "./Components/UserHandComponent";
+import { Redirect } from "react-router-dom";
 
 class RunHome extends Component {
   port = process.env.PORT || 5000;
   USERS_HAND_URL = "/api/usershand/";
   // HANDS_USER_URL = "/api/handsuser/";
 
-  
+  constructor(props) {
+    super(props);
+    this.importSavedState();
+  }
+
   importSavedState = () => {
     const localState =
       JSON.parse(window.localStorage.getItem("localState")) || [];
@@ -16,6 +21,7 @@ class RunHome extends Component {
       console.log(localState);
       this.state = {
         email: localState.email || "",
+        full_name: localState.full_name || "",
         isLoggedIn: localState.isLoggedIn || false,
         password: localState.password || "",
         userId: localState.userId || 0,
@@ -23,24 +29,19 @@ class RunHome extends Component {
         hands: [],
       };
     } else {
-      this.setState({
+      this.state = {
         isLoggedIn: false,
         users: [],
         hands: [],
-      })
+      };
     }
   };
 
-  constructor(props) {
-    super(props);
-    // I expect to use props 
-    // at some point in this constructor
-    this.importSavedState();
-  }
-
   componentDidMount = async () => {
-    this.loadAllHandsByUser();
-    // this.loadHandsUser();
+    if (this.state.isLoggedIn) {
+      this.loadAllHandsByUser();
+      // this.loadHandsUser();
+    }
   };
 
   // Joined data
@@ -82,15 +83,37 @@ class RunHome extends Component {
   //   console.log(`Hand Selected: ${selectedHand.textContent}`);
   // };
 
-  componentDidUpdate = () => {};
+  componentDidUpdate = () => {
+    this.saveLocal();
+  };
+
+  saveLocal = () => {
+    localStorage.setItem("localState", JSON.stringify(this.state));
+  };
 
   render() {
+    // debugger;
+    const isLoggedOut = !this.state.isLoggedIn ? (
+      <Redirect to="/login" />
+    ) : null;
     return (
-      <section>
-        <UserHandComponent hands={this.state.hands} />
-      </section>
+      <>
+        {isLoggedOut}
+        <section>
+          {console.log("RunHome")}
+          <section>
+            <UserHandComponent hands={this.state.hands} />
+          </section>
+        </section>
+      </>
     );
   }
 }
 
 export default RunHome;
+
+{
+  /* <section>
+  <UserHandComponent hands={this.state.hands} />
+</section>; */
+}

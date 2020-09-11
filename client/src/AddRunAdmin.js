@@ -3,6 +3,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import axios from "axios";
 import RunAdminsTable from "./Components/TableComponents/RunAdminsTable";
+import { Redirect } from "react-router-dom";
 
 class AddRunAdmin extends Component {
   port = process.env.PORT || 5000;
@@ -13,19 +14,45 @@ class AddRunAdmin extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      users: [],
-      selectedUser: "",
-      selectedRun: 1,
-      runs: [],
-      runAdmins: [],
-    };
+    this.importSavedState();
   }
 
+  importSavedState = () => {
+    const localState =
+      JSON.parse(window.localStorage.getItem("localState")) || [];
+
+    if (localState.length > 0 || localState.constructor === Object) {
+      console.log(localState);
+      this.state = {
+        email: localState.email || "",
+        full_name: localState.full_name || "",
+        isLoggedIn: localState.isLoggedIn || false,
+        password: localState.password || "",
+        userId: localState.userId || 0,
+        users: localState.users || [],
+        selectedUser: localState.selectedUser || "",
+        selectedRun: localState.selectedRun || 1,
+        runs: localState.runs || [],
+        runAdmins: localState.runAdmins || [],
+      };
+    } else {
+      this.state = {
+        isLoggedIn: false,
+        users: [],
+        selectedUser: "",
+        selectedRun: 1,
+        runs: [],
+        runAdmins: [],
+      };
+    }
+  };
+
   componentDidMount = () => {
-    this.loadUsers();
-    this.loadRunAdmins(this.state.selectedRun);
-    this.loadRuns();
+    if (this.state.isLoggedIn) {
+      this.loadUsers();
+      this.loadRunAdmins(this.state.selectedRun);
+      this.loadRuns();
+    }
   };
 
   loadUsers = () => {
@@ -117,9 +144,6 @@ class AddRunAdmin extends Component {
     axios(config)
       .then((response) => {
         alert(`New Run Admin Added: \n${admin.full_name}`);
-        // this.setState({
-        //   run: run,
-        // });
       })
 
       .catch((error) => {
@@ -133,108 +157,141 @@ class AddRunAdmin extends Component {
   };
 
   componentDidUpdate = () => {
-    // console.log(this.state.runAdmins); 
+    this.saveLocal();
+  };
+
+  saveLocal = () => {
+    localStorage.setItem("localState", JSON.stringify(this.state));
   };
 
   render() {
+    const isLoggedOut = !this.state.isLoggedIn ? (
+      <Redirect to="/login" />
+    ) : null;
     return (
-      <section className="form-container">
-        <Form onSubmit={this.handleSubmit}>
-          <Form.Row>
-            <Form.Group controlId="frmRunSelect">
-
-            <select
-                name="selectedRun"
-                className="form-control"
-                defaultValue={this.state.selectedRun}
-                onChange={this.handleRunSelect}
-              >
-                <option>Select Run</option>
-                {this.state.runs.map((run) => (
-                  <option key={run.id} value={run.id}>
-                    {run.run_name}
-                  </option>
-                ))}
-              </select>
-              
-              {/* <Form.Control
-                className="controls-space"
-                as="select"
-                defaultValue={this.state.selectedRun}
-                onChange={this.handleRunSelect}
-              >
-                <option>Select Run Event</option>
-                {this.state.runs.map((run) => (
-                  <option key={run.id} value={run.id}>
-                    {run.run_name}
-                  </option>
-                ))}
-              </Form.Control> */}
-
-            </Form.Group>
-
-            &nbsp;&nbsp;&nbsp;
-
-            <Form.Group controlId="frmUserSelect">
-
-            <select
-                name="selectedUser"
-                className="form-control"
-                defaultValue={this.state.selectedUser}
-                onChange={this.handleUserSelect}
-              >
-                <option>Select User</option>
-                {this.state.users.map((user) => (
-                  <option key={user.id} value={user.id}>
-                    {user.full_name}
-                  </option>
-                ))}
-              </select>
-
-              {/* <Form.Control
-                className="controls-space"
-                as="select"
-                defaultValue={this.state.selectedUser}
-                onChange={this.handleUserSelect}
-              >
-                <option>Select User</option>
-                {this.state.users.map((user) => (
-                  <option key={user.id} value={user.id}>
-                    {user.full_name}
-                  </option>
-                ))}
-              </Form.Control> */}
-
-            </Form.Group>
-
-            &nbsp;&nbsp;&nbsp;
-
-            <Form.Group controlId="frmAdminRoleInput">
-              <Form.Control
-                className="controls-space"
-                name="admin_role"
-                placeholder="Administrative Role"
-                onChange={this.handleChange}
-                defaultValue={this.state.admin_role}
-              />
-            </Form.Group>
-
-            &nbsp;&nbsp;&nbsp;
-
-            <Form.Group controlId="frmAddRunAdminButton">
-              <Button variant="light" type="submit">
-                Add Run Administrator
-              </Button>
-            </Form.Group>
-          </Form.Row>
-        </Form>
-        <RunAdminsTable
-          runAdmins={this.state.runAdmins}
-          deleteAdmin={this.deleteAdmin}
-        />
-      </section>
+      <>
+        {isLoggedOut}
+        <section>
+          {console.log("AddRunAdmin")}
+          <section className="form-container">
+            <Form onSubmit={this.handleSubmit}>
+              <Form.Row>
+                <Form.Group controlId="frmRunSelect">
+                  <select
+                    name="selectedRun"
+                    className="form-control"
+                    defaultValue={this.state.selectedRun}
+                    onChange={this.handleRunSelect}
+                  >
+                    <option>Select Run</option>
+                    {this.state.runs.map((run) => (
+                      <option key={run.id} value={run.id}>
+                        {run.run_name}
+                      </option>
+                    ))}
+                  </select>
+                </Form.Group>
+                &nbsp;&nbsp;&nbsp;
+                <Form.Group controlId="frmUserSelect">
+                  <select
+                    name="selectedUser"
+                    className="form-control"
+                    defaultValue={this.state.selectedUser}
+                    onChange={this.handleUserSelect}
+                  >
+                    <option>Select User</option>
+                    {this.state.users.map((user) => (
+                      <option key={user.id} value={user.id}>
+                        {user.full_name}
+                      </option>
+                    ))}
+                  </select>
+                </Form.Group>
+                &nbsp;&nbsp;&nbsp;
+                <Form.Group controlId="frmAdminRoleInput">
+                  <Form.Control
+                    className="controls-space"
+                    name="admin_role"
+                    placeholder="Administrative Role"
+                    onChange={this.handleChange}
+                    defaultValue={this.state.admin_role}
+                  />
+                </Form.Group>
+                &nbsp;&nbsp;&nbsp;
+                <Form.Group controlId="frmAddRunAdminButton">
+                  <Button variant="light" type="submit">
+                    Add Run Administrator
+                  </Button>
+                </Form.Group>
+              </Form.Row>
+            </Form>
+            <RunAdminsTable
+              runAdmins={this.state.runAdmins}
+              deleteAdmin={this.deleteAdmin}
+            />
+          </section>
+        </section>
+      </>
     );
   }
 }
 
 export default AddRunAdmin;
+
+// <section className="form-container">
+// <Form onSubmit={this.handleSubmit}>
+//   <Form.Row>
+//     <Form.Group controlId="frmRunSelect">
+//       <select
+//         name="selectedRun"
+//         className="form-control"
+//         defaultValue={this.state.selectedRun}
+//         onChange={this.handleRunSelect}
+//       >
+//         <option>Select Run</option>
+//         {this.state.runs.map((run) => (
+//           <option key={run.id} value={run.id}>
+//             {run.run_name}
+//           </option>
+//         ))}
+//       </select>
+//     </Form.Group>
+//     &nbsp;&nbsp;&nbsp;
+//     <Form.Group controlId="frmUserSelect">
+//       <select
+//         name="selectedUser"
+//         className="form-control"
+//         defaultValue={this.state.selectedUser}
+//         onChange={this.handleUserSelect}
+//       >
+//         <option>Select User</option>
+//         {this.state.users.map((user) => (
+//           <option key={user.id} value={user.id}>
+//             {user.full_name}
+//           </option>
+//         ))}
+//       </select>
+//     </Form.Group>
+//     &nbsp;&nbsp;&nbsp;
+//     <Form.Group controlId="frmAdminRoleInput">
+//       <Form.Control
+//         className="controls-space"
+//         name="admin_role"
+//         placeholder="Administrative Role"
+//         onChange={this.handleChange}
+//         defaultValue={this.state.admin_role}
+//       />
+//     </Form.Group>
+//     &nbsp;&nbsp;&nbsp;
+//     <Form.Group controlId="frmAddRunAdminButton">
+//       <Button variant="light" type="submit">
+//         Add Run Administrator
+//       </Button>
+//     </Form.Group>
+//   </Form.Row>
+// </Form>
+// <RunAdminsTable
+//   runAdmins={this.state.runAdmins}
+//   deleteAdmin={this.deleteAdmin}
+// />
+// </section>

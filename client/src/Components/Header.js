@@ -10,7 +10,7 @@ import RunHome from "../RunHome";
 import LogIn from "../Login";
 import SignUp from "../SignUp";
 import Logout from "./Logout";
-import AdminTable from "../AdminTables";
+import AdminTables from "../AdminTables";
 import AddUserHand from "../AddUserHand";
 import AddHandCard from "../AddHandCard";
 import CardDeck from "../CardDeck";
@@ -40,7 +40,7 @@ class Header extends Component {
             <Route path="/login" exact component={LogIn} />
             <Route path="/signup" exact component={SignUp} />
             <Route path="/logout" exact component={Logout} />
-            <Route path="/admin" exact component={AdminTable} />
+            <Route path="/admin" exact component={AdminTables} />
             <Route path="/deck" exact component={CardDeck} />
           </Switch>
         </section>

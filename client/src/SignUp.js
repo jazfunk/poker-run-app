@@ -1,26 +1,46 @@
 import React, { Component } from "react";
 import axios from "axios";
 import SignUpComponent from "./Components/SignupComponent";
+import { Redirect } from "react-router-dom";
 
 class SignUp extends Component {
-  port = process.env.PORT || 5000
+  port = process.env.PORT || 5000;
   ADD_USER_URL = `/api/users/`;
   isLoggedIn = false;
 
   constructor(props) {
     super(props);
-    this.state = {
-      isLoggedIn: false,
-      users: [],
-    };
+    this.importSavedState();
   }
 
+  importSavedState = () => {
+    const localState =
+      JSON.parse(window.localStorage.getItem("localState")) || [];
+
+    if (localState.length > 0 || localState.constructor === Object) {
+      console.log(localState);
+      this.state = {
+        email: localState.email || "",
+        full_name: localState.full_name || "",
+        isLoggedIn: localState.isLoggedIn || false,
+        password: localState.password || "",
+        userId: localState.userId || 0,
+        users: localState.users || [],
+        hands: localState.hands || [],
+      };
+    } else {
+      this.state = {
+        isLoggedIn: false,
+        users: [],
+        hands: [],
+      };
+    }
+  };
+
   componentDidMount = () => {
-    const savedUser = JSON.parse(window.localStorage.getItem("user")) || {};
-    // TODO: Add User object to local storage
-    this.setState({
-      user: savedUser,
-    });
+    if (this.state.isLoggedIn) {
+      // Do stuff
+    }
   };
 
   handleChange = (event) => {
@@ -61,11 +81,10 @@ class SignUp extends Component {
       .then((response) => {
         console.log(JSON.stringify(response.data));
         alert(`Congratulations, ${user.first_name}! \n You're all signed up`);
-
-        this.setState({
-          isLoggedIn: true,
-          user: user,
-        });
+        // this.setState({
+        //   isLoggedIn: true,
+        //   user: user,
+        // });
       })
 
       .catch((error) => {
@@ -73,17 +92,41 @@ class SignUp extends Component {
       });
   };
 
-  componentDidUpdate = () => {};
+  componentDidUpdate = () => {
+    this.saveLocal();
+  };
+
+  saveLocal = () => {
+    localStorage.setItem("localState", JSON.stringify(this.state));
+  };
 
   render() {
+    // debugger;
+    const isLoggedOut = !this.state.isLoggedIn ? (
+      <Redirect to="/login" />
+    ) : null;
     return (
-      <SignUpComponent
-        user={this.state}
-        handleSubmit={this.handleSubmit}
-        handleChange={this.handleChange}
-      />
+      <>
+        {isLoggedOut}
+        <section>
+          {console.log("SignUp")}
+          <SignUpComponent
+            user={this.state}
+            handleSubmit={this.handleSubmit}
+            handleChange={this.handleChange}
+          />
+        </section>
+      </>
     );
   }
 }
 
 export default SignUp;
+
+{
+  /* <SignUpComponent
+user={this.state}
+handleSubmit={this.handleSubmit}
+handleChange={this.handleChange}
+/> */
+}

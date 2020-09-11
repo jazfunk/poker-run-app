@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import axios from "axios";
+import { Redirect } from "react-router-dom";
 
 class AddUserHand extends Component {
   USERS_FULL_NAME_URL = "/api/fullnames/";
@@ -11,16 +12,7 @@ class AddUserHand extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      usersFullNamesUrl: this.USERS_FULL_NAME_URL,
-      addUserHandUrl: this.ADD_USERS_HAND,
-      runsUrl: this.RUNS_URL,
-      userHandsCounturl: this.USERS_HANDS_COUNT_URL,
-      users: [],
-      selectedUser: "",
-      runs: [],
-      selectedRun: "",
-    };
+    this.importSavedState();
   }
 
   importSavedState = () => {
@@ -29,32 +21,59 @@ class AddUserHand extends Component {
 
     if (localState.length > 0 || localState.constructor === Object) {
       console.log(localState);
-      this.setState({
+      this.state = {
         email: localState.email || "",
+        full_name: localState.full_name || "",
         isLoggedIn: localState.isLoggedIn || false,
         password: localState.password || "",
         userId: localState.userId || 0,
-      });
+        users: localState.users || [],
+        selectedUser: localState.selectedUser || "",
+        selectedRun: localState.selectedRun || 1,
+        runs: localState.runs || [],
+        runAdmins: localState.runAdmins || [],
+      };
     } else {
-      this.setState({
+      this.state = {
         isLoggedIn: false,
-      });
+        users: [],
+        selectedUser: "",
+        selectedRun: 1,
+        runs: [],
+        runAdmins: [],
+      };
     }
   };
 
-  componentDidMount = () => {
-    this.loadUsers();
-    this.loadRuns();
+  // importSavedState = () => {
+  //   const localState =
+  //     JSON.parse(window.localStorage.getItem("localState")) || [];
 
-    // if(props.user.isLoggedIn) {
-    //   // Load Run Events (if any) User is signed up for
-    //   //
-    // }
+  //   if (localState.length > 0 || localState.constructor === Object) {
+  //     console.log(localState);
+  //     this.setState({
+  //       email: localState.email || "",
+  //       isLoggedIn: localState.isLoggedIn || false,
+  //       password: localState.password || "",
+  //       userId: localState.userId || 0,
+  //     });
+  //   } else {
+  //     this.setState({
+  //       isLoggedIn: false,
+  //     });
+  //   }
+  // };
+
+  componentDidMount = () => {
+    if (this.state.isLoggedIn) {
+      this.loadUsers();
+      this.loadRuns();
+    }
   };
 
   loadUsers = () => {
     axios
-      .get(`${this.state.usersFullNamesUrl}`)
+      .get(`${this.USERS_FULL_NAME_URL}`)
       .then((response) => {
         this.setState({
           users: response.data,
@@ -69,7 +88,7 @@ class AddUserHand extends Component {
   // Only one run for now, and saves on connections
   loadRuns = () => {
     axios
-      .get(`${this.state.runsUrl}`)
+      .get(`${this.RUNS_URL}`)
       .then((response) => {
         this.setState({
           runs: response.data,
@@ -135,7 +154,7 @@ class AddUserHand extends Component {
 
   getUserHandsCount = (user_id) => {
     axios
-      .get(`${this.state.userHandsCounturl}${user_id}`)
+      .get(`${this.USERS_HANDS_COUNT_URL}${user_id}`)
       .then((response) => {
         console.log(response.data.length);
         this.setState({
@@ -151,7 +170,7 @@ class AddUserHand extends Component {
     var data = JSON.stringify(hand);
     var config = {
       method: "post",
-      url: this.state.addUserHandUrl,
+      url: this.ADD_USERS_HAND,
       headers: {
         "Content-Type": "Application/json",
       },
@@ -168,65 +187,126 @@ class AddUserHand extends Component {
       });
   };
 
-  componentDidUpdate = () => {};
+  componentDidUpdate = () => {
+    this.saveLocal();
+  };
+
+  saveLocal = () => {
+    localStorage.setItem("localState", JSON.stringify(this.state));
+  };
 
   render() {
+    // debugger;
+    const isLoggedOut = !this.state.isLoggedIn ? (
+      <Redirect to="/login" />
+    ) : null;
     return (
-      <section className="form-container">
-        <Form onSubmit={this.handleSubmit}>
-          <Form.Row>
-            <Form.Group controlId="frmRunSelect">
-              <select
-                name="selectedRun"
-                className="form-control"
-                defaultValue={this.state.selectedRun}
-                onChange={this.handleRunSelect}
-              >
-                <option>Select Run</option>
-                {this.state.runs.map((run) => (
-                  <option key={run.id} value={run.id}>
-                    {run.run_name}
-                  </option>
-                ))}
-              </select>
-            </Form.Group>
-
-            &nbsp;&nbsp;&nbsp;
-            
-            <Form.Group controlId="frmUserSelect">
-              <select
-                name="selectedUser"
-                className="form-control"
-                defaultValue={this.state.selectedUser}
-                onChange={this.handleUserSelect}
-              >
-                <option>Select User</option>
-                {this.state.users.map((user) => (
-                  <option key={user.id} value={user.id}>
-                    {user.full_name}
-                  </option>
-                ))}
-              </select>
-            </Form.Group>
-
-            &nbsp;&nbsp;&nbsp;
-
-            <Form.Group controlId="frmAddUserHandButton">
-              <Button variant="light" type="submit">
-                Submit Hand #{this.state.handsCount + 1 || "?"}
-              </Button>
-            </Form.Group>
-          </Form.Row>
-          <Form.Row>
-            <Form.Group>
-              <Form.Label>{`${this.state.selectedUserName} currently has ${this.state.handsCount} hand(s)`}</Form.Label>
-            </Form.Group>
-          </Form.Row>
-        </Form>
-        <section>--Add Table Component--</section>
-      </section>
+      <>
+        {isLoggedOut}
+        <section className="form-container">
+          <Form onSubmit={this.handleSubmit}>
+            <Form.Row>
+              <Form.Group controlId="frmRunSelect">
+                <select
+                  name="selectedRun"
+                  className="form-control"
+                  defaultValue={this.state.selectedRun}
+                  onChange={this.handleRunSelect}
+                >
+                  <option>Select Run</option>
+                  {this.state.runs.map((run) => (
+                    <option key={run.id} value={run.id}>
+                      {run.run_name}
+                    </option>
+                  ))}
+                </select>
+              </Form.Group>
+              &nbsp;&nbsp;&nbsp;
+              <Form.Group controlId="frmUserSelect">
+                <select
+                  name="selectedUser"
+                  className="form-control"
+                  defaultValue={this.state.selectedUser}
+                  onChange={this.handleUserSelect}
+                >
+                  <option>Select User</option>
+                  {this.state.users.map((user) => (
+                    <option key={user.id} value={user.id}>
+                      {user.full_name}
+                    </option>
+                  ))}
+                </select>
+              </Form.Group>
+              &nbsp;&nbsp;&nbsp;
+              <Form.Group controlId="frmAddUserHandButton">
+                <Button variant="light" type="submit">
+                  Submit Hand #{this.state.handsCount + 1 || "?"}
+                </Button>
+              </Form.Group>
+            </Form.Row>
+            <Form.Row>
+              <Form.Group>
+                <Form.Label>{`${this.state.selectedUserName} currently has ${this.state.handsCount} hand(s)`}</Form.Label>
+              </Form.Group>
+            </Form.Row>
+          </Form>
+          <section>--Add Table Component--</section>
+        </section>
+      </>
     );
   }
 }
 
 export default AddUserHand;
+
+{
+  /* <section className="form-container">
+<Form onSubmit={this.handleSubmit}>
+  <Form.Row>
+    <Form.Group controlId="frmRunSelect">
+      <select
+        name="selectedRun"
+        className="form-control"
+        defaultValue={this.state.selectedRun}
+        onChange={this.handleRunSelect}
+      >
+        <option>Select Run</option>
+        {this.state.runs.map((run) => (
+          <option key={run.id} value={run.id}>
+            {run.run_name}
+          </option>
+        ))}
+      </select>
+    </Form.Group>
+    &nbsp;&nbsp;&nbsp;
+    <Form.Group controlId="frmUserSelect">
+      <select
+        name="selectedUser"
+        className="form-control"
+        defaultValue={this.state.selectedUser}
+        onChange={this.handleUserSelect}
+      >
+        <option>Select User</option>
+        {this.state.users.map((user) => (
+          <option key={user.id} value={user.id}>
+            {user.full_name}
+          </option>
+        ))}
+      </select>
+    </Form.Group>
+    &nbsp;&nbsp;&nbsp;
+    <Form.Group controlId="frmAddUserHandButton">
+      <Button variant="light" type="submit">
+        Submit Hand #{this.state.handsCount + 1 || "?"}
+      </Button>
+    </Form.Group>
+  </Form.Row>
+  <Form.Row>
+    <Form.Group>
+      <Form.Label>{`${this.state.selectedUserName} currently has ${this.state.handsCount} hand(s)`}</Form.Label>
+    </Form.Group>
+  </Form.Row>
+</Form>
+<section>--Add Table Component--</section>
+</section> */
+}

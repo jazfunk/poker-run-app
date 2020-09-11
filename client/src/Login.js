@@ -15,7 +15,7 @@ class Login extends Component {
       JSON.parse(window.localStorage.getItem("localState")) || [];
 
     if (localState.length > 0 || localState.constructor === Object) {
-      console.log(localState);
+      // console.log(localState);
       this.state = {
         email: localState.email || "",
         full_name: localState.full_name || "",

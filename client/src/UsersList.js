@@ -2,34 +2,55 @@ import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
 import UsersTable from "./Components/TableComponents/UsersTable";
 import axios from "axios";
+import { Redirect } from "react-router-dom";
 
 class UsersList extends Component {
-  port = process.env.PORT || 5000
+  port = process.env.PORT || 5000;
   USERS_URL = `/api/users/`;
   constructor(props) {
     super(props);
-    this.state = {
-      usersUrl: this.USERS_URL,
-      users: [],
-      userSearch: "",
-    };
+    this.importSavedState();
   }
 
-  getData = (url) => {
-    return axios.get(url).then((response) => response.data);
+  importSavedState = () => {
+    const localState =
+      JSON.parse(window.localStorage.getItem("localState")) || [];
+
+    if (localState.length > 0 || localState.constructor === Object) {
+      console.log(localState);
+      this.state = {
+        email: localState.email || "",
+        full_name: localState.full_name || "",
+        isLoggedIn: localState.isLoggedIn || false,
+        password: localState.password || "",
+        userId: localState.userId || 0,
+        users: localState.users || [],
+        hands: localState.hands || [],
+        userSearch: localState.userSearch || "",
+      };
+    } else {
+      this.state = {
+        isLoggedIn: false,
+        users: [],
+        hands: [],
+        userSearch: "",
+      };
+    }
   };
 
   componentDidMount = () => {
-    axios
-      .get(this.state.usersUrl)
-      .then((response) => {
-        this.setState({
-          users: response.data,
+    if (this.state.isLoggedIn) {
+      axios
+        .get(this.USERS_URL)
+        .then((response) => {
+          this.setState({
+            users: response.data,
+          });
+        })
+        .catch((error) => {
+          console.log(error);
         });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    }
   };
 
   handleChange = (event) => {
@@ -43,7 +64,6 @@ class UsersList extends Component {
   handleClear = () => {
     if (this.state.userSearch) {
       this.setState({
-        usersUrl: this.USERS_URL,
         userSearch: "",
       });
     }
@@ -51,54 +71,116 @@ class UsersList extends Component {
 
   handlePrevious = (event) => {};
   handleNext = (event) => {};
-  componentDidUpdate = (prevProps, prevSTate) => {};
+
+  componentDidUpdate = () => {
+    this.saveLocal();
+  };
+
+  saveLocal = () => {
+    localStorage.setItem("localState", JSON.stringify(this.state));
+  };
 
   render() {
+    // debugger;
+    const isLoggedOut = !this.state.isLoggedIn ? (
+      <Redirect to="/login" />
+    ) : null;
     return (
-      <section className="form-container">
+      <>
+        {isLoggedOut}
         <section>
-          <input
-            id="search-text"
-            type="text"
-            className="form-control"
-            placeholder="Search Users"
-            value={this.state.userSearch}
-            onChange={this.handleChange}
-            required={true}
-          />
-          &nbsp;
-          <Button
-            id="btn-search"
-            className="btn-secondary"
-            onClick={this.handleSearch}
-          >
-            Search
-          </Button>
-          &nbsp;
-          <Button
-            id="btn-clear"
-            className="btn-info"
-            onClick={this.handleClear}
-          >
-            Clear
-          </Button>
-          &nbsp;
-          <Button id="btn-prev" onClick={this.handlePrevious}>
-            {`<Prev`}
-          </Button>
-          &nbsp;
-          <Button id="btn-next" onClick={this.handleNext}>
-            {`Next>`}
-          </Button>
-          <br></br>
-          <UsersTable users={this.state.users} />
-          <section className="record-count-display">
-            {`Display number of users and number of pages`}
+          {console.log("UsersList")}
+          <section className="form-container">
+            <section>
+              <input
+                id="search-text"
+                type="text"
+                className="form-control"
+                placeholder="Search Users"
+                value={this.state.userSearch}
+                onChange={this.handleChange}
+                required={true}
+              />
+              &nbsp;
+              <Button
+                id="btn-search"
+                className="btn-secondary"
+                onClick={this.handleSearch}
+              >
+                Search
+              </Button>
+              &nbsp;
+              <Button
+                id="btn-clear"
+                className="btn-info"
+                onClick={this.handleClear}
+              >
+                Clear
+              </Button>
+              &nbsp;
+              <Button id="btn-prev" onClick={this.handlePrevious}>
+                {`<Prev`}
+              </Button>
+              &nbsp;
+              <Button id="btn-next" onClick={this.handleNext}>
+                {`Next>`}
+              </Button>
+              <br></br>
+              <UsersTable users={this.state.users} />
+              <section className="record-count-display">
+                {`Display number of users and number of pages`}
+              </section>
+            </section>
           </section>
         </section>
-      </section>
+      </>
     );
   }
 }
 
 export default UsersList;
+
+{
+  /* <section className="form-container">
+<section>
+  <input
+    id="search-text"
+    type="text"
+    className="form-control"
+    placeholder="Search Users"
+    value={this.state.userSearch}
+    onChange={this.handleChange}
+    required={true}
+  />
+  &nbsp;
+  <Button
+    id="btn-search"
+    className="btn-secondary"
+    onClick={this.handleSearch}
+  >
+    Search
+  </Button>
+  &nbsp;
+  <Button
+    id="btn-clear"
+    className="btn-info"
+    onClick={this.handleClear}
+  >
+    Clear
+  </Button>
+  &nbsp;
+  <Button id="btn-prev" onClick={this.handlePrevious}>
+    {`<Prev`}
+  </Button>
+  &nbsp;
+  <Button id="btn-next" onClick={this.handleNext}>
+    {`Next>`}
+  </Button>
+  <br></br>
+  <UsersTable users={this.state.users} />
+  <section className="record-count-display">
+    {`Display number of users and number of pages`}
+  </section>
+</section>
+</section> */
+}
