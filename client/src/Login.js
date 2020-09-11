@@ -18,6 +18,7 @@ class Login extends Component {
       console.log(localState);
       this.state = {
         email: localState.email || "",
+        full_name: localState.full_name || "",
         isLoggedIn: localState.isLoggedIn || false,
         password: localState.password || "",
         userId: localState.userId || 0,
@@ -71,7 +72,7 @@ class Login extends Component {
           alert("Logged in successfully");
           // debugger;
           this.setState({
-            userName: response.data.full_name,
+            full_name: response.data.full_name,
             isLoggedIn: true,
             userId: id,
             password: "hidden",

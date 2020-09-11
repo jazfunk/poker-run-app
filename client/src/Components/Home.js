@@ -17,6 +17,7 @@ class Home extends Component {
       // console.log(localState);
       this.state = {
         email: localState.email || "",
+        full_name: localState.full_name || "",
         isLoggedIn: localState.isLoggedIn || false,
         password: localState.password || "",
         userId: localState.userId || 0,
@@ -55,7 +56,7 @@ class Home extends Component {
           <Card className="app-home">
             <Card.Img variant="top" src={logo} />
             <Card.Body>
-              <Card.Title>Welcome {this.state.email}!</Card.Title>
+              <Card.Title>Welcome {this.state.full_name}!</Card.Title>
               <Card.Text>Go to 'My Hand' to see your cards</Card.Text>
             </Card.Body>
           </Card>
