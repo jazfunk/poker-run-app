@@ -2,15 +2,16 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
 const path = require("path");
-const usersDb = require("./models/users_queries");
-const runsDb = require("./models/runs_queries");
-const runAdminsDb = require("./models/run_admins_queries");
-const handsDb = require("./models/hands_queries");
-const handCardsDb = require("./models/hand_cards_queries");
-const cardsDb = require("./models/cards_queries");
+const usersDb = require("./controllers/users_queries");
+const runsDb = require("./controllers/runs_queries");
+const runAdminsDb = require("./controllers/run_admins_queries");
+const handsDb = require("./controllers/hands_queries");
+const handCardsDb = require("./controllers/hand_cards_queries");
+const cardsDb = require("./controllers/cards_queries");
 const port = process.env.PORT || 5000;
-const { client, startPage, saltRounds } = require("./config");
+const { client, startPage } = require("./config");
 const bcrypt = require("bcrypt");
+const saltRounds = 12;
 
 // const morgan = require("morgan");
 // app.use(morgan('combined'));
@@ -58,6 +59,7 @@ app.get("/api/users/:id", async (req, res) => {
 });
 
 app.post("/api/users", (req, res) => {
+  debugger;
   try {
     bcrypt.hash(req.body.password, saltRounds, (err, hash) => {
       usersDb

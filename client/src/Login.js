@@ -16,7 +16,6 @@ class Login extends Component {
       JSON.parse(window.localStorage.getItem("localState")) || [];
 
     if (localState.length > 0 || localState.constructor === Object) {
-      // console.log(localState);
       this.state = {
         email: localState.email || "",
         full_name: localState.full_name || "",
@@ -64,14 +63,12 @@ class Login extends Component {
 
     axios(config)
       .then((response) => {
-        // debugger;
         const id = response.data.user_id;
         if (id < 0) {
-          return alert("That email address doesn't exist in our records");
+          return alert("Email address not found!");
         }
         if (id > 0) {
-          alert("Logged in successfully");
-          // debugger;
+          alert(`${response.data.full_name} has been logged in.`);
           this.setState({
             full_name: response.data.full_name,
             isLoggedIn: true,
@@ -79,9 +76,8 @@ class Login extends Component {
             password: "hidden",
           });
         } else {
-          alert("Wrong password");
+          alert("Wrong password!");
         }
-        console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -90,9 +86,6 @@ class Login extends Component {
 
   componentDidUpdate = () => {
     this.saveLocal();
-    if (this.state.isLoggedIn) {
-      // window.location.reload(true);
-    }
   };
 
   saveLocal = () => {
@@ -100,15 +93,13 @@ class Login extends Component {
   };
 
   render() {
-    // debugger;
-    const isLoggedIn = this.state.isLoggedIn ? (
-      <Redirect to="/" />
-    ) : null;
+
+    const isLoggedIn = this.state.isLoggedIn ? <Redirect to="/" /> : null;
+    
     return (
       <>
         {isLoggedIn}
         <section>
-          {console.log("Login")}
           <LoginForm
             handleSubmit={this.handleSubmit}
             handleChange={this.handleChange}

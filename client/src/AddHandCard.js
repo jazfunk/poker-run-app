@@ -20,7 +20,6 @@ class AddHandCard extends Component {
       JSON.parse(window.localStorage.getItem("localState")) || [];
 
     if (localState.length > 0 || localState.constructor === Object) {
-      console.log(localState);
       this.state = {
         email: localState.email || "",
         full_name: localState.full_name || "",
@@ -64,6 +63,8 @@ class AddHandCard extends Component {
     const deck = [...this.state.randomDeck];
     let newHand = [];
 
+    // Extracts/Deletes the first number in the array
+    // Adds it to the hand
     for (let i = 1; i <= 5; i++) {
       var card = deck.shift();
       newHand.push(card);
@@ -77,11 +78,11 @@ class AddHandCard extends Component {
   };
 
   getRandomDeck = (cardCount) => {
-    // Gets cardCount number of unique cards
+    // Gets (cardCount) n of unique cards
     // from 1 to 52
-    var deck = [];
+    let deck = [];
     while (deck.length < cardCount) {
-      var r = Math.floor(Math.random() * 52) + 1;
+      let r = Math.floor(Math.random() * 52) + 1;
       if (deck.indexOf(r) === -1) deck.push(r);
     }
     console.log(deck);
@@ -149,6 +150,10 @@ class AddHandCard extends Component {
     event.preventDefault();
     const selectedRun = event.target.selectedOptions[0];
     console.log(`Selected Run: ${selectedRun.textContent}`);
+    
+    if (selectedRun.textContent === "Select Run") {
+      return alert("You must select a run");
+    }
     this.setState({
       selectedRun: selectedRun.value,
     });
@@ -179,6 +184,7 @@ class AddHandCard extends Component {
 
     // TODO:  Loop through Deck array
     // to get newHand card id
+    // Currently only grabbing the very first.
     const handCard = {
       hand_id: this.state.selectedHand,
       card_id: this.state.newHand[0],
@@ -200,7 +206,7 @@ class AddHandCard extends Component {
 
     axios(config)
       .then((response) => {
-        console.log(`New Hand Card Added`);
+        console.log(`New Card Added To Hand`);
       })
 
       .catch((error) => {
@@ -217,7 +223,6 @@ class AddHandCard extends Component {
   };
 
   render() {
-    // debugger;
     const isLoggedOut = !this.state.isLoggedIn ? (
       <Redirect to="/login" />
     ) : null;
@@ -283,10 +288,7 @@ class AddHandCard extends Component {
               </Form.Group>
             </Form.Row>
           </Form>
-          {/* <RunAdminsTable
-            runAdmins={this.state.runAdmins}
-            deleteAdmin={this.deleteAdmin}
-          /> */}
+          {/* TODO:  Add Table */}
         </section>
       </>
     );

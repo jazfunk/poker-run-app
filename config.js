@@ -12,6 +12,5 @@ module.exports = {
   endpoint: process.env.API_URL,
   masterKey: process.env.API_KEY,
   client: process.env.CLIENT_URL,
-  startPage: process.env.CLIENT_START,
-  saltRounds: process.env.SALT_ROUNDS,
+  startPage: process.env.CLIENT_START
 };

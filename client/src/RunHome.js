@@ -18,7 +18,6 @@ class RunHome extends Component {
       JSON.parse(window.localStorage.getItem("localState")) || [];
 
     if (localState.length > 0 || localState.constructor === Object) {
-      console.log(localState);
       this.state = {
         email: localState.email || "",
         full_name: localState.full_name || "",
@@ -92,7 +91,6 @@ class RunHome extends Component {
   };
 
   render() {
-    // debugger;
     const isLoggedOut = !this.state.isLoggedIn ? (
       <Redirect to="/login" />
     ) : null;
@@ -100,7 +98,6 @@ class RunHome extends Component {
       <>
         {isLoggedOut}
         <section>
-          {console.log("RunHome")}
           <section>
             <UserHandComponent hands={this.state.hands} />
           </section>
@@ -111,9 +108,3 @@ class RunHome extends Component {
 }
 
 export default RunHome;
-
-{
-  /* <section>
-  <UserHandComponent hands={this.state.hands} />
-</section>; */
-}

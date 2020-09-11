@@ -66,7 +66,7 @@ const Signup = (props) => {
             className="submitbtn-formgroup"
           >
             <Button variant="light" type="submit" className="submit-btn">
-              Sign Up
+              Add User
             </Button>
           </Form.Group>
         </Form.Row>

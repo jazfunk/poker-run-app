@@ -13,11 +13,7 @@ class CardDeck extends Component {
   }
 
   componentDidMount = () => {
-    this.loadCards();    
-    // if (props.user.isLoggedIn) {
-    //   // Load Run Events (if any) User is signed up for
-    //   //
-    // }
+    this.loadCards(); 
   };
 
   loadCards = () => {

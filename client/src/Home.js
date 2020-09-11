@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Card from "react-bootstrap/Card";
-import logo from "../Images/PokerRunKingLOGO_NEW.png";
+import logo from "./Images/PokerRunKingLOGO_NEW.png";
 import { Redirect } from "react-router-dom";
 
 class Home extends Component {
@@ -14,7 +14,6 @@ class Home extends Component {
       JSON.parse(window.localStorage.getItem("localState")) || [];
 
     if (localState.length > 0 || localState.constructor === Object) {
-      // console.log(localState);
       this.state = {
         email: localState.email || "",
         full_name: localState.full_name || "",
@@ -30,9 +29,7 @@ class Home extends Component {
   };
 
   componentDidMount = async () => {};
-
   handleSubmit = (event) => {};
-
   handleChange = (event) => {};
 
   componentDidUpdate = () => {
@@ -44,7 +41,6 @@ class Home extends Component {
   };
 
   render() {
-    // debugger;
     const isLoggedOut = !this.state.isLoggedIn ? (
       <Redirect to="/login" />
     ) : null;
@@ -52,7 +48,6 @@ class Home extends Component {
       <>
         {isLoggedOut}
         <section>
-          {console.log("Home")}
           <Card className="app-home">
             <Card.Img variant="top" src={logo} />
             <Card.Body>
@@ -67,13 +62,3 @@ class Home extends Component {
 }
 
 export default Home;
-
-//  <section>
-//     <Card className="app-home">
-//       <Card.Img variant="top" src={logo} />
-//       <Card.Body>
-//         <Card.Title>Welcome {this.state.email}!</Card.Title>
-//         <Card.Text>Go to 'My Hand' to see your cards</Card.Text>
-//       </Card.Body>
-//     </Card>
-//   </section>

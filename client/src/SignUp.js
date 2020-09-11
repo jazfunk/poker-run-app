@@ -6,7 +6,6 @@ import { Redirect } from "react-router-dom";
 class SignUp extends Component {
   port = process.env.PORT || 5000;
   ADD_USER_URL = `/api/users/`;
-  isLoggedIn = false;
 
   constructor(props) {
     super(props);
@@ -18,7 +17,6 @@ class SignUp extends Component {
       JSON.parse(window.localStorage.getItem("localState")) || [];
 
     if (localState.length > 0 || localState.constructor === Object) {
-      console.log(localState);
       this.state = {
         email: localState.email || "",
         full_name: localState.full_name || "",
@@ -55,7 +53,12 @@ class SignUp extends Component {
     event.preventDefault();
     event.target.reset();
 
-    // TODO:  Needs validation
+    // TODO: 
+    // Use validate helper module to 
+    // ensure proper data 
+    // Check if email alread exists
+    // add text box for re-typing password
+
     const user = {
       first_name: this.state.first_name,
       last_name: this.state.last_name,
@@ -67,6 +70,7 @@ class SignUp extends Component {
   };
 
   postNewUser = (user) => {
+    debugger;
     var data = JSON.stringify(user);
     var config = {
       method: "post",
@@ -80,11 +84,7 @@ class SignUp extends Component {
     axios(config)
       .then((response) => {
         console.log(JSON.stringify(response.data));
-        alert(`Congratulations, ${user.first_name}! \n You're all signed up`);
-        // this.setState({
-        //   isLoggedIn: true,
-        //   user: user,
-        // });
+        alert(`${user.first_name}! \n hsa been signed up`);
       })
 
       .catch((error) => {
@@ -101,7 +101,6 @@ class SignUp extends Component {
   };
 
   render() {
-    // debugger;
     const isLoggedOut = !this.state.isLoggedIn ? (
       <Redirect to="/login" />
     ) : null;
@@ -109,7 +108,6 @@ class SignUp extends Component {
       <>
         {isLoggedOut}
         <section>
-          {console.log("SignUp")}
           <SignUpComponent
             user={this.state}
             handleSubmit={this.handleSubmit}
@@ -122,11 +120,3 @@ class SignUp extends Component {
 }
 
 export default SignUp;
-
-{
-  /* <SignUpComponent
-user={this.state}
-handleSubmit={this.handleSubmit}
-handleChange={this.handleChange}
-/> */
-}

@@ -18,7 +18,6 @@ class AddNewRun extends Component {
       JSON.parse(window.localStorage.getItem("localState")) || [];
 
     if (localState.length > 0 || localState.constructor === Object) {
-      console.log(localState);
       this.state = {
         email: localState.email || "",
         full_name: localState.full_name || "",
@@ -80,7 +79,6 @@ class AddNewRun extends Component {
       run_date: this.state.run_date,
       owner_id: this.state.owner_id,
     };
-
     this.postNewRun(run);
   };
 
@@ -97,8 +95,8 @@ class AddNewRun extends Component {
 
     axios(config)
       .then((response) => {
-        // console.log(JSON.stringify(response.data));
-        alert(`New Run Added titled: \n${run.run_name}`);
+        alert(`New Run Added titled: \n${run.run_name} has been added`);
+        console.log(response.data);
         this.setState({
           run: run,
         });
@@ -125,7 +123,6 @@ class AddNewRun extends Component {
       <>
         {isLoggedOut}
         <section>
-          {console.log("AddNewRun")}
           <AddNewRunComponent
             users={this.state.users}
             user={this.state.userId}
@@ -141,14 +138,3 @@ class AddNewRun extends Component {
 }
 
 export default AddNewRun;
-
-{
-  /* <AddNewRunComponent
-  users={this.state.users}
-  user={this.state.user}
-  validationError={this.state.validationError}
-  handleChange={this.handleChange}
-  handleSubmit={this.handleSubmit}
-  handleSelect={this.handleSelect}
-/> */
-}

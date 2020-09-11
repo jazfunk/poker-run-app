@@ -9,10 +9,6 @@ class UserHome extends Component {
 
   componentDidUpdate = () => {};
 
-  saveLocal = (stateItem, stateValue) => {
-    localStorage.setItem(stateItem, JSON.stringify(stateValue));
-  };
-
   render() {
     return <section>UserHome</section>;
   }

@@ -17,7 +17,6 @@ class UsersList extends Component {
       JSON.parse(window.localStorage.getItem("localState")) || [];
 
     if (localState.length > 0 || localState.constructor === Object) {
-      console.log(localState);
       this.state = {
         email: localState.email || "",
         full_name: localState.full_name || "",
@@ -81,7 +80,6 @@ class UsersList extends Component {
   };
 
   render() {
-    // debugger;
     const isLoggedOut = !this.state.isLoggedIn ? (
       <Redirect to="/login" />
     ) : null;
@@ -89,7 +87,6 @@ class UsersList extends Component {
       <>
         {isLoggedOut}
         <section>
-          {console.log("UsersList")}
           <section className="form-container">
             <section>
               <input
@@ -139,48 +136,3 @@ class UsersList extends Component {
 }
 
 export default UsersList;
-
-{
-  /* <section className="form-container">
-<section>
-  <input
-    id="search-text"
-    type="text"
-    className="form-control"
-    placeholder="Search Users"
-    value={this.state.userSearch}
-    onChange={this.handleChange}
-    required={true}
-  />
-  &nbsp;
-  <Button
-    id="btn-search"
-    className="btn-secondary"
-    onClick={this.handleSearch}
-  >
-    Search
-  </Button>
-  &nbsp;
-  <Button
-    id="btn-clear"
-    className="btn-info"
-    onClick={this.handleClear}
-  >
-    Clear
-  </Button>
-  &nbsp;
-  <Button id="btn-prev" onClick={this.handlePrevious}>
-    {`<Prev`}
-  </Button>
-  &nbsp;
-  <Button id="btn-next" onClick={this.handleNext}>
-    {`Next>`}
-  </Button>
-  <br></br>
-  <UsersTable users={this.state.users} />
-  <section className="record-count-display">
-    {`Display number of users and number of pages`}
-  </section>
-</section>
-</section> */
-}

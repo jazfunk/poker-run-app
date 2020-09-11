@@ -5,7 +5,7 @@ import axios from "axios";
 import { Redirect } from "react-router-dom";
 
 class AddUserHand extends Component {
-  USERS_FULL_NAME_URL = "/api/fullnames/";
+  FULL_NAMES_URL = "/api/fullnames/";
   RUNS_URL = "/api/runs/";
   ADD_USERS_HAND = "/api/hands/";
   USERS_HANDS_COUNT_URL = "/api/handsuser/";
@@ -20,7 +20,6 @@ class AddUserHand extends Component {
       JSON.parse(window.localStorage.getItem("localState")) || [];
 
     if (localState.length > 0 || localState.constructor === Object) {
-      console.log(localState);
       this.state = {
         email: localState.email || "",
         full_name: localState.full_name || "",
@@ -32,6 +31,7 @@ class AddUserHand extends Component {
         selectedRun: localState.selectedRun || 1,
         runs: localState.runs || [],
         runAdmins: localState.runAdmins || [],
+        handsCount: localState.handsCount || 0,
       };
     } else {
       this.state = {
@@ -45,25 +45,6 @@ class AddUserHand extends Component {
     }
   };
 
-  // importSavedState = () => {
-  //   const localState =
-  //     JSON.parse(window.localStorage.getItem("localState")) || [];
-
-  //   if (localState.length > 0 || localState.constructor === Object) {
-  //     console.log(localState);
-  //     this.setState({
-  //       email: localState.email || "",
-  //       isLoggedIn: localState.isLoggedIn || false,
-  //       password: localState.password || "",
-  //       userId: localState.userId || 0,
-  //     });
-  //   } else {
-  //     this.setState({
-  //       isLoggedIn: false,
-  //     });
-  //   }
-  // };
-
   componentDidMount = () => {
     if (this.state.isLoggedIn) {
       this.loadUsers();
@@ -73,7 +54,7 @@ class AddUserHand extends Component {
 
   loadUsers = () => {
     axios
-      .get(`${this.USERS_FULL_NAME_URL}`)
+      .get(`${this.FULL_NAMES_URL}`)
       .then((response) => {
         this.setState({
           users: response.data,
@@ -84,9 +65,7 @@ class AddUserHand extends Component {
       });
   };
 
-  // Remove this for initial production deployment
-  // Only one run for now, and saves on connections
-  loadRuns = () => {
+    loadRuns = () => {
     axios
       .get(`${this.RUNS_URL}`)
       .then((response) => {
@@ -103,7 +82,7 @@ class AddUserHand extends Component {
     event.preventDefault();
     const selectedUser = event.target.selectedOptions[0];
     if (selectedUser.textContent === "Select User") {
-      return alert("You must select a user - " + selectedUser.value);
+      return alert("Select a valid user");
     }
 
     console.log(
@@ -121,6 +100,11 @@ class AddUserHand extends Component {
   handleRunSelect = (event) => {
     event.preventDefault();
     const selectedRun = event.target.selectedOptions[0];
+
+    if (selectedRun.textContent === "Select Run") {
+      return alert("Select a valid run");
+    }
+    
     console.log(`Selected Run: ${selectedRun.textContent}`);
     this.setState({
       selectedRun: selectedRun.value,
@@ -196,7 +180,6 @@ class AddUserHand extends Component {
   };
 
   render() {
-    // debugger;
     const isLoggedOut = !this.state.isLoggedIn ? (
       <Redirect to="/login" />
     ) : null;
@@ -258,55 +241,3 @@ class AddUserHand extends Component {
 }
 
 export default AddUserHand;
-
-{
-  /* <section className="form-container">
-<Form onSubmit={this.handleSubmit}>
-  <Form.Row>
-    <Form.Group controlId="frmRunSelect">
-      <select
-        name="selectedRun"
-        className="form-control"
-        defaultValue={this.state.selectedRun}
-        onChange={this.handleRunSelect}
-      >
-        <option>Select Run</option>
-        {this.state.runs.map((run) => (
-          <option key={run.id} value={run.id}>
-            {run.run_name}
-          </option>
-        ))}
-      </select>
-    </Form.Group>
-    &nbsp;&nbsp;&nbsp;
-    <Form.Group controlId="frmUserSelect">
-      <select
-        name="selectedUser"
-        className="form-control"
-        defaultValue={this.state.selectedUser}
-        onChange={this.handleUserSelect}
-      >
-        <option>Select User</option>
-        {this.state.users.map((user) => (
-          <option key={user.id} value={user.id}>
-            {user.full_name}
-          </option>
-        ))}
-      </select>
-    </Form.Group>
-    &nbsp;&nbsp;&nbsp;
-    <Form.Group controlId="frmAddUserHandButton">
-      <Button variant="light" type="submit">
-        Submit Hand #{this.state.handsCount + 1 || "?"}
-      </Button>
-    </Form.Group>
-  </Form.Row>
-  <Form.Row>
-    <Form.Group>
-      <Form.Label>{`${this.state.selectedUserName} currently has ${this.state.handsCount} hand(s)`}</Form.Label>
-    </Form.Group>
-  </Form.Row>
-</Form>
-<section>--Add Table Component--</section>
-</section> */
-}

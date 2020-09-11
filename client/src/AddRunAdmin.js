@@ -22,7 +22,6 @@ class AddRunAdmin extends Component {
       JSON.parse(window.localStorage.getItem("localState")) || [];
 
     if (localState.length > 0 || localState.constructor === Object) {
-      console.log(localState);
       this.state = {
         email: localState.email || "",
         full_name: localState.full_name || "",
@@ -172,7 +171,6 @@ class AddRunAdmin extends Component {
       <>
         {isLoggedOut}
         <section>
-          {console.log("AddRunAdmin")}
           <section className="form-container">
             <Form onSubmit={this.handleSubmit}>
               <Form.Row>
@@ -184,8 +182,8 @@ class AddRunAdmin extends Component {
                     onChange={this.handleRunSelect}
                   >
                     <option>Select Run</option>
-                    {this.state.runs.map((run) => (
-                      <option key={run.id} value={run.id}>
+                    {this.state.runs.map((run, index) => (
+                      <option key={index} value={run.id}>
                         {run.run_name}
                       </option>
                     ))}
@@ -200,8 +198,8 @@ class AddRunAdmin extends Component {
                     onChange={this.handleUserSelect}
                   >
                     <option>Select User</option>
-                    {this.state.users.map((user) => (
-                      <option key={user.id} value={user.id}>
+                    {this.state.users.map((user, index) => (
+                      <option key={index} value={user.id}>
                         {user.full_name}
                       </option>
                     ))}
@@ -220,7 +218,7 @@ class AddRunAdmin extends Component {
                 &nbsp;&nbsp;&nbsp;
                 <Form.Group controlId="frmAddRunAdminButton">
                   <Button variant="light" type="submit">
-                    Add Run Administrator
+                    Add Run Admin
                   </Button>
                 </Form.Group>
               </Form.Row>
@@ -237,61 +235,3 @@ class AddRunAdmin extends Component {
 }
 
 export default AddRunAdmin;
-
-// <section className="form-container">
-// <Form onSubmit={this.handleSubmit}>
-//   <Form.Row>
-//     <Form.Group controlId="frmRunSelect">
-//       <select
-//         name="selectedRun"
-//         className="form-control"
-//         defaultValue={this.state.selectedRun}
-//         onChange={this.handleRunSelect}
-//       >
-//         <option>Select Run</option>
-//         {this.state.runs.map((run) => (
-//           <option key={run.id} value={run.id}>
-//             {run.run_name}
-//           </option>
-//         ))}
-//       </select>
-//     </Form.Group>
-//     &nbsp;&nbsp;&nbsp;
-//     <Form.Group controlId="frmUserSelect">
-//       <select
-//         name="selectedUser"
-//         className="form-control"
-//         defaultValue={this.state.selectedUser}
-//         onChange={this.handleUserSelect}
-//       >
-//         <option>Select User</option>
-//         {this.state.users.map((user) => (
-//           <option key={user.id} value={user.id}>
-//             {user.full_name}
-//           </option>
-//         ))}
-//       </select>
-//     </Form.Group>
-//     &nbsp;&nbsp;&nbsp;
-//     <Form.Group controlId="frmAdminRoleInput">
-//       <Form.Control
-//         className="controls-space"
-//         name="admin_role"
-//         placeholder="Administrative Role"
-//         onChange={this.handleChange}
-//         defaultValue={this.state.admin_role}
-//       />
-//     </Form.Group>
-//     &nbsp;&nbsp;&nbsp;
-//     <Form.Group controlId="frmAddRunAdminButton">
-//       <Button variant="light" type="submit">
-//         Add Run Administrator
-//       </Button>
-//     </Form.Group>
-//   </Form.Row>
-// </Form>
-// <RunAdminsTable
-//   runAdmins={this.state.runAdmins}
-//   deleteAdmin={this.deleteAdmin}
-// />
-// </section>
