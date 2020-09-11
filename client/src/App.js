@@ -3,7 +3,6 @@ import "./App.css";
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
 import Login from "./Login";
-// import { Redirect } from "react-router-dom";
 
 class App extends Component {
   constructor(props) {
@@ -106,7 +105,7 @@ class App extends Component {
     <div className="App">
       <Header isLoggedIn={this.state.isLoggedIn} />
     </div>
-    {/* <Footer /> */}
+    <Footer />
       </section>
     );
   }

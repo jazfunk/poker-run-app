@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import LoginForm from "./Components/LoginForm";
 import axios from "axios";
+import { Redirect } from "react-router-dom";
 
 class Login extends Component {
   port = process.env.PORT || 5000;
@@ -91,8 +92,6 @@ class Login extends Component {
     this.saveLocal();
     if (this.state.isLoggedIn) {
       // window.location.reload(true);
-      // debugger;
-      // this.props.history.push("/");
     }
   };
 
@@ -101,13 +100,21 @@ class Login extends Component {
   };
 
   render() {
+    // debugger;
+    const isLoggedIn = this.state.isLoggedIn ? (
+      <Redirect to="/" />
+    ) : null;
     return (
-      <section>
-        <LoginForm
-          handleSubmit={this.handleSubmit}
-          handleChange={this.handleChange}
-        />
-      </section>
+      <>
+        {isLoggedIn}
+        <section>
+          {console.log("Login")}
+          <LoginForm
+            handleSubmit={this.handleSubmit}
+            handleChange={this.handleChange}
+          />
+        </section>
+      </>
     );
   }
 }
