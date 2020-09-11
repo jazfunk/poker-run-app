@@ -21,6 +21,7 @@ class AddNewRun extends Component {
       console.log(localState);
       this.state = {
         email: localState.email || "",
+        full_name: localState.full_name || "",
         isLoggedIn: localState.isLoggedIn || false,
         password: localState.password || "",
         userId: localState.userId || 0,
@@ -29,6 +30,7 @@ class AddNewRun extends Component {
     } else {
       this.state = {
         isLoggedIn: false,
+        users: [],
       };
     }
   };
@@ -37,7 +39,7 @@ class AddNewRun extends Component {
     axios
       .get(this.USERS_NAMES_URL)
       .then((response) => {
-        // console.log(response.data)
+        console.log(response.data)
         this.setState({
           users: response.data,
         });
@@ -48,9 +50,9 @@ class AddNewRun extends Component {
   };
 
   componentDidMount = () => {
-    if(this.state.isLoggedIn) {
-      this.loadUsersNamesList();
-    }
+    this.loadUsersNamesList();
+    // if(this.state.isLoggedIn) {
+    // }
   };
 
   handleChange = (event) => {
@@ -116,7 +118,6 @@ class AddNewRun extends Component {
   };
 
   render() {
-    // debugger;
     const isLoggedOut = !this.state.isLoggedIn ? (
       <Redirect to="/login" />
     ) : null;
