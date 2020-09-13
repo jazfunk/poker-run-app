@@ -56,7 +56,7 @@ class SignUp extends Component {
     // TODO: 
     // Use validate helper module to 
     // ensure proper data 
-    // Check if email alread exists
+    // Check if email already exists
     // add text box for re-typing password
 
     const user = {
@@ -84,7 +84,7 @@ class SignUp extends Component {
     axios(config)
       .then((response) => {
         console.log(JSON.stringify(response.data));
-        alert(`${user.first_name}! \n hsa been signed up`);
+        alert(`${user.first_name}! \n has been signed up`);
       })
 
       .catch((error) => {

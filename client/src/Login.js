@@ -65,7 +65,7 @@ class Login extends Component {
       .then((response) => {
         const id = response.data.user_id;
         if (id < 0) {
-          return alert("Email address not found!");
+          return alert("That email doesn't exist in our records.");
         }
         if (id > 0) {
           alert(`${response.data.full_name} has been logged in.`);

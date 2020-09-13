@@ -82,23 +82,23 @@ class AdminTables extends Component {
   };
 
   deleteUser = (event) => {
-    console.log("Remove button clicked");
+    console.log("DElete functionality has been disabled. \nRemove button clicked");
   };
 
   deleteHand = (event) => {
-    console.log("Remove button clicked");
+    console.log("DElete functionality has been disabled. \nRemove button clicked");
   };
 
   deleteHandsCard = (event) => {
-    console.log("Remove button clicked");
+    console.log("DElete functionality has been disabled. \nRemove button clicked");
   };
 
   deleteRun = (event) => {
-    console.log("Remove button clicked");
+    console.log("DElete functionality has been disabled. \nRemove button clicked");
   };
 
   deleteRunAdmin = (event) => {
-    console.log("Remove button clicked");
+    console.log("DElete functionality has been disabled. \nRemove button clicked");
   };
   componentDidUpdate = () => {
     this.saveLocal();
