@@ -102,7 +102,7 @@ const deleteHandCard = async (id) => {
 const getAllHandCardsNameFaceSuit = async (id) => {
   return pool.connect().then(async (client) => {    
     const selectStatement =
-    "SELECT hand_cards.id, hands.user_id, CONCAT(users.first_name , ' ' , users.last_name) AS full_name, hand_cards.hand_id, hands.hand_number, hand_cards.card_id, cards.card_face, cards.card_suit, hand_cards.created_at ";;
+    "SELECT hand_cards.id, hands.user_id, CONCAT(users.first_name , ' ' , users.last_name) AS full_name, hand_cards.hand_id, hands.hand_number, hand_cards.card_id, cards.card_face, cards.card_suit, cards.card_value, hand_cards.created_at ";;
     const fromJoinStatement =
     "FROM hand_cards INNER JOIN hands ON hand_cards.hand_id = hands.id INNER JOIN users ON users.id = hands.user_id INNER JOIN cards ON cards.id = hand_cards.card_id ";;
     const orderByStatement =

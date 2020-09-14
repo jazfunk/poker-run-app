@@ -5,22 +5,27 @@ import logo from "../Images/PokerRunKingLOGO_NEW.png";
 
 let fullName = "";
 
-const RunUserHands = (props) => {
-  let handsRows = props.hands.map((hand, index) => {
-    fullName = `${hand.first_name} ${hand.last_name}`;
+const UserHandComponent = (props) => {
+  // TODO:  Change data sent via props
+  //
+  // Loop through hands
+  // Then map each hand to show a card    
+
+  let handsRows = props.handCards.map((card, index) => {
+    fullName = `${card.full_name}`;
     return (
       <Draggable key={index} axis="x" grid={[10, 10]} bounds="parent">
         <Card className="hands-cards" key={index}>
           <Card.Img
             className="hands-img card-glow"
             variant="top"
-            src={require(`../Images/${hand.card_suit}.png`)}
+            src={require(`../Images/${card.card_suit}.png`)}
             alt=""
           />
           <Card.Body>
-            <Card.Title className="card-face">{hand.card_face}</Card.Title>
+            <Card.Title className="card-face">{card.card_face}</Card.Title>
             <Card.Text className="hands-number">
-              {hand.hand_number}-{hand.hand_id}-{hand.card_value}
+              {card.hand_number}-{card.hand_id}-{card.card_value}
             </Card.Text>
           </Card.Body>
         </Card>
@@ -36,9 +41,10 @@ const RunUserHands = (props) => {
   // {hand.card_suit}
   // {hand.card_value}
 
+
   handsRows =
     handsRows.length === 0 ? (
-      <Card className="hands-cards" >
+      <Card className="hands-cards">
         <Card.Img variant="top" src={logo} />
         <Card.Body>
           <Card.Title className="card-face">No Cards</Card.Title>
@@ -57,4 +63,4 @@ const RunUserHands = (props) => {
   );
 };
 
-export default RunUserHands;
+export default UserHandComponent;

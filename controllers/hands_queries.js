@@ -178,7 +178,7 @@ const getAllUserHands = async (id) => {
 const getHandsNameRun = async () => {
   return pool.connect().then(async (client) => {
     const selectStatement =
-    "SELECT hands.id, CONCAT(users.first_name , ' ' , users.last_name) AS full_name, runs.run_name, hands.hand_rank, hands.hand_number, hands.created_at ";
+    "SELECT hands.id, CONCAT(users.first_name , ' ' , users.last_name) AS full_name, hands.run_id, runs.run_name, hands.hand_rank, hands.hand_number, hands.created_at ";
     const fromJoinStatement =
     "FROM users INNER JOIN hands ON users.id = hands.user_id INNER JOIN runs ON runs.id = hands.run_id ";    
     const orderByStatement = 

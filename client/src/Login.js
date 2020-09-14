@@ -2,21 +2,32 @@ import React, { Component } from "react";
 import LoginForm from "./Components/LoginForm";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
+import { LOGIN_URL } from "./API_Config";
 
 class Login extends Component {
-  port = process.env.PORT || 5000;
-  LOGIN_URL = "/api/user/login";
+  LOGIN_URL = LOGIN_URL;
   constructor(props) {
     super(props);
     this.importSavedState();
   }
-
+  
   importSavedState = () => {
     const localState =
       JSON.parse(window.localStorage.getItem("localState")) || [];
 
+    const dashBoardInitial = {
+      users: [],
+      hands: [],
+      handCards: [],
+      runs: [],
+      runAdmins: [],
+      cards: [],
+    };
+
+
     if (localState.length > 0 || localState.constructor === Object) {
       this.state = {
+        dashBoard: localState.dashBoard || dashBoardInitial,
         email: localState.email || "",
         full_name: localState.full_name || "",
         isLoggedIn: localState.isLoggedIn || false,

@@ -31,7 +31,7 @@ const Navigation = () => {
             </NavDropdown>
             <NavDropdown title="Admin" id="basic-nav-dropdown">
               <NavDropdown.Item href="/signup">Sign Up</NavDropdown.Item>
-              <NavDropdown.Item href="/addrun">Add New Run</NavDropdown.Item>
+              {/* <NavDropdown.Item href="/addrun">Add New Run</NavDropdown.Item> */}
               <NavDropdown.Item href="/userslist">Users List</NavDropdown.Item>
               <NavDropdown.Item href="/addrunadmin">
                 Add Run Admin

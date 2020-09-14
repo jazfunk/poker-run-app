@@ -4,25 +4,44 @@ import Button from "react-bootstrap/Button";
 import axios from "axios";
 import RunAdminsTable from "./Components/TableComponents/RunAdminsTable";
 import { Redirect } from "react-router-dom";
+import {
+  ADD_RUN_ADMIN_URL,
+  FULL_NAMES_URL,
+  RUNS_URL,
+  RUN_ADMINS_URL,
+} from "./API_Config";
 
 class AddRunAdmin extends Component {
-  port = process.env.PORT || 5000;
-  ADD_RUN_ADMIN_URL = "/api/runadmin/";
-  USERS_FULL_NAME_URL = "/api/fullnames/";
-  RUNS_URL = "/api/runs/";
-  RUN_ADMINS_URL = "/api/runadminsbyrun/";
+  ADD_RUN_ADMIN_URL = ADD_RUN_ADMIN_URL
+  FULL_NAMES_URL = FULL_NAMES_URL;
+  RUNS_URL = RUNS_URL;
+  RUN_ADMINS_URL = RUN_ADMINS_URL;
 
   constructor(props) {
     super(props);
     this.importSavedState();
+    // Loading each table independently here
+    // instead of relying on the dashboard data
+    // To ensure fresh data when adding Run admins
   }
 
   importSavedState = () => {
     const localState =
       JSON.parse(window.localStorage.getItem("localState")) || [];
 
+    const dashBoardInitial = {
+      users: [],
+      hands: [],
+      handCards: [],
+      runs: [],
+      runAdmins: [],
+      cards: [],
+    };
+
+
     if (localState.length > 0 || localState.constructor === Object) {
       this.state = {
+        dashBoard: localState.dashBoard || dashBoardInitial,
         email: localState.email || "",
         full_name: localState.full_name || "",
         isLoggedIn: localState.isLoggedIn || false,
@@ -56,7 +75,7 @@ class AddRunAdmin extends Component {
 
   loadUsers = () => {
     axios
-      .get(`${this.USERS_FULL_NAME_URL}`)
+      .get(`${this.FULL_NAMES_URL}`)
       .then((response) => {
         this.setState({
           users: response.data,

@@ -3,24 +3,41 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
+import {
+  FULL_NAMES_URL,
+  RUNS_URL,
+  ADD_USERS_HAND,
+  USER_HANDS_URL,
+  ADMIN_DASHBOARD,
+} from "./API_Config";
 
 class AddUserHand extends Component {
-  FULL_NAMES_URL = "/api/fullnames/";
-  RUNS_URL = "/api/runs/";
-  ADD_USERS_HAND = "/api/hands/";
-  USERS_HANDS_COUNT_URL = "/api/handsuser/";
+  FULL_NAMES_URL = FULL_NAMES_URL;
+  RUNS_URL = RUNS_URL;
+  ADD_USERS_HAND = ADD_USERS_HAND;
+  USER_HANDS_URL = USER_HANDS_URL;
+  ADMIN_DASHBOARD = ADMIN_DASHBOARD;
 
   constructor(props) {
     super(props);
     this.importSavedState();
   }
-
   importSavedState = () => {
     const localState =
       JSON.parse(window.localStorage.getItem("localState")) || [];
 
+    const dashBoardInitial = {
+      users: [],
+      hands: [],
+      handCards: [],
+      runs: [],
+      runAdmins: [],
+      cards: [],
+    };
+
     if (localState.length > 0 || localState.constructor === Object) {
       this.state = {
+        dashBoard: localState.dashBoard || dashBoardInitial,
         email: localState.email || "",
         full_name: localState.full_name || "",
         isLoggedIn: localState.isLoggedIn || false,
@@ -65,7 +82,7 @@ class AddUserHand extends Component {
       });
   };
 
-    loadRuns = () => {
+  loadRuns = () => {
     axios
       .get(`${this.RUNS_URL}`)
       .then((response) => {
@@ -104,7 +121,7 @@ class AddUserHand extends Component {
     if (selectedRun.textContent === "Select Run") {
       return alert("Select a valid run");
     }
-    
+
     console.log(`Selected Run: ${selectedRun.textContent}`);
     this.setState({
       selectedRun: selectedRun.value,
@@ -138,7 +155,7 @@ class AddUserHand extends Component {
 
   getUserHandsCount = (user_id) => {
     axios
-      .get(`${this.USERS_HANDS_COUNT_URL}${user_id}`)
+      .get(`${this.USER_HANDS_URL}${user_id}`)
       .then((response) => {
         console.log(response.data.length);
         this.setState({

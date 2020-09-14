@@ -2,11 +2,14 @@ import React, { Component } from "react";
 import axios from "axios";
 import AddNewRunComponent from "./Components/AddNewRunComponent";
 import { Redirect } from "react-router-dom";
+import {
+  ADD_RUN_URL,
+  FULL_NAMES_URL,
+} from "./API_Config";
 
 class AddNewRun extends Component {
-  port = process.env.PORT || 5000;
-  ADD_RUN_URL = `/api/runs/`;
-  USERS_NAMES_URL = `/api/fullnames/`;
+  ADD_RUN_URL = ADD_RUN_URL;
+  FULL_NAMES_URL = FULL_NAMES_URL;
   
   constructor(props) {
     super(props);    
@@ -17,8 +20,19 @@ class AddNewRun extends Component {
     const localState =
       JSON.parse(window.localStorage.getItem("localState")) || [];
 
+    const dashBoardInitial = {
+      users: [],
+      hands: [],
+      handCards: [],
+      runs: [],
+      runAdmins: [],
+      cards: [],
+    };
+
+
     if (localState.length > 0 || localState.constructor === Object) {
       this.state = {
+        dashBoard: localState.dashBoard || dashBoardInitial,
         email: localState.email || "",
         full_name: localState.full_name || "",
         isLoggedIn: localState.isLoggedIn || false,
@@ -36,7 +50,7 @@ class AddNewRun extends Component {
 
   loadUsersNamesList = () => {
     axios
-      .get(this.USERS_NAMES_URL)
+      .get(this.FULL_NAMES_URL)
       .then((response) => {
         console.log(response.data)
         this.setState({

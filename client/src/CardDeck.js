@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import axios from "axios";
 import CardDeckComponent from "./Components/CardDeckComponent";
+import { CARDS_URL } from "./API_Config";
 
 class CardDeck extends Component {
-  CARDS_URL = "/api/cards";
+  CARDS_URL = CARDS_URL;
 
   constructor(props) {
     super(props);  
@@ -13,6 +14,10 @@ class CardDeck extends Component {
   }
 
   componentDidMount = () => {
+
+    // Need to add normalization to state
+    // Mimic from all other class components
+    
     this.loadCards(); 
   };
 

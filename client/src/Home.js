@@ -2,19 +2,33 @@ import React, { Component } from "react";
 import Card from "react-bootstrap/Card";
 import logo from "./Images/PokerRunKingLOGO_NEW.png";
 import { Redirect } from "react-router-dom";
+import axios from "axios";
+import { ADMIN_DASHBOARD } from "./API_Config";
 
 class Home extends Component {
+  ADMIN_DASHBOARD = ADMIN_DASHBOARD;
+
   constructor(props) {
     super(props);
     this.importSavedState();
-  }
+  }  
 
   importSavedState = () => {
     const localState =
       JSON.parse(window.localStorage.getItem("localState")) || [];
 
+    const dashBoardInitial = {
+      users: [],
+      hands: [],
+      handCards: [],
+      runs: [],
+      runAdmins: [],
+      cards: [],
+    };
+
     if (localState.length > 0 || localState.constructor === Object) {
       this.state = {
+        dashBoard: localState.dashBoard || dashBoardInitial,
         email: localState.email || "",
         full_name: localState.full_name || "",
         isLoggedIn: localState.isLoggedIn || false,
@@ -28,7 +42,29 @@ class Home extends Component {
     }
   };
 
-  componentDidMount = async () => {};
+  componentDidMount = async () => {
+    // Load up dashBoard here, instead of only in AdminTables
+    if (this.state.isLoggedIn) {
+      this.loadDashboard();
+      // Load up runs by user
+      // Display each run signed up in a Card
+    }
+
+  };
+
+  loadDashboard = () => {
+    axios
+      .get(this.ADMIN_DASHBOARD)
+      .then((response) => {
+        this.setState({
+          dashBoard: response.data,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   handleSubmit = (event) => {};
   handleChange = (event) => {};
 

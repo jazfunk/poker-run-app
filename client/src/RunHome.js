@@ -2,11 +2,12 @@ import React, { Component } from "react";
 import axios from "axios";
 import UserHandComponent from "./Components/UserHandComponent";
 import { Redirect } from "react-router-dom";
+import { USERS_HAND_URL, USER_HANDS_URL } from "./API_Config";
 
 class RunHome extends Component {
   port = process.env.PORT || 5000;
-  USERS_HAND_URL = "/api/usershand/";
-  // HANDS_USER_URL = "/api/handsuser/";
+  USERS_HAND_URL = USERS_HAND_URL;
+  USER_HANDS_URL = USER_HANDS_URL;
 
   constructor(props) {
     super(props);
@@ -17,28 +18,46 @@ class RunHome extends Component {
     const localState =
       JSON.parse(window.localStorage.getItem("localState")) || [];
 
+    const dashBoardInitial = {
+      users: [],
+      hands: [],
+      handCards: [],
+      runs: [],
+      runAdmins: [],
+      cards: [],
+    };
+
+    // change referencing values to dashBoard properties
     if (localState.length > 0 || localState.constructor === Object) {
       this.state = {
+        dashBoard: localState.dashBoard || dashBoardInitial,
         email: localState.email || "",
         full_name: localState.full_name || "",
         isLoggedIn: localState.isLoggedIn || false,
         password: localState.password || "",
         userId: localState.userId || 0,
-        users: [],
-        hands: [],
+        // users: [],
+        // hands: [],
       };
     } else {
       this.state = {
         isLoggedIn: false,
-        users: [],
-        hands: [],
+        // users: [],
+        // hands: [],
       };
     }
   };
 
   componentDidMount = async () => {
     if (this.state.isLoggedIn) {
-      this.loadAllHandsByUser();
+      // Load Standings component
+      // Intended to show top five hands ranked in the run
+      // Time constraints may require just listing all
+      // Load a row for each hand
+      // - The loadAllHandsByUser method returns
+      // - ALL user hands, needs filtering
+      // If no cards in hand, show "deal" button
+      // this.loadAllHandsByUser();
       // this.loadHandsUser();
     }
   };
@@ -60,7 +79,7 @@ class RunHome extends Component {
   // // Raw table data for form select element
   // loadHandsUser = () => {
   //   axios
-  //     .get(`${this.HANDS_USER_URL}${this.state.user}`)
+  //     .get(`${this.USER_HANDS_URL}${this.state.user}`)
   //     .then((response) => {
   //       this.setState({
   //         userHands: response.data,
@@ -99,7 +118,7 @@ class RunHome extends Component {
         {isLoggedOut}
         <section>
           <section>
-            <UserHandComponent hands={this.state.hands} />
+            <UserHandComponent hands={this.state.dashBoard.hands} handCards={this.state.dashBoard.handCards} />
           </section>
         </section>
       </>

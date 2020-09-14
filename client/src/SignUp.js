@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import axios from "axios";
 import SignUpComponent from "./Components/SignupComponent";
 import { Redirect } from "react-router-dom";
+import { ADD_USER_URL } from "./API_Config";
 
 class SignUp extends Component {
-  port = process.env.PORT || 5000;
-  ADD_USER_URL = `/api/users/`;
+  ADD_USER_URL = ADD_USER_URL;
 
   constructor(props) {
     super(props);
@@ -16,21 +16,31 @@ class SignUp extends Component {
     const localState =
       JSON.parse(window.localStorage.getItem("localState")) || [];
 
+    const dashBoardInitial = {
+      users: [],
+      hands: [],
+      handCards: [],
+      runs: [],
+      runAdmins: [],
+      cards: [],
+    };
+
     if (localState.length > 0 || localState.constructor === Object) {
       this.state = {
+        dashBoard: localState.dashBoard || dashBoardInitial,
         email: localState.email || "",
         full_name: localState.full_name || "",
         isLoggedIn: localState.isLoggedIn || false,
         password: localState.password || "",
         userId: localState.userId || 0,
-        users: localState.users || [],
-        hands: localState.hands || [],
+        // users: localState.users || [],
+        // hands: localState.hands || [],
       };
     } else {
       this.state = {
         isLoggedIn: false,
-        users: [],
-        hands: [],
+        // users: [],
+        // hands: [],
       };
     }
   };
@@ -70,7 +80,6 @@ class SignUp extends Component {
   };
 
   postNewUser = (user) => {
-    debugger;
     var data = JSON.stringify(user);
     var config = {
       method: "post",
