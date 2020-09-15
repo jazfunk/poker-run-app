@@ -17,10 +17,8 @@ const UserHandComponent = (props) => {
           />
           <Card.Body>
             <Card.Title className="card-face">{card.card_face}</Card.Title>
-            <Card.Text className="hands-number">
-              {card.hand_number}-{card.hand_id}-{card.card_value}
-            </Card.Text>
-          </Card.Body>
+            <Card.Text className="hands-number">{card.hand_number}</Card.Text>
+          </Card.Body>   
         </Card>
       </Draggable>
     );

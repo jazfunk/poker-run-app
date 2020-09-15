@@ -135,7 +135,7 @@ ul.dropdown-menu {
   margin: 0px 7px 30px 7px;
   padding: 10px 0px 0px 0px;
   border-radius: 12px;
-  border: 1px solid #feffff;
+  border: 2px solid #feffff;
   background-image: linear-gradient(
     to top left,
     #d1e8e2,
@@ -179,7 +179,7 @@ ul.dropdown-menu {
 }
 
 .hands-number {
-  font-size: x-small;
+  font-size: xx-small;
 }
 
 .card-face {
