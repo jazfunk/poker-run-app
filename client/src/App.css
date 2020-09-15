@@ -2,14 +2,14 @@
   flex: 1 0 auto;
 }
 
-.custom-nav { 
+.custom-nav {
   flex-shrink: 0;
   /* background-color: rgba(0, 0, 0, 0.8);; */
   /* background-color: #2C3531;    */
 }
 
 .navbar-align {
-  display: flex; 
+  display: flex;
   width: 100%;
   background-image: linear-gradient(to bottom right, #116466, #2c3531);
   border-bottom: 0.5px solid #116466;
@@ -48,7 +48,7 @@
   /* background-image: linear-gradient(to bottom right, #116466, #2c3531); */
   background-color: rgba(17, 100, 102, 0.6);
   border-color: #116466;
-  color: #D1E8E2;
+  color: #d1e8e2;
   width: 50vw;
 }
 
@@ -191,8 +191,9 @@ ul.dropdown-menu {
 .card-face {
   color: #116466;
   font-size: 8vw;
-  /* text-shadow: 0 0 1px #2c3531, 0 0 3px #116466; */
-  text-shadow: 1px 1px 2px #FEFFFF;
+  text-shadow: -2px 0 3px #d1e8e2, 2px 0 3px #def2f1, 0 2px 3px #def2f1,
+    0 -2px 3px #d1e8e2;
+  /* text-shadow: 1px 1px 2px #feffff; */
 }
 
 .card-face-small {
@@ -218,7 +219,9 @@ ul.dropdown-menu {
 }
 
 .card-glow {
-  filter: drop-shadow(0 0 0.5rem #FEFFFF);
+  /* text-shadow: -3px 0 3px #d1e8e2, 3px 0 3px #def2f1, 0 3px 3px #def2f1,
+    0 -3px 3px #d1e8e2; */
+  filter: drop-shadow(0 0 0.5rem #feffff);
 }
 
 .img-glow {
