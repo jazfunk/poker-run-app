@@ -3,16 +3,9 @@ import Card from "react-bootstrap/Card";
 import Draggable from "react-draggable";
 import logo from "../Images/PokerRunKingLOGO_NEW.png";
 
-let fullName = "";
-
 const UserHandComponent = (props) => {
-  // TODO:  Change data sent via props
-  //
-  // Loop through hands
-  // Then map each hand to show a card    
 
   let handsRows = props.handCards.map((card, index) => {
-    fullName = `${card.full_name}`;
     return (
       <Draggable key={index} axis="x" grid={[10, 10]} bounds="parent">
         <Card className="hands-cards" key={index}>
@@ -57,7 +50,7 @@ const UserHandComponent = (props) => {
 
   return (
     <section className="dashboard">
-      <h1>{fullName}</h1>
+      <h1>{props.fullName}</h1>
       <section className="hands">{handsRows}</section>
     </section>
   );
