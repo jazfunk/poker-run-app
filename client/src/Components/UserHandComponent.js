@@ -34,7 +34,6 @@ const UserHandComponent = (props) => {
   // {hand.card_suit}
   // {hand.card_value}
 
-
   handsRows =
     handsRows.length === 0 ? (
       <Card className="hands-cards">
