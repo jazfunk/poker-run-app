@@ -180,11 +180,17 @@ ul.dropdown-menu {
 
 .hands-number {
   font-size: xx-small;
+  padding: 0px;
+  margin: 0px;
+}
+
+.hands-body {
+  padding: 2px;
 }
 
 .card-face {
   color: #116466;
-  font-size: 18px;
+  font-size: 8vw;
   /* text-shadow: 0 0 1px #2c3531, 0 0 3px #116466; */
   text-shadow: 1px 1px 2px #FEFFFF;
 }

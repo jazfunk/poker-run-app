@@ -15,7 +15,7 @@ const UserHandComponent = (props) => {
             src={require(`../Images/${card.card_suit}.png`)}
             alt=""
           />
-          <Card.Body>
+          <Card.Body className="hands-body">
             <Card.Title className="card-face">{card.card_face}</Card.Title>
             <Card.Text className="hands-number">{card.hand_number}</Card.Text>
           </Card.Body>   
