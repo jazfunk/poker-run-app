@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
 import UserHandComponent from "./Components/UserHandComponent";
-import UserHandComponentNEW from "./Components/UserHandComponentNEW";
 import { Redirect } from "react-router-dom";
 import { USERS_HAND_URL, USER_HANDS_URL } from "./API_Config";
 
