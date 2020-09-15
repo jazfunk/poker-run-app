@@ -8,7 +8,7 @@ const UserHandComponent = (props) => {
   let handsRows = props.handCards.map((card, index) => {
     return (
       <Draggable key={index} axis="x" grid={[10, 10]} bounds="parent">
-        <Card className="hands-cards" key={index}>
+        <Card className="hands-cards border-gradient border-gradient-light" key={index}>
           <Card.Img
             className="hands-img card-glow"
             variant="top"
@@ -23,14 +23,6 @@ const UserHandComponent = (props) => {
       </Draggable>
     );
   });
-
-  // {hand.hand_rank}
-  // {hand.hand_number}
-  // {hand.hand_id}
-  // {hand.card_id}
-  // {hand.card_face}
-  // {hand.card_suit}
-  // {hand.card_value}
 
   handsRows =
     handsRows.length === 0 ? (

@@ -54,17 +54,8 @@ class RunHome extends Component {
 
   componentDidMount = async () => {
     if (this.state.isLoggedIn) {
-      // Load Standings component
-      // Intended to show top five hands ranked in the run
-      // Time constraints may require just listing all
+      // Cover each card until user "Deals"
 
-      // Create new array from state to send to UserHandComponent
-
-      // Load a row for each hand
-      // - The loadAllHandsByUser method returns
-      // - ALL user hands, needs filtering
-
-      // If no cards in hand, show "deal" button
       this.loadAllHandsByUser();
       this.loadHandsUser();
     }
@@ -72,17 +63,9 @@ class RunHome extends Component {
 
   // Joined data
   loadAllHandsByUser = () => {
-    
-    // think about breaking this out to its' own fx
-    // const dashBoardHands = [...this.state.dashBoard.hands]
-    // let allHands = dashBoardHands.filter((e) => {
-    //   return e.user_id === this.state.userId
-    // })
-
     axios
       .get(`${this.USERS_HAND_URL}${this.state.userId}`)
       .then((response) => {
-        // const allCards = [...this.separateHands(allHands, response.data)];
         this.setState({
           allCards: response.data,
         });
@@ -92,20 +75,18 @@ class RunHome extends Component {
       });
   };
 
-  separateHands = (hands, handCards) => {
-    const listOfHands = hands.map((hand) => {
-      return handCards.filter((e) => {
-        return e.hand_id === hand.id;
-      });
-    })
+  // separateHands = (hands, handCards) => {
+  //   const listOfHands = hands.map((hand) => {
+  //     return handCards.filter((e) => {
+  //       return e.hand_id === hand.id;
+  //     });
+  //   })
 
-    console.log(listOfHands);
-    return listOfHands;
-  };
+  //   console.log(listOfHands);
+  //   return listOfHands;
+  // };
 
   // Raw table data for form select element
-  // Maybe not needed
-  // Not currently using
   loadHandsUser = () => {
     axios
       .get(`${this.USER_HANDS_URL}${this.state.userId}`)
@@ -121,14 +102,6 @@ class RunHome extends Component {
 
   handleChange = (event) => {};
   handleSubmit = (event) => {};
-
-  // handleSelect = (event) => {
-  //   const selectedHand = event.target.selectedOptions[0];
-  //   this.setState({
-  //     hand_id: selectedHand.value,
-  //   });
-  //   console.log(`Hand Selected: ${selectedHand.textContent}`);
-  // };
 
   componentDidUpdate = () => {
     this.saveLocal();
@@ -147,9 +120,10 @@ class RunHome extends Component {
         {isLoggedOut}
         <section>
           <section>
-            {/* <UserHandComponent handCards={this.state.dashBoard.handCards} /> */}
-            <UserHandComponent handCards={this.state.allCards} fullName={this.state.full_name} />
-            {/* <UserHandComponentNEW allCards={this.state.allCards} /> */}
+            <UserHandComponent
+              handCards={this.state.allCards}
+              fullName={this.state.full_name}
+            />
           </section>
         </section>
       </>

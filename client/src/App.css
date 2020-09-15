@@ -134,7 +134,7 @@ ul.dropdown-menu {
   text-align: center;
   margin: 0px 7px 30px 7px;
   padding: 10px 0px 0px 0px;
-  border-radius: 12px;
+  border-radius: 8px;
   border: 2px solid #feffff;
   background-image: linear-gradient(
     to top left,
@@ -152,6 +152,19 @@ ul.dropdown-menu {
 .hands-img {
   width: 7vw;
   margin: 0 auto;
+}
+
+.border-gradient {
+  border: 3px solid;
+  border-radius: 5px;
+  border-image-slice: 1;
+  border-width: 3px;
+}
+.border-gradient-light {
+  border-image-source: linear-gradient(to bottom left, #feffff, #d1e8e2);
+}
+.border-gradient-green {
+  border-image-source: linear-gradient(to left, #00C853, #B2FF59);
 }
 
 .deck-cards {
