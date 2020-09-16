@@ -52,6 +52,7 @@ class AddRunAdmin extends Component {
         selectedRun: localState.selectedRun || 1,
         runs: localState.runs || [],
         runAdmins: localState.runAdmins || [],
+        randomDeck: localState.randomDeck || [],
       };
     } else {
       this.state = {

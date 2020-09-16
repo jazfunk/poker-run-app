@@ -33,6 +33,7 @@ class SignUp extends Component {
         isLoggedIn: localState.isLoggedIn || false,
         password: localState.password || "",
         userId: localState.userId || 0,
+        randomDeck: localState.randomDeck || [],
         // users: localState.users || [],
         // hands: localState.hands || [],
       };

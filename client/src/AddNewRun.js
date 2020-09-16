@@ -39,6 +39,7 @@ class AddNewRun extends Component {
         password: localState.password || "",
         userId: localState.userId || 0,
         users: localState.users || [],
+        randomDeck: localState.randomDeck || [],
       };
     } else {
       this.state = {

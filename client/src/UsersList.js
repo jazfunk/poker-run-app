@@ -37,6 +37,7 @@ class UsersList extends Component {
         users: localState.users || [],
         hands: localState.hands || [],
         userSearch: localState.userSearch || "",
+        randomDeck: localState.randomDeck || [],
       };
     } else {
       this.state = {

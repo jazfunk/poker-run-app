@@ -34,6 +34,7 @@ class Home extends Component {
         isLoggedIn: localState.isLoggedIn || false,
         password: localState.password || "",
         userId: localState.userId || 0,
+        randomDeck: localState.randomDeck || [],
       };
     } else {
       this.state = {

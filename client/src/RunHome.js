@@ -36,6 +36,7 @@ class RunHome extends Component {
         userId: localState.userId || 0,
         allCards: localState.allCards || [],
         allHands: localState.allHands || [],
+        randomDeck: localState.randomDeck || [],
       };
     } else {
       this.state = {

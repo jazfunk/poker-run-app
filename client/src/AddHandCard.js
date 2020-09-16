@@ -80,9 +80,15 @@ class AddHandCard extends Component {
   componentDidMount = () => {
     if (this.state.isLoggedIn) {
       this.loadDashboard();
-      this.setState({
-        randomDeck: this.getRandomDeck(52),
-      });
+
+      // check localState.randomDeck.length < 5
+      // load a new deck here
+      if (this.state.randomDeck.length < 5) {
+        this.setState({
+          randomDeck: this.getRandomDeck(52),
+        });
+        //
+      }
     }
   };
 
@@ -335,11 +341,16 @@ class AddHandCard extends Component {
           </Form>
           {/* TODO:  Add Table */}
           <p>Selected user has {this.state.handsCount} hands already dealt</p>
-          <h2>First determine which hand number you are adding cards to</h2>
-          <h2>Select run, user, then hand number.</h2>
-          <h2>
-            "Add Card to Hand" will add five random cards to the selected hand.
-          </h2>
+          
+          <h2>IMPORTANT INSTRUCTIONS (Especially #5, and #6)</h2> 
+          <p>There are {this.state.randomDeck.length} cards remaining in the deck</p>
+          <p>The deck will rebuild every time you log out</p>          
+          <h2>1. Select user</h2> 
+          <h2>2. Select hand number</h2> 
+          <h2>3. Click "Add Card to Hand" button</h2> 
+          <h2>4. Refresh page (You MUST refresh, or the numbers will be off)</h2> 
+          <h2>5. Switch to a different user</h2> 
+          <h2>6. Switch back to needed user</h2> 
         </section>
       </>
     );

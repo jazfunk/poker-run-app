@@ -46,6 +46,7 @@ class AddUserHand extends Component {
         selectedUser: localState.selectedUser || "",
         selectedRun: localState.selectedRun || 1,
         handsCount: localState.handsCount || 0,
+        randomDeck: localState.randomDeck || [],
       };
     } else {
       this.state = {
@@ -56,8 +57,23 @@ class AddUserHand extends Component {
     }
   };
 
+  loadDashboard = () => {
+    axios
+      .get(this.ADMIN_DASHBOARD)
+      .then((response) => {
+        console.log(`Dashboard reloaded`)
+        this.setState({
+          dashBoard: response.data,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   componentDidMount = () => {
     if (this.state.isLoggedIn) {
+      this.loadDashboard();
     }
   };
 
@@ -217,9 +233,13 @@ class AddUserHand extends Component {
               </Form.Group>
             </Form.Row>
           </Form>
-          <h2>Refresh page after adding each hand.</h2>
-          <h2></h2>
-          <section>--Add Table Component--</section>
+          <h2>IMPORTANT INSTRUCTIONS</h2>
+          <p>You do NOT need to refresh the page</p>
+          <p>1. If a user is already selected, switch to a different user, then switch back</p>
+          <p>2. Click "Submit Hand #" button</p>
+          <p>3. Switch to a different user</p>
+          <p>4. Switch back to needed user</p>
+          <p>5. Add another hand if needed.</p>
         </section>
       </>
     );
