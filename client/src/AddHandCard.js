@@ -7,6 +7,7 @@ import {
   FULL_NAMES_URL,
   RUNS_URL,
   ADD_HAND_CARD_URL,
+  ADD_HAND_CARD_ARRAY_URL,
   USER_HANDS_URL,
 } from "./API_Config";
 
@@ -14,6 +15,8 @@ class AddHandCard extends Component {
   FULL_NAMES_URL = FULL_NAMES_URL;
   RUNS_URL = RUNS_URL;
   ADD_HAND_CARD_URL = ADD_HAND_CARD_URL;
+  ADD_HAND_CARD_ARRAY_URL = ADD_HAND_CARD_ARRAY_URL;
+
   USER_HANDS_URL = USER_HANDS_URL;
 
   constructor(props) {
@@ -34,7 +37,6 @@ class AddHandCard extends Component {
       cards: [],
     };
 
-
     if (localState.length > 0 || localState.constructor === Object) {
       this.state = {
         dashBoard: localState.dashBoard || dashBoardInitial,
@@ -43,32 +45,25 @@ class AddHandCard extends Component {
         isLoggedIn: localState.isLoggedIn || false,
         password: localState.password || "",
         userId: localState.userId || 0,
-        // users: localState.users || [],
         selectedUser: localState.selectedUser || "",
         selectedRun: localState.selectedRun || 1,
-        // runs: localState.runs || [],
-        // runAdmins: localState.runAdmins || [],
         userHands: localState.userHands || [],
         selectedHand: localState.selectedHand || "",
         randomDeck: localState.randomDeck || [],
         newHand: localState.newHand || [],
+        handsCount: localState.handsCount || 0,
       };
     } else {
       this.state = {
         isLoggedIn: false,
-        // users: [],
         selectedUser: "",
         selectedRun: 1,
-        // runs: [],
-        // runAdmins: [],
       };
     }
   };
 
   componentDidMount = () => {
     if (this.state.isLoggedIn) {
-      // this.loadUsers();
-      // this.loadRuns();
 
       this.setState({
         randomDeck: this.getRandomDeck(52),
@@ -106,43 +101,15 @@ class AddHandCard extends Component {
     return deck;
   };
 
-  loadUsers = () => {
-    // axios
-    //   .get(`${this.FULL_NAMES_URL}`)
-    //   .then((response) => {
-    //     this.setState({
-    //       users: response.data,
-    //     });
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
-  };
-
-  loadRuns = () => {
-    // axios
-    //   .get(`${this.RUNS_URL}`)
-    //   .then((response) => {
-    //     this.setState({
-    //       runs: response.data,
-    //     });
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
-  };
-
   loadUserHands = (id) => {
-    axios
-      .get(`${this.USER_HANDS_URL}${id}`)
-      .then((response) => {
-        this.setState({
-          userHands: response.data,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    const handCards = [...this.state.dashBoard.hands];
+    const selectedUserHands = handCards.filter((e) => {
+      return e.user_id == id;
+    });
+
+    this.setState({
+      userHands: selectedUserHands,
+    });
   };
 
   handleUserSelect = (event) => {
@@ -167,7 +134,7 @@ class AddHandCard extends Component {
     event.preventDefault();
     const selectedRun = event.target.selectedOptions[0];
     console.log(`Selected Run: ${selectedRun.textContent}`);
-    
+
     if (selectedRun.textContent === "Select Run") {
       return alert("You must select a run");
     }
@@ -182,6 +149,7 @@ class AddHandCard extends Component {
     console.log(`Selected Hand: ${selectedHand.textContent}`);
     this.setState({
       selectedHand: selectedHand.value,
+      selectedHandNumber: selectedHand.textContent,
     });
 
     // Adds five cards from deck into state only
@@ -200,31 +168,42 @@ class AddHandCard extends Component {
     event.preventDefault();
     event.target.reset();
 
-    // TODO:  Loop through Deck array
-    // to get newHand card id
-    // Currently only grabbing the very first.
-    const handCard = {
-      hand_id: this.state.selectedHand,
-      card_id: this.state.newHand[0],
-    };
-
-    this.postNewHandCard(handCard);
+    if (this.state.selectedHandNumber <= this.state.handsCount) {
+      return alert(
+        `Cards for selected hand number ${this.state.selectedHandNumber}`
+      );
+    } else {
+      let cardsToSubmit = [];
+      const newHand = [...this.state.newHand];
+      newHand.forEach((card) => {
+        const newCard = {
+          hand_id: this.state.selectedHand,
+          card_id: card,
+        };
+        cardsToSubmit.push(newCard);
+      });
+      console.log(cardsToSubmit);
+      this.postNewHandCard(cardsToSubmit);
+      alert(`Hand #${this.state.selectedHandNumber} has been dealt`)
+    }
   };
 
   postNewHandCard = (handCard) => {
     var data = JSON.stringify(handCard);
     var config = {
       method: "post",
-      url: this.ADD_HAND_CARD_URL,
+      url: this.ADD_HAND_CARD_ARRAY_URL,
       headers: {
         "Content-Type": "Application/json",
       },
       data: data,
     };
 
+    console.log(config.data);
+
     axios(config)
       .then((response) => {
-        console.log(`New Card Added To Hand`);
+        console.log(`New five card hand added to hand`);
       })
 
       .catch((error) => {
@@ -247,7 +226,7 @@ class AddHandCard extends Component {
     return (
       <>
         {isLoggedOut}
-          {console.log("AddHandCard")}
+        {console.log("AddHandCard")}
         <section className="form-container">
           <Form onSubmit={this.handleSubmit}>
             <Form.Row>
@@ -293,7 +272,7 @@ class AddHandCard extends Component {
                   <option>Select Hand</option>
                   {this.state.userHands.map((hand) => (
                     <option key={hand.id} value={hand.id}>
-                      {hand.hand_number}-{hand.run_id}
+                      {hand.hand_number}
                     </option>
                   ))}
                 </select>
@@ -307,6 +286,11 @@ class AddHandCard extends Component {
             </Form.Row>
           </Form>
           {/* TODO:  Add Table */}
+          <h2>First determine which hand number you are adding cards to</h2>
+          <h2>Select run, user, then hand number.</h2>
+          <h2>
+            "Add Card to Hand" will add five random cards to the selected hand.
+          </h2>
         </section>
       </>
     );

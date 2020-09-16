@@ -43,56 +43,22 @@ class AddUserHand extends Component {
         isLoggedIn: localState.isLoggedIn || false,
         password: localState.password || "",
         userId: localState.userId || 0,
-        users: localState.users || [],
         selectedUser: localState.selectedUser || "",
         selectedRun: localState.selectedRun || 1,
-        runs: localState.runs || [],
-        runAdmins: localState.runAdmins || [],
         handsCount: localState.handsCount || 0,
       };
     } else {
       this.state = {
         isLoggedIn: false,
-        users: [],
         selectedUser: "",
         selectedRun: 1,
-        runs: [],
-        runAdmins: [],
       };
     }
   };
 
   componentDidMount = () => {
     if (this.state.isLoggedIn) {
-      this.loadUsers();
-      this.loadRuns();
     }
-  };
-
-  loadUsers = () => {
-    axios
-      .get(`${this.FULL_NAMES_URL}`)
-      .then((response) => {
-        this.setState({
-          users: response.data,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  loadRuns = () => {
-    axios
-      .get(`${this.RUNS_URL}`)
-      .then((response) => {
-        this.setState({
-          runs: response.data,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
   };
 
   handleUserSelect = async (event) => {
@@ -101,9 +67,8 @@ class AddUserHand extends Component {
     if (selectedUser.textContent === "Select User") {
       return alert("Select a valid user");
     }
-
     console.log(
-      `Selected user: ${selectedUser.textContent}-${selectedUser.value}`
+      `Selected user: ${selectedUser.textContent} - ${selectedUser.value}`
     );
 
     this.getUserHandsCount(selectedUser.value);
@@ -141,16 +106,18 @@ class AddUserHand extends Component {
     event.preventDefault();
     event.target.reset();
 
-    const nextHand = this.state.handsCount + 1;
-
-    const hand = {
-      user_id: this.state.selectedUser,
-      run_id: this.state.selectedRun,
-      hand_rank: 1,
-      hand_number: nextHand,
-    };
-
-    this.postNewUserHand(hand);
+    if (this.state.selectedUser && this.state.selectedRun) {
+      const nextHand = this.state.handsCount + 1;
+      const hand = {
+        user_id: this.state.selectedUser,
+        run_id: this.state.selectedRun,
+        hand_rank: 1,
+        hand_number: nextHand,
+      };
+      this.postNewUserHand(hand);
+    } else {
+      console.log("No user (or run) selected");
+    }
   };
 
   getUserHandsCount = (user_id) => {
@@ -214,7 +181,7 @@ class AddUserHand extends Component {
                   onChange={this.handleRunSelect}
                 >
                   <option>Select Run</option>
-                  {this.state.runs.map((run) => (
+                  {this.state.dashBoard.runs.map((run) => (
                     <option key={run.id} value={run.id}>
                       {run.run_name}
                     </option>
@@ -230,9 +197,9 @@ class AddUserHand extends Component {
                   onChange={this.handleUserSelect}
                 >
                   <option>Select User</option>
-                  {this.state.users.map((user) => (
+                  {this.state.dashBoard.users.map((user) => (
                     <option key={user.id} value={user.id}>
-                      {user.full_name}
+                      {user.first_name} {user.last_name}
                     </option>
                   ))}
                 </select>
@@ -250,6 +217,8 @@ class AddUserHand extends Component {
               </Form.Group>
             </Form.Row>
           </Form>
+          <h2>Refresh page after adding each hand.</h2>
+          <h2></h2>
           <section>--Add Table Component--</section>
         </section>
       </>

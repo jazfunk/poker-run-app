@@ -29,7 +29,7 @@ const UserHandComponent = (props) => {
       <Card className="hands-cards">
         <Card.Img variant="top" src={logo} />
         <Card.Body>
-          <Card.Title className="card-face">No Cards</Card.Title>
+          <Card.Title className="card-face">!</Card.Title>
           <Card.Text className="hands-number">No cards found</Card.Text>
         </Card.Body>
       </Card>
@@ -39,7 +39,7 @@ const UserHandComponent = (props) => {
 
   return (
     <section className="dashboard">
-      <h1>{props.fullName}</h1>
+      <h1>{`${props.fullName} - ${props.handsCount} hands`}</h1>
       <section className="hands">{handsRows}</section>
     </section>
   );

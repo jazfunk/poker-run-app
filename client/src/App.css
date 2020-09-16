@@ -134,8 +134,6 @@ ul.dropdown-menu {
   text-align: center;
   margin: 0px 7px 30px 7px;
   padding: 10px 0px 0px 0px;
-  border-radius: 8px;
-  border: 2px solid #feffff;
   background-image: linear-gradient(
     to top left,
     #d1e8e2,
@@ -144,7 +142,7 @@ ul.dropdown-menu {
     #def2f1,
     #d1e8e2
   );
-  filter: drop-shadow(0 0 0.5rem #116466);
+  filter: drop-shadow(0 0 0.5rem #2c3531);
   color: #116466;
   width: 16vw;
 }
@@ -155,10 +153,10 @@ ul.dropdown-menu {
 }
 
 .border-gradient {
-  border: 3px solid;
-  border-radius: 5px;
+  border: 2px solid;
+  border-radius: 10px;
   border-image-slice: 1;
-  border-width: 3px;
+  border-width: 2px;
 }
 .border-gradient-light {
   border-image-source: linear-gradient(to bottom left, #feffff, #d1e8e2);

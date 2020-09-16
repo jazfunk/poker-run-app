@@ -291,6 +291,14 @@ app.post("/api/handcards", async (req, res) => {
   }
 });
 
+app.post("/api/handcardarray", async (req, res) => {
+  try {
+    res.send(await handCardsDb.createHandCardFromArray(req.body));
+  } catch (error) {
+    res.status(500).send(error);
+  }
+})
+
 app.put("/api/handcards/:id", async (req, res) => {
   try {
     res.send(await handCardsDb.updateHandCard(req.params.id, req.body));

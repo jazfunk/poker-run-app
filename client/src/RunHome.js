@@ -5,7 +5,6 @@ import { Redirect } from "react-router-dom";
 import { USERS_HAND_URL, USER_HANDS_URL } from "./API_Config";
 
 class RunHome extends Component {
-  port = process.env.PORT || 5000;
   USERS_HAND_URL = USERS_HAND_URL;
   USER_HANDS_URL = USER_HANDS_URL;
 
@@ -27,7 +26,6 @@ class RunHome extends Component {
       cards: [],
     };
 
-    // change referencing values to dashBoard properties
     if (localState.length > 0 || localState.constructor === Object) {
       this.state = {
         dashBoard: localState.dashBoard || dashBoardInitial,
@@ -38,22 +36,19 @@ class RunHome extends Component {
         userId: localState.userId || 0,
         allCards: localState.allCards || [],
         allHands: localState.allHands || [],
-        // users: [],
-        // hands: [],
       };
     } else {
       this.state = {
         isLoggedIn: false,
         allHands: [],
         allCards: [],
-        // users: [],
-        // hands: [],
       };
     }
   };
 
   componentDidMount = async () => {
     if (this.state.isLoggedIn) {
+
       // Cover each card until user "Deals"
 
       this.loadAllHandsByUser();
@@ -68,23 +63,13 @@ class RunHome extends Component {
       .then((response) => {
         this.setState({
           allCards: response.data,
+          handsCount: (response.data.length / 5),
         });
       })
       .catch((error) => {
         console.log(error);
       });
   };
-
-  // separateHands = (hands, handCards) => {
-  //   const listOfHands = hands.map((hand) => {
-  //     return handCards.filter((e) => {
-  //       return e.hand_id === hand.id;
-  //     });
-  //   })
-
-  //   console.log(listOfHands);
-  //   return listOfHands;
-  // };
 
   // Raw table data for form select element
   loadHandsUser = () => {
@@ -122,6 +107,7 @@ class RunHome extends Component {
           <section>
             <UserHandComponent
               handCards={this.state.allCards}
+              handsCount={this.state.handsCount}
               fullName={this.state.full_name}
             />
           </section>

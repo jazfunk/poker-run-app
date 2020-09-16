@@ -8,6 +8,7 @@ const RUN_ADMINS_URL = "/api/runadminsbyrun/";
 const ADD_RUN_ADMIN_URL = "/api/runadmin/";
 const ADD_USERS_HAND = "/api/hands/";
 const ADD_HAND_CARD_URL = "/api/handcards/"
+const ADD_HAND_CARD_ARRAY_URL = "/api/handcardarray/"
 const USER_HANDS_URL = "/api/handsuser/";
 const USERS_HAND_URL = "/api/usershand/";
 const CARDS_URL = "/api/cards";
@@ -24,6 +25,7 @@ module.exports = {
   RUN_ADMINS_URL,
   ADD_USERS_HAND,
   ADD_HAND_CARD_URL,
+  ADD_HAND_CARD_ARRAY_URL,
   USER_HANDS_URL,
   USERS_HAND_URL,
   CARDS_URL,
