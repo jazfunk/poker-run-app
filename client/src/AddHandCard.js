@@ -4,6 +4,7 @@ import Button from "react-bootstrap/Button";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
 import {
+  ADMIN_DASHBOARD,
   FULL_NAMES_URL,
   RUNS_URL,
   ADD_HAND_CARD_URL,
@@ -12,11 +13,11 @@ import {
 } from "./API_Config";
 
 class AddHandCard extends Component {
+  ADMIN_DASHBOARD = ADMIN_DASHBOARD;
   FULL_NAMES_URL = FULL_NAMES_URL;
   RUNS_URL = RUNS_URL;
   ADD_HAND_CARD_URL = ADD_HAND_CARD_URL;
   ADD_HAND_CARD_ARRAY_URL = ADD_HAND_CARD_ARRAY_URL;
-
   USER_HANDS_URL = USER_HANDS_URL;
 
   constructor(props) {
@@ -62,8 +63,23 @@ class AddHandCard extends Component {
     }
   };
 
+  loadDashboard = () => {
+    axios
+      .get(this.ADMIN_DASHBOARD)
+      .then((response) => {
+        console.log(`Dashboard reloaded`)
+        this.setState({
+          dashBoard: response.data,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   componentDidMount = () => {
     if (this.state.isLoggedIn) {
+      this.loadDashboard();
       this.setState({
         randomDeck: this.getRandomDeck(52),
       });
@@ -187,6 +203,9 @@ class AddHandCard extends Component {
       });
     } else {
       console.log("cardCount is <= 0");
+      this.setState({
+        handsCount: 0,
+      })
     }
   };
 
@@ -212,7 +231,9 @@ class AddHandCard extends Component {
 
       this.postNewHandCard(cardsToSubmit);
 
+
       alert(`SUCCESS:  Hand #${this.state.selectedHandNumber} has been dealt`);
+
     }
   };
 
@@ -254,7 +275,6 @@ class AddHandCard extends Component {
     return (
       <>
         {isLoggedOut}
-        {console.log("AddHandCard")}
         <section className="form-container">
           <Form onSubmit={this.handleSubmit}>
             <Form.Row>
