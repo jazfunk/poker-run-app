@@ -64,7 +64,6 @@ class AddHandCard extends Component {
 
   componentDidMount = () => {
     if (this.state.isLoggedIn) {
-
       this.setState({
         randomDeck: this.getRandomDeck(52),
       });
@@ -103,9 +102,13 @@ class AddHandCard extends Component {
 
   loadUserHands = (id) => {
     const handCards = [...this.state.dashBoard.hands];
-    const selectedUserHands = handCards.filter((e) => {
-      return e.user_id == id;
+    const selectedUserHands = handCards.filter((hand) => {
+      return hand.user_id == id;
     });
+
+    console.log(selectedUserHands.length);
+
+    this.setSelectedUserHandsCount(id);
 
     this.setState({
       userHands: selectedUserHands,
@@ -164,13 +167,36 @@ class AddHandCard extends Component {
     });
   };
 
+  setSelectedUserHandsCount = (userId) => {
+    const allHandCards = [...this.state.dashBoard.handCards];
+    let cardCount = 0;
+    let handCount = 0;
+
+    allHandCards.forEach((card) => {
+      if (card.user_id == userId) {
+        cardCount++;
+      }
+    });
+
+    if (cardCount > 0) {
+      console.log(cardCount / 5);
+      handCount = cardCount / 5;
+      handCount = handCount <= 0 ? 0 : handCount;
+      this.setState({
+        handsCount: handCount,
+      });
+    } else {
+      console.log("cardCount is <= 0");
+    }
+  };
+
   handleSubmit = (event) => {
     event.preventDefault();
     event.target.reset();
 
     if (this.state.selectedHandNumber <= this.state.handsCount) {
       return alert(
-        `Cards for selected hand number ${this.state.selectedHandNumber}`
+        `ERROR:  Cards for selected hand number ${this.state.selectedHandNumber} have already been added. Choose a different hand`
       );
     } else {
       let cardsToSubmit = [];
@@ -183,8 +209,10 @@ class AddHandCard extends Component {
         cardsToSubmit.push(newCard);
       });
       console.log(cardsToSubmit);
+
       this.postNewHandCard(cardsToSubmit);
-      alert(`Hand #${this.state.selectedHandNumber} has been dealt`)
+
+      alert(`SUCCESS:  Hand #${this.state.selectedHandNumber} has been dealt`);
     }
   };
 
@@ -203,7 +231,7 @@ class AddHandCard extends Component {
 
     axios(config)
       .then((response) => {
-        console.log(`New five card hand added to hand`);
+        console.log(`New five-card hand added to hand`);
       })
 
       .catch((error) => {
@@ -286,6 +314,7 @@ class AddHandCard extends Component {
             </Form.Row>
           </Form>
           {/* TODO:  Add Table */}
+          <p>Selected user has {this.state.handsCount} hands already dealt</p>
           <h2>First determine which hand number you are adding cards to</h2>
           <h2>Select run, user, then hand number.</h2>
           <h2>
