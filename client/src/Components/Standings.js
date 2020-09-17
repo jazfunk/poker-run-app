@@ -3,8 +3,6 @@ import { evaluateHand } from "../EvaluationWorker";
 import HandEvaluationTable from "../Components/TableComponents/HandEvaluationTable";
 
 class Standings extends Component {
-  handEvalRows = [];
-
   constructor(props) {
     super(props);
     this.importSavedState();
@@ -69,9 +67,15 @@ class Standings extends Component {
       });
 
       const handEvaluation = evaluateHand(faces, suits);
+
+      const handRank = this.rankEvaluation(handEvaluation);
+
       const compiledHandEvaluation = {
-        hand_id: handId,
+        hand_rank: handRank,
         hand_evaluation: handEvaluation,
+        full_name: hand.full_name,
+        hand_number: hand.hand_number,
+        hand_id: handId,
       };
 
       handEvaluations.push(compiledHandEvaluation);
@@ -81,11 +85,53 @@ class Standings extends Component {
       return e.hand_evaluation != undefined;
     });
 
+    handsDealtEvaluations.sort(this.dynamicSort("hand_rank", "asc"));
+
     console.log(handsDealtEvaluations);
 
     this.setState({
       evaluations: handsDealtEvaluations,
-    })
+    });
+  };
+
+  rankEvaluation = (evaluation) => {
+    const rankEvaluator = [
+      "Royal Flush",
+      "Straight Flush",
+      "4 of a Kind",
+      "Full House",
+      "Flush",
+      "Straight",
+      "3 of a Kind",
+      "2 Pair",
+      "1 Pair",
+      "High Card",
+    ];
+
+    for (let rank in rankEvaluator) {
+      if (rankEvaluator[rank] === evaluation) {
+        return rank;
+      }
+    }
+  };
+
+  dynamicSort = (property, order) => {
+    var sort_order = 1;
+    if (order === "desc") {
+      sort_order = -1;
+    }
+    return function (a, b) {
+      // a should come before b in the sorted order
+      if (a[property] < b[property]) {
+        return -1 * sort_order;
+        // a should come after b in the sorted order
+      } else if (a[property] > b[property]) {
+        return 1 * sort_order;
+        // a and b are the same
+      } else {
+        return 0 * sort_order;
+      }
+    };
   };
 
   componentDidMount = () => {
@@ -103,7 +149,7 @@ class Standings extends Component {
   render() {
     return (
       <section className="form-container">
-        <HandEvaluationTable evaluations={this.state.evaluations} />        
+        <HandEvaluationTable evaluations={this.state.evaluations} />
       </section>
     );
   }

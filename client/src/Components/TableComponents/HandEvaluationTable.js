@@ -6,8 +6,12 @@ const HandEvaluationTable = (props) => {
   let handEvaluationRows = props.evaluations.map((hand, index) => {
     return (
       <tr key={index}>
-        <td>{hand.hand_id}</td>
+        <td>{index + 1}</td>
+        {/* <td>{hand.hand_rank}</td> */}
+        <td>{hand.full_name}</td>
         <td>{hand.hand_evaluation}</td>
+        <td>{hand.hand_number}</td>
+        {/* <td>{hand.hand_id}</td> */}
       </tr>
     );
   });
@@ -15,7 +19,7 @@ const HandEvaluationTable = (props) => {
   handEvaluationRows =
     handEvaluationRows.length === 0 ? (
       <tr>
-        <td coolspan="2">No Evaluations found!</td>
+        <td coolspan="4">No Evaluations found!</td>
       </tr>
     ) : (
       handEvaluationRows
@@ -26,8 +30,12 @@ const HandEvaluationTable = (props) => {
       <Table className="table-dark table-striped table-borderless table-hover table-bg-trans text-nowrap">
         <thead className="thead-dark">
           <tr>
-            <th>ID</th>
-            <th>Evaluation</th>
+            <th>Rank</th>
+            {/* <th>Hand Rank</th> */}
+            <th>Name</th>
+            <th>Hand</th>
+            <th>Hand #</th>
+            {/* <th>ID</th> */}
           </tr>
         </thead>
         <tbody>{handEvaluationRows}</tbody>
