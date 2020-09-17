@@ -59,11 +59,47 @@ class Standings extends Component {
       let faces = [];
       let suits = [];
 
+      // if (handId === 48) {
+      //   debugger;
+      // }
+
       handCards.forEach((card) => {
+        const J = 11,
+          Q = 12,
+          K = 13,
+          A = 14,
+          C = 1,
+          D = 2,
+          H = 4,
+          S = 8;
         if (card.hand_id == handId) {
+          
+          // if (handId === 48) {
+          //   debugger;
+          // }
+          let suit = 0;
+
+          switch (card.card_suit) {
+            case "C":
+              suit = 1
+              break;
+            case "D":
+              suit = 2
+              break;
+            case "H":
+              suit = 4
+              break
+            case "S":
+              suit = 8
+              break;          
+            default:
+              break;
+          }
+
           faces.push(card.card_value);
-          suits.push(card.card_suit);
+          suits.push(suit);
         }
+
       });
 
       const handEvaluation = evaluateHand(faces, suits);
@@ -78,7 +114,8 @@ class Standings extends Component {
         hand_id: handId,
       };
 
-      handEvaluations.push(compiledHandEvaluation);
+      handEvaluations.push(compiledHandEvaluation);      
+
     });
 
     const handsDealtEvaluations = handEvaluations.filter((e) => {
@@ -136,6 +173,16 @@ class Standings extends Component {
 
   componentDidMount = () => {
     this.evaluateHands();
+
+    // const J = 11,
+    //   Q = 12,
+    //   K = 13,
+    //   A = 14,
+    //   C = 1,
+    //   D = 2,
+    //   H = 4,
+    //   S = 8;
+    // console.log(evaluateHand([2, 3, 4, 5, 6], [D, D, D, D, D]));
   };
 
   componentDidUpdate = () => {
