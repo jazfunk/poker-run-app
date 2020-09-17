@@ -58,70 +58,60 @@ class Standings extends Component {
       handId = hand.id;
       let faces = [];
       let suits = [];
-
-      // if (handId === 48) {
-      //   debugger;
-      // }
+      let displayItems = [];
+      let handValue = 0;
 
       handCards.forEach((card) => {
-        const J = 11,
-          Q = 12,
-          K = 13,
-          A = 14,
-          C = 1,
-          D = 2,
-          H = 4,
-          S = 8;
         if (card.hand_id == handId) {
-          
-          // if (handId === 48) {
-          //   debugger;
-          // }
           let suit = 0;
-
           switch (card.card_suit) {
             case "C":
-              suit = 1
+              suit = 1;
               break;
             case "D":
-              suit = 2
+              suit = 2;
               break;
             case "H":
-              suit = 4
-              break
+              suit = 4;
+              break;
             case "S":
-              suit = 8
-              break;          
+              suit = 8;
+              break;
             default:
               break;
           }
 
           faces.push(card.card_value);
           suits.push(suit);
+          displayItems.push(`${card.card_face}${card.card_suit}`);
+          handValue+= card.card_value
         }
-
       });
 
+      displayItems.sort();
+      console.log(displayItems);
+
+      console.log(handValue);
+
       const handEvaluation = evaluateHand(faces, suits);
-
       const handRank = this.rankEvaluation(handEvaluation);
-
       const compiledHandEvaluation = {
         hand_rank: handRank,
         hand_evaluation: handEvaluation,
         full_name: hand.full_name,
         hand_number: hand.hand_number,
         hand_id: handId,
+        hand_display: displayItems.toString(),
+        hand_value: handValue,
       };
-
-      handEvaluations.push(compiledHandEvaluation);      
-
+      handEvaluations.push(compiledHandEvaluation);
     });
 
     const handsDealtEvaluations = handEvaluations.filter((e) => {
       return e.hand_evaluation != undefined;
     });
 
+    handsDealtEvaluations.sort(this.dynamicSort("hand_value", "desc"));
     handsDealtEvaluations.sort(this.dynamicSort("hand_rank", "asc"));
 
     console.log(handsDealtEvaluations);

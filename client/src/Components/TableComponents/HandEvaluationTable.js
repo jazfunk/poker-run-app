@@ -7,10 +7,12 @@ const HandEvaluationTable = (props) => {
     return (
       <tr key={index}>
         <td>{index + 1}</td>
-        <td>{hand.hand_rank}</td>
+        {/* <td>{hand.hand_rank}</td> */}
         <td>{hand.full_name}</td>
         <td>{hand.hand_evaluation}</td>
         <td>{hand.hand_number}</td>
+        <td>{hand.hand_display}</td>
+        <td>{hand.hand_value}</td>
         {/* <td>{hand.hand_id}</td> */}
       </tr>
     );
@@ -31,10 +33,12 @@ const HandEvaluationTable = (props) => {
         <thead className="thead-dark">
           <tr>
             <th>Rank</th>
-            <th>Hand Rank</th>
+            {/* <th>Hand Rank</th> */}
             <th>Name</th>
-            <th>Hand</th>
+            <th>Hand Rank</th>
             <th>Hand #</th>
+            <th>Cards</th>
+            <th>Value</th>
             {/* <th>ID</th> */}
           </tr>
         </thead>
