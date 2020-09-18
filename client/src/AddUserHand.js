@@ -20,6 +20,9 @@ class AddUserHand extends Component {
 
   DISPLAY_USER_INFO = "";
 
+  DEALING_ENABLED = false;
+   
+
   constructor(props) {
     super(props);
     this.importSavedState();
@@ -95,6 +98,9 @@ class AddUserHand extends Component {
       selectedUser: selectedUser.value,
       selectedUserName: selectedUser.textContent,
     });
+    
+    this.DEALING_ENABLED = true;
+
   };
 
   handleRunSelect = (event) => {
@@ -121,8 +127,12 @@ class AddUserHand extends Component {
   };
 
   handleSubmit = (event) => {
-    event.preventDefault();
+    // event.preventDefault();
     event.target.reset();
+
+    if(!this.DEALING_ENABLED) {
+      return;
+    }
 
     if (this.state.selectedUser && this.state.selectedRun) {
       const nextHand = this.state.handsCount + 1;
@@ -134,10 +144,7 @@ class AddUserHand extends Component {
       };
       this.postNewUserHand(hand);
 
-      alert(`SUCCESS:  Hand#${hand.hand_number} has been added.`)
-
-      location.reload();
-      
+      alert(`SUCCESS:  Hand#${hand.hand_number} has been added.`);
     } else {
       console.log("No user (or run) selected");
     }
@@ -149,7 +156,7 @@ class AddUserHand extends Component {
       .then((response) => {
         const handCount = response.data.length;
         // console.log(response.data.length);
-        this.DISPLAY_USER_INFO = `Number of Total Hands for selected User:  ${handCount}`;
+        this.DISPLAY_USER_INFO = `Total Hands:  ${handCount} - Click Submit to add #${handCount + 1}`;
         this.setState({
           handsCount: handCount,
         });
@@ -180,7 +187,7 @@ class AddUserHand extends Component {
       });
   };
 
-  componentDidUpdate = () => {   
+  componentDidUpdate = () => {
     this.saveLocal();
   };
 
@@ -232,27 +239,14 @@ class AddUserHand extends Component {
               &nbsp;&nbsp;&nbsp;
               <Form.Group controlId="frmAddUserHandButton">
                 <Button variant="light" type="submit">
-                  Submit Hand #{this.state.handsCount + 1 || "?"}
+                  Submit Hand
                 </Button>
               </Form.Group>
             </Form.Row>
-            {/* <Form.Row>
-              <Form.Group>
-                <Form.Label>{this.DISPLAY_USER_INFO}</Form.Label>
-              </Form.Group>
-            </Form.Row> */}
           </Form>
-          <p>{this.DISPLAY_USER_INFO}</p>
-          <h2>IMPORTANT INSTRUCTIONS</h2>
-          <p>You do NOT need to refresh the page</p>
           <p>
-            1. If a user is already selected, switch to a different user, then
-            switch back
+            {this.DISPLAY_USER_INFO}
           </p>
-          <p>2. Click "Submit Hand #" button</p>
-          <p>3. Switch to a different user</p>
-          <p>4. Switch back to needed user</p>
-          <p>5. Add another hand if needed.</p>
         </section>
       </>
     );

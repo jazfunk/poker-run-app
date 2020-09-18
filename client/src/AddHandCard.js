@@ -22,6 +22,8 @@ class AddHandCard extends Component {
 
   DISPLAY_USER_INFO = "";
 
+  DEALING_ENABLED = false;
+
   constructor(props) {
     super(props);
     this.importSavedState();
@@ -81,7 +83,7 @@ class AddHandCard extends Component {
 
   componentDidMount = () => {
     if (this.state.isLoggedIn) {
-      this.loadDashboard();
+      this.loadDashboard();     
 
       // check localState.randomDeck.length < 5
       // load a new deck here
@@ -181,6 +183,7 @@ class AddHandCard extends Component {
 
     // Adds five cards from deck into state only
     this.addCardsToHand();
+    this.DEALING_ENABLED = true;
   };
 
   handleChange = (event) => {
@@ -219,8 +222,12 @@ class AddHandCard extends Component {
   };
 
   handleSubmit = (event) => {
-    event.preventDefault();
+    // event.preventDefault();
     event.target.reset();
+
+    if(!this.DEALING_ENABLED) {
+      return;
+    }
 
     if (this.state.selectedHandNumber <= this.state.handsCount) {
       return alert(
@@ -238,11 +245,11 @@ class AddHandCard extends Component {
       });
       console.log(cardsToSubmit);
 
+      this.DEALING_ENABLED = false;
+
       this.postNewHandCard(cardsToSubmit);
 
       alert(`SUCCESS:  Hand #${this.state.selectedHandNumber} has been dealt`);
-
-      location.reload();
     }
   };
 
@@ -337,28 +344,16 @@ class AddHandCard extends Component {
               &nbsp;&nbsp;&nbsp;
               <Form.Group controlId="frmAddUserHandButton">
                 <Button variant="light" type="submit">
-                  Add Card to Hand
+                  Deal Hand
                 </Button>
               </Form.Group>
             </Form.Row>
           </Form>
           {/* TODO:  Add Table */}
-          {/* <p>Selected user has {this.state.handsCount} hands already dealt</p> */}
           <p>{this.DISPLAY_USER_INFO}</p>
-
-          <h2>IMPORTANT INSTRUCTIONS (Especially #5, and #6)</h2>
           <p>
             There are {this.state.randomDeck.length} cards remaining in the deck
-          </p>
-          <p>The deck will rebuild every time you log out</p>
-          <h2>1. Select user</h2>
-          <h2>2. Select hand number</h2>
-          <h2>3. Click "Add Card to Hand" button</h2>
-          <h2>
-            4. Refresh page (You MUST refresh, or the numbers will be off)
-          </h2>
-          <h2>5. Switch to a different user</h2>
-          <h2>6. Switch back to needed user</h2>
+          </p>          
         </section>
       </>
     );
