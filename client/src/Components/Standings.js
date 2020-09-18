@@ -1,11 +1,14 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
+import axios from "axios";
 import { evaluateHand } from "../EvaluationWorker";
 import HandEvaluationTable from "../Components/TableComponents/HandEvaluationTable";
 
 class Standings extends Component {
   constructor(props) {
     super(props);
-    this.importSavedState();
+    this.importSavedState();    
+    // this.loadDashboard();
   }
 
   importSavedState = () => {
@@ -29,10 +32,10 @@ class Standings extends Component {
         isLoggedIn: localState.isLoggedIn || false,
         password: localState.password || "",
         userId: localState.userId || 0,
-        selectedUser: localState.selectedUser || "",
-        selectedRun: localState.selectedRun || 1,
-        userHands: localState.userHands || [],
-        selectedHand: localState.selectedHand || "",
+        // selectedUser: localState.selectedUser || "",
+        // selectedRun: localState.selectedRun || 1,
+        // userHands: localState.userHands || [],
+        // selectedHand: localState.selectedHand || "",
         randomDeck: localState.randomDeck || [],
         newHand: localState.newHand || [],
         handsCount: localState.handsCount || 0,
@@ -46,6 +49,19 @@ class Standings extends Component {
         evaluations: [],
       };
     }
+  };
+
+  loadDashboard = () => {
+    axios
+      .get(this.ADMIN_DASHBOARD)
+      .then((response) => {
+        this.setState({
+          dashBoard: response.data,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   evaluatePair = (cards) => {
@@ -128,18 +144,15 @@ class Standings extends Component {
       }
 
       previousCharacter = face;
-
     });
 
     return highPair;
-
   };
 
   evaluateHighCard = (cards, highPair) => {
     let highCard = 0;
 
     cards.forEach((e) => {
-
       const face = e.slice(0, -1);
 
       switch (face) {
@@ -211,11 +224,9 @@ class Standings extends Component {
         default:
           break;
       }
-
     });
 
     return highCard;
-    
   };
 
   evaluateHands = () => {
@@ -289,7 +300,7 @@ class Standings extends Component {
       let highPair = 0;
       let highCard = 0;
 
-      if (hand.hand_rank === "8" || hand.hand_rank === "9") {
+      if (hand.hand_rank === "6" || hand.hand_rank === "7" || hand.hand_rank === "8" || hand.hand_rank === "9") {
         highCard = 0;
 
         const cards = hand.hand_display.split(",");
@@ -354,17 +365,20 @@ class Standings extends Component {
   };
 
   componentDidMount = () => {
+    // this.loadDashboard();
     this.evaluateHands();
-
-    // const J = 11,
-    //   Q = 12,
-    //   K = 13,
-    //   A = 14,
-    //   C = 1,
-    //   D = 2,
-    //   H = 4,
-    //   S = 8;
-    // console.log(evaluateHand([2, 3, 4, 5, 6], [D, D, D, D, D]));
+    if (this.state.loggedIn) {
+      // this.loadDashboard();
+      // const J = 11,
+      //   Q = 12,
+      //   K = 13,
+      //   A = 14,
+      //   C = 1,
+      //   D = 2,
+      //   H = 4,
+      //   S = 8;
+      // console.log(evaluateHand([2, 3, 4, 5, 6], [D, D, D, D, D]));
+    }
   };
 
   componentDidUpdate = () => {
@@ -376,12 +390,24 @@ class Standings extends Component {
   };
 
   render() {
+    const isLoggedOut = !this.state.isLoggedIn ? (
+      <Redirect to="/login" />
+    ) : null;
     return (
-      <section className="form-container">
-        <HandEvaluationTable evaluations={this.state.evaluations} />
-      </section>
+      <>
+        {isLoggedOut}
+        <section className="form-container">
+          <HandEvaluationTable evaluations={this.state.evaluations} />
+        </section>
+      </>
     );
   }
+}
+
+{
+  /* <section className="form-container">
+        <HandEvaluationTable evaluations={this.state.evaluations} />
+      </section> */
 }
 
 export default Standings;

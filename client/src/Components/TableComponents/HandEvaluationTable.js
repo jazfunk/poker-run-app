@@ -11,9 +11,9 @@ const HandEvaluationTable = (props) => {
         <td>{hand.hand_evaluation}</td>
         <td>{hand.hand_display}</td>
         <td>{hand.hand_value}</td>
-        <td>{hand.high_card}</td>
         <td>{hand.high_pair}</td>
-        {/* <td>{hand.hand_rank}</td> */}
+        <td>{hand.high_card}</td>
+        <td>{hand.hand_rank}</td>
         {/* <td>{hand.hand_id}</td> */}
       </tr>
     );
@@ -39,9 +39,9 @@ const HandEvaluationTable = (props) => {
             <th>Hand Rank</th>
             <th>Cards</th>
             <th>Value</th>
-            <th>High Card</th>
-            <th>High Pair</th>
-            {/* <th>Hand</th> */}
+            <th>Group+</th>
+            <th>Card+</th>
+            <th>Hand</th>
             {/* <th>ID</th> */}
           </tr>
         </thead>

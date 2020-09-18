@@ -18,6 +18,8 @@ class AddUserHand extends Component {
   USER_HANDS_URL = USER_HANDS_URL;
   ADMIN_DASHBOARD = ADMIN_DASHBOARD;
 
+  DISPLAY_USER_INFO = "";
+
   constructor(props) {
     super(props);
     this.importSavedState();
@@ -43,7 +45,7 @@ class AddUserHand extends Component {
         isLoggedIn: localState.isLoggedIn || false,
         password: localState.password || "",
         userId: localState.userId || 0,
-        selectedUser: localState.selectedUser || "",
+        // selectedUser: localState.selectedUser || "",
         selectedRun: localState.selectedRun || 1,
         handsCount: localState.handsCount || 0,
         randomDeck: localState.randomDeck || [],
@@ -61,7 +63,7 @@ class AddUserHand extends Component {
     axios
       .get(this.ADMIN_DASHBOARD)
       .then((response) => {
-        console.log(`Dashboard reloaded`)
+        console.log(`Dashboard reloaded`);
         this.setState({
           dashBoard: response.data,
         });
@@ -131,6 +133,11 @@ class AddUserHand extends Component {
         hand_number: nextHand,
       };
       this.postNewUserHand(hand);
+
+      alert(`SUCCESS:  Hand#${hand.hand_number} has been added.`)
+
+      location.reload();
+      
     } else {
       console.log("No user (or run) selected");
     }
@@ -140,9 +147,11 @@ class AddUserHand extends Component {
     axios
       .get(`${this.USER_HANDS_URL}${user_id}`)
       .then((response) => {
-        console.log(response.data.length);
+        const handCount = response.data.length;
+        // console.log(response.data.length);
+        this.DISPLAY_USER_INFO = `Number of Total Hands for selected User:  ${handCount}`;
         this.setState({
-          handsCount: response.data.length,
+          handsCount: handCount,
         });
       })
       .catch((error) => {
@@ -171,7 +180,7 @@ class AddUserHand extends Component {
       });
   };
 
-  componentDidUpdate = () => {
+  componentDidUpdate = () => {   
     this.saveLocal();
   };
 
@@ -227,15 +236,19 @@ class AddUserHand extends Component {
                 </Button>
               </Form.Group>
             </Form.Row>
-            <Form.Row>
+            {/* <Form.Row>
               <Form.Group>
-                <Form.Label>{`${this.state.selectedUserName} currently has ${this.state.handsCount} hand(s)`}</Form.Label>
+                <Form.Label>{this.DISPLAY_USER_INFO}</Form.Label>
               </Form.Group>
-            </Form.Row>
+            </Form.Row> */}
           </Form>
+          <p>{this.DISPLAY_USER_INFO}</p>
           <h2>IMPORTANT INSTRUCTIONS</h2>
           <p>You do NOT need to refresh the page</p>
-          <p>1. If a user is already selected, switch to a different user, then switch back</p>
+          <p>
+            1. If a user is already selected, switch to a different user, then
+            switch back
+          </p>
           <p>2. Click "Submit Hand #" button</p>
           <p>3. Switch to a different user</p>
           <p>4. Switch back to needed user</p>

@@ -20,6 +20,8 @@ class AddHandCard extends Component {
   ADD_HAND_CARD_ARRAY_URL = ADD_HAND_CARD_ARRAY_URL;
   USER_HANDS_URL = USER_HANDS_URL;
 
+  DISPLAY_USER_INFO = "";
+
   constructor(props) {
     super(props);
     this.importSavedState();
@@ -46,10 +48,10 @@ class AddHandCard extends Component {
         isLoggedIn: localState.isLoggedIn || false,
         password: localState.password || "",
         userId: localState.userId || 0,
-        selectedUser: localState.selectedUser || "",
+        // selectedUser: localState.selectedUser || "",
         selectedRun: localState.selectedRun || 1,
         userHands: localState.userHands || [],
-        selectedHand: localState.selectedHand || "",
+        // selectedHand: localState.selectedHand || "",
         randomDeck: localState.randomDeck || [],
         newHand: localState.newHand || [],
         handsCount: localState.handsCount || 0,
@@ -67,7 +69,7 @@ class AddHandCard extends Component {
     axios
       .get(this.ADMIN_DASHBOARD)
       .then((response) => {
-        console.log(`Dashboard reloaded`)
+        console.log(`Dashboard reloaded`);
         this.setState({
           dashBoard: response.data,
         });
@@ -204,6 +206,7 @@ class AddHandCard extends Component {
       console.log(cardCount / 5);
       handCount = cardCount / 5;
       handCount = handCount <= 0 ? 0 : handCount;
+      this.DISPLAY_USER_INFO = `Number of hands dealt for selected user:  ${handCount}`;
       this.setState({
         handsCount: handCount,
       });
@@ -211,7 +214,7 @@ class AddHandCard extends Component {
       console.log("cardCount is <= 0");
       this.setState({
         handsCount: 0,
-      })
+      });
     }
   };
 
@@ -237,9 +240,9 @@ class AddHandCard extends Component {
 
       this.postNewHandCard(cardsToSubmit);
 
-
       alert(`SUCCESS:  Hand #${this.state.selectedHandNumber} has been dealt`);
 
+      location.reload();
     }
   };
 
@@ -340,17 +343,22 @@ class AddHandCard extends Component {
             </Form.Row>
           </Form>
           {/* TODO:  Add Table */}
-          <p>Selected user has {this.state.handsCount} hands already dealt</p>
-          
-          <h2>IMPORTANT INSTRUCTIONS (Especially #5, and #6)</h2> 
-          <p>There are {this.state.randomDeck.length} cards remaining in the deck</p>
-          <p>The deck will rebuild every time you log out</p>          
-          <h2>1. Select user</h2> 
-          <h2>2. Select hand number</h2> 
-          <h2>3. Click "Add Card to Hand" button</h2> 
-          <h2>4. Refresh page (You MUST refresh, or the numbers will be off)</h2> 
-          <h2>5. Switch to a different user</h2> 
-          <h2>6. Switch back to needed user</h2> 
+          {/* <p>Selected user has {this.state.handsCount} hands already dealt</p> */}
+          <p>{this.DISPLAY_USER_INFO}</p>
+
+          <h2>IMPORTANT INSTRUCTIONS (Especially #5, and #6)</h2>
+          <p>
+            There are {this.state.randomDeck.length} cards remaining in the deck
+          </p>
+          <p>The deck will rebuild every time you log out</p>
+          <h2>1. Select user</h2>
+          <h2>2. Select hand number</h2>
+          <h2>3. Click "Add Card to Hand" button</h2>
+          <h2>
+            4. Refresh page (You MUST refresh, or the numbers will be off)
+          </h2>
+          <h2>5. Switch to a different user</h2>
+          <h2>6. Switch back to needed user</h2>
         </section>
       </>
     );
