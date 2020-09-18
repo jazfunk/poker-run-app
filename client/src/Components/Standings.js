@@ -48,6 +48,176 @@ class Standings extends Component {
     }
   };
 
+  evaluatePair = (cards) => {
+    let previousCharacter = "";
+    let highPair = 0;
+
+    cards.forEach((e) => {
+      const face = e.slice(0, -1);
+
+      if (face === previousCharacter) {
+        switch (face) {
+          case "A":
+            if (highPair < 14) {
+              highPair = 14;
+            }
+            break;
+          case "K":
+            if (highPair < 13) {
+              highPair = 13;
+            }
+            break;
+          case "Q":
+            if (highPair < 12) {
+              highPair = 12;
+            }
+            break;
+          case "J":
+            if (highPair < 11) {
+              highPair = 11;
+            }
+            break;
+          case "10":
+            if (highPair < 10) {
+              highPair = 10;
+            }
+            break;
+          case "9":
+            if (highPair < 9) {
+              highPair = 9;
+            }
+            break;
+          case "8":
+            if (highPair < 8) {
+              highPair = 8;
+            }
+            break;
+          case "7":
+            if (highPair < 7) {
+              highPair = 7;
+            }
+            break;
+          case "6":
+            if (highPair < 6) {
+              highPair = 6;
+            }
+            break;
+          case "5":
+            if (highPair < 5) {
+              highPair = 5;
+            }
+            break;
+          case "4":
+            if (highPair < 4) {
+              highPair = 4;
+            }
+            break;
+          case "3":
+            if (highPair < 3) {
+              highPair = 3;
+            }
+            break;
+          case "2":
+            if (highPair < 2) {
+              highPair = 2;
+            }
+            break;
+          default:
+            break;
+        }
+      }
+
+      previousCharacter = face;
+
+    });
+
+    return highPair;
+
+  };
+
+  evaluateHighCard = (cards, highPair) => {
+    let highCard = 0;
+
+    cards.forEach((e) => {
+
+      const face = e.slice(0, -1);
+
+      switch (face) {
+        case "A":
+          if (highCard < 14 && highPair != 14) {
+            highCard = 14;
+          }
+          break;
+        case "K":
+          if (highCard < 13 && highPair != 13) {
+            highCard = 13;
+          }
+          break;
+        case "Q":
+          if (highCard < 12 && highPair != 12) {
+            highCard = 12;
+          }
+          break;
+        case "J":
+          if (highCard < 11 && highPair != 11) {
+            highCard = 11;
+          }
+          break;
+        case "10":
+          if (highCard < 10 && highPair != 10) {
+            highCard = 10;
+          }
+          break;
+        case "9":
+          if (highCard < 9 && highPair != 9) {
+            highCard = 9;
+          }
+          break;
+        case "8":
+          if (highCard < 8 && highPair != 8) {
+            highCard = 8;
+          }
+          break;
+        case "7":
+          if (highCard < 7 && highPair != 7) {
+            highCard = 7;
+          }
+          break;
+        case "6":
+          if (highCard < 6 && highPair != 6) {
+            highCard = 6;
+          }
+          break;
+        case "5":
+          if (highCard < 5 && highPair != 5) {
+            highCard = 5;
+          }
+          break;
+        case "4":
+          if (highCard < 4 && highPair != 4) {
+            highCard = 4;
+          }
+          break;
+        case "3":
+          if (highCard < 3 && highPair != 3) {
+            highCard = 3;
+          }
+          break;
+        case "2":
+          if (highCard < 2 && highPair != 2) {
+            highCard = 2;
+          }
+          break;
+        default:
+          break;
+      }
+
+    });
+
+    return highCard;
+    
+  };
+
   evaluateHands = () => {
     let handId = 0;
     const hands = [...this.state.dashBoard.hands];
@@ -93,6 +263,7 @@ class Standings extends Component {
 
       const handEvaluation = evaluateHand(faces, suits);
       const handRank = this.rankEvaluation(handEvaluation);
+
       const compiledHandEvaluation = {
         hand_rank: handRank,
         hand_evaluation: handEvaluation,
@@ -114,8 +285,7 @@ class Standings extends Component {
     });
 
     handsDealtEvaluations.forEach((hand) => {
-      let previousCharacter = "";
-      let weightedValue = 0;
+      // let weightedValue = 0;
       let highPair = 0;
       let highCard = 0;
 
@@ -123,188 +293,13 @@ class Standings extends Component {
         highCard = 0;
 
         const cards = hand.hand_display.split(",");
-        const sortedCards = cards.sort();
 
-        sortedCards.forEach((e) => {
-          highCard = 0;
+        highPair = this.evaluatePair(cards);
+        highCard = this.evaluateHighCard(cards, highPair);
 
-          const face = e.slice(0, -1);
-
-          if (face === previousCharacter) {
-            switch (face) {
-              case "A":
-                weightedValue += 14;
-                if (highPair < 14) {
-                  highPair = 14;
-                }
-                break;
-              case "K":
-                weightedValue += 13;
-                if (highPair < 13) {
-                  highPair = 13;
-                }
-                break;
-              case "Q":
-                weightedValue += 12;
-                if (highPair < 12) {
-                  highPair = 12;
-                }
-                break;
-              case "J":
-                weightedValue += 11;
-                if (highPair < 11) {
-                  highPair = 11;
-                }
-                break;
-              case "10":
-                weightedValue += 10;
-                if (highPair < 10) {
-                  highPair = 10;
-                }
-                break;
-              case "9":
-                weightedValue += 9;
-                if (highPair < 9) {
-                  highPair = 9;
-                }
-                break;
-              case "8":
-                weightedValue += 8;
-                if (highPair < 8) {
-                  highPair = 8;
-                }
-                break;
-              case "7":
-                weightedValue += 7;
-                if (highPair < 7) {
-                  highPair = 7;
-                }
-                break;
-              case "6":
-                weightedValue += 6;
-                if (highPair < 6) {
-                  highPair = 6;
-                }
-                break;
-              case "5":
-                weightedValue += 5;
-                if (highPair < 5) {
-                  highPair = 5;
-                }
-                break;
-              case "4":
-                weightedValue += 4;
-                if (highPair < 4) {
-                  highPair = 4;
-                }
-                break;
-              case "3":
-                weightedValue += 3;
-                if (highPair < 3) {
-                  highPair = 3;
-                }
-                break;
-              case "2":
-                weightedValue += 2;
-                if (highPair < 2) {
-                  highPair = 2;
-                }
-                break;
-              default:
-                break;
-            }
-          } 
-
-          switch (face) {
-            case "A":
-              weightedValue += 14;
-              if (highCard < 14) {
-                highCard = 14;
-              }
-              break;
-            case "K":
-              weightedValue += 13;
-              if (highCard < 13) {
-                highCard = 13;
-              }
-              break;
-            case "Q":
-              weightedValue += 12;
-              if (highCard < 12) {
-                highCard = 12;
-              }
-              break;
-            case "J":
-              weightedValue += 11;
-              if (highCard < 11) {
-                highCard = 11;
-              }
-              break;
-            case "10":
-              weightedValue += 10;
-              if (highCard < 10) {
-                highCard = 10;
-              }
-              break;
-            case "9":
-              weightedValue += 9;
-              if (highCard < 9) {
-                highCard = 9;
-              }
-              break;
-            case "8":
-              weightedValue += 8;
-              if (highCard < 8) {
-                highCard = 8;
-              }
-              break;
-            case "7":
-              weightedValue += 7;
-              if (highCard < 7) {
-                highCard = 7;
-              }
-              break;
-            case "6":
-              weightedValue += 6;
-              if (highCard < 6) {
-                highCard = 6;
-              }
-              break;
-            case "5":
-              weightedValue += 5;
-              if (highCard < 5) {
-                highCard = 5;
-              }
-              break;
-            case "4":
-              weightedValue += 4;
-              if (highCard < 4) {
-                highCard = 4;
-              }
-              break;
-            case "3":
-              weightedValue += 3;
-              if (highCard < 3) {
-                highCard = 3;
-              }
-              break;
-            case "2":
-              weightedValue += 2;
-              if (highCard < 2) {
-                highCard = 2;
-              }
-              break;
-            default:
-              break;
-          }
-
-          previousCharacter = face;
-          
-        });
-        
         hand.high_pair = highPair;
         hand.high_card = highCard;
-        hand.weighted_value = weightedValue;
+        // hand.weighted_value = weightedValue;
       }
     });
 
