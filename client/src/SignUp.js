@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import SignUpComponent from "./Components/SignUpComponent.js";
+import SignupComponent from "./Components/SignupComponent";
 import { Redirect } from "react-router-dom";
 import { ADD_USER_URL, ADMIN_DASHBOARD } from "./API_Config";
 
@@ -160,7 +160,7 @@ class SignUp extends Component {
       <>
         {isLoggedOut}
         <section>
-          <SignUpComponent
+          <SignupComponent
             add_first_name={this.state.add_first_name}
             add_last_name={this.state.add_flast_name}
             add_email={this.state.add_email}
