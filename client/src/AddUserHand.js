@@ -21,6 +21,8 @@ class AddUserHand extends Component {
   DISPLAY_USER_INFO = "";
 
   DEALING_ENABLED = false;
+
+  // What is going on?  12:02 09/19
    
 
   constructor(props) {
