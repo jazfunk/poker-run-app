@@ -22,8 +22,7 @@ class AddUserHand extends Component {
 
   DEALING_ENABLED = false;
 
-  // What is going on?  12:02 09/19
-   
+  
 
   constructor(props) {
     super(props);
