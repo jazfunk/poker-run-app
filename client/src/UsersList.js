@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
 import UsersTable from "./Components/TableComponents/UsersTable";
-// import axios from "axios";
+import axios from "axios";
 import { Redirect } from "react-router-dom";
-import { ADD_USER_URL } from "./API_Config";
+import { ADD_USER_URL, ADMIN_DASHBOARD } from "./API_Config";
 
 class UsersList extends Component {
   USERS_URL = ADD_USER_URL;
+  ADMIN_DASHBOARD = ADMIN_DASHBOARD;
 
   constructor(props) {
     super(props);
@@ -51,20 +52,21 @@ class UsersList extends Component {
 
   componentDidMount = () => {
     if (this.state.isLoggedIn) {
-      const users = [...this.state.dashBoard.users];
-      if (users === [])
-      console.log("dashBoard.users is empty");
-      // axios
-      //   .get(this.USERS_URL)
-      //   .then((response) => {
-      //     this.setState({
-      //       users: response.data,
-      //     });
-      //   })
-      //   .catch((error) => {
-      //     console.log(error);
-      //   });
+      this.loadDashboard();
     }
+  };
+
+  loadDashboard = () => {
+    axios
+      .get(this.ADMIN_DASHBOARD)
+      .then((response) => {
+        this.setState({
+          dashBoard: response.data,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   handleChange = (event) => {

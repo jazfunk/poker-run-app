@@ -8,12 +8,22 @@ const LoginForm = (props) => {
       <Form onSubmit={props.handleSubmit}>
         <Form.Group controlId="formLoginEmail">
           <Form.Label>Email address</Form.Label>
-          <Form.Control name="email" type="email" placeholder="" onChange={props.handleChange} />
+          <Form.Control
+            name="email"
+            type="email"
+            placeholder=""
+            onChange={props.handleChange}
+          />
         </Form.Group>
 
         <Form.Group controlId="formLoginPassword">
           <Form.Label>Password</Form.Label>
-          <Form.Control name="password" type="password" placeholder="" onChange={props.handleChange} />
+          <Form.Control
+            name="password"
+            type="password"
+            placeholder=""
+            onChange={props.handleChange}
+          />
         </Form.Group>
 
         <Form.Group controlId="formLoginSubmit" className="submitbtn-formgroup">

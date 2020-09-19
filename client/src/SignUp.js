@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import axios from "axios";
-import SignUpComponent from "./Components/SignupComponent";
+import SignUpComponent from "./Components/SignUpComponent";
 import { Redirect } from "react-router-dom";
-import { ADD_USER_URL } from "./API_Config";
+import { ADD_USER_URL, ADMIN_DASHBOARD } from "./API_Config";
 
 class SignUp extends Component {
   ADD_USER_URL = ADD_USER_URL;
+  ADMIN_DASHBOARD = ADMIN_DASHBOARD;
 
   constructor(props) {
     super(props);
@@ -32,24 +33,34 @@ class SignUp extends Component {
         full_name: localState.full_name || "",
         isLoggedIn: localState.isLoggedIn || false,
         password: localState.password || "",
+        passwordConfirm: localState.passwordConfirm || "",
         userId: localState.userId || 0,
         randomDeck: localState.randomDeck || [],
-        // users: localState.users || [],
-        // hands: localState.hands || [],
       };
     } else {
       this.state = {
         isLoggedIn: false,
-        // users: [],
-        // hands: [],
       };
     }
   };
 
   componentDidMount = () => {
     if (this.state.isLoggedIn) {
-      // Do stuff
+      this.loadDashboard();
     }
+  };
+
+  loadDashboard = () => {
+    axios
+      .get(this.ADMIN_DASHBOARD)
+      .then((response) => {
+        this.setState({
+          dashBoard: response.data,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   handleChange = (event) => {
@@ -62,22 +73,50 @@ class SignUp extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    event.target.reset();
 
-    // TODO: 
-    // Use validate helper module to 
-    // ensure proper data 
-    // Check if email already exists
-    // add text box for re-typing password
+    // Validate if email already exists
+    // Maybe create separate function
+    const users = [...this.state.dashBoard.users]
+    const userEmail = users.filter((user) => {
+      return user.email === this.state.add_email;      
+    })
+    if (userEmail.length > 0) {
+      this.setState({
+        add_email: "",
+      })
+      return alert("An account with that email address already exists")
+    }
+
+    // Validate entered PW
+    // Maybe create separate function
+    const passwordTrimmed = this.state.add_password.trim();
+    const passwordConfirmTrimmed = this.state.add_passwordConfirm.trim();
+
+    if (passwordTrimmed != passwordConfirmTrimmed) {
+      this.setState({
+        add_passwordConfirm: "",
+      })
+      return alert("Passwords do not match");
+    }
 
     const user = {
-      first_name: this.state.first_name,
-      last_name: this.state.last_name,
-      email: this.state.email,
-      password: this.state.password,
+      first_name: this.state.add_first_name.trim(),
+      last_name: this.state.add_last_name.trim(),
+      email: this.state.add_email.trim(),
+      password: this.state.add_password.trim(),
     };
 
     this.postNewUser(user);
+
+    this.setState({
+      add_first_name: "",
+      add_last_name: "",
+      add_email: "",
+      add_password: "",
+    })
+    
+    event.target.reset();
+
   };
 
   postNewUser = (user) => {
@@ -119,7 +158,10 @@ class SignUp extends Component {
         {isLoggedOut}
         <section>
           <SignUpComponent
-            user={this.state}
+            add_first_name={this.state.add_first_name}
+            add_last_name={this.state.add_flast_name}
+            add_email={this.state.add_email}
+            add_password={this.state.add_password}
             handleSubmit={this.handleSubmit}
             handleChange={this.handleChange}
           />

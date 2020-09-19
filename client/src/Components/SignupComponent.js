@@ -3,7 +3,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 
-const Signup = (props) => {
+const SignUpComponent = (props) => {
   return (
     <section className="form-container">
       <Form onSubmit={props.handleSubmit}>
@@ -12,10 +12,10 @@ const Signup = (props) => {
             <Form.Label>First Name</Form.Label>
             <Form.Control
               onChange={props.handleChange}
-              defaultValue={props.first_name}
+              defaultValue={props.add_first_name}
               type="text"
               placeholder=""
-              name="first_name"
+              name="add_first_name"
               required={true}
             />
           </Form.Group>
@@ -23,10 +23,10 @@ const Signup = (props) => {
             <Form.Label>Last Name</Form.Label>
             <Form.Control
               onChange={props.handleChange}
-              defaultValue={props.last_name}
+              defaultValue={props.add_last_name}
               type="text"
               placeholder=""
-              name="last_name"
+              name="add_last_name"
               required={true}
             />
           </Form.Group>
@@ -37,27 +37,39 @@ const Signup = (props) => {
             <Form.Label>Email address</Form.Label>
             <Form.Control
               onChange={props.handleChange}
-              defaultValue={props.email}
+              defaultValue={props.add_email}
               type="email"
               placeholder=""
-              name="email"
+              name="add_email"
               required={true}
             />
           </Form.Group>
         </Form.Row>
 
         <Form.Row>
-          <Form.Group as={Col} controlId="formAddUserPassWord">
-            <Form.Label>Password</Form.Label>
-            <Form.Control
-              onChange={props.handleChange}
-              defaultValue={props.password}
-              type="password"
-              placeholder=""
-              name="password"
-              required={true}
-            />
-          </Form.Group>
+            <Form.Group as={Col} controlId="formAddUserPassWord">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                onChange={props.handleChange}
+                defaultValue={props.add_password}
+                type="password"
+                placeholder=""
+                name="add_password"
+                required={true}
+              />
+            </Form.Group>
+            &nbsp;&nbsp;
+            <Form.Group as={Col} controlId="formAddUserPassWordConfirm">
+              <Form.Label>Confirm Password</Form.Label>
+              <Form.Control
+                onChange={props.handleChange}
+                defaultValue={props.add_passwordConfirm}
+                type="password"
+                placeholder=""
+                name="add_passwordConfirm"
+                required={true}
+              />
+            </Form.Group>
         </Form.Row>
 
         <Form.Row>
@@ -75,4 +87,4 @@ const Signup = (props) => {
   );
 };
 
-export default Signup;
+export default SignUpComponent;

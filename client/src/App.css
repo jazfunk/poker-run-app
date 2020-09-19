@@ -114,7 +114,7 @@ ul.dropdown-menu {
 }
 
 .submitbtn-formgroup {
-  text-align: right;
+  justify-content: flex-start;
 }
 
 .submit-btn {
@@ -162,7 +162,7 @@ ul.dropdown-menu {
   border-image-source: linear-gradient(to bottom left, #feffff, #d1e8e2);
 }
 .border-gradient-green {
-  border-image-source: linear-gradient(to left, #00C853, #B2FF59);
+  border-image-source: linear-gradient(to left, #00c853, #b2ff59);
 }
 
 .deck-cards {

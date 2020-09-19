@@ -83,7 +83,7 @@ class AddHandCard extends Component {
 
   componentDidMount = () => {
     if (this.state.isLoggedIn) {
-      this.loadDashboard();     
+      this.loadDashboard();
 
       // check localState.randomDeck.length < 5
       // load a new deck here
@@ -175,7 +175,20 @@ class AddHandCard extends Component {
   handleHandSelect = (event) => {
     event.preventDefault();
     const selectedHand = event.target.selectedOptions[0];
-    console.log(`Selected Hand: ${selectedHand.textContent}`);
+    const selectedHandText = selectedHand.textContent;
+    console.log(`Selected Hand: ${selectedHandText}`);
+
+    let handNumber = 0;
+    try {
+      handNumber = parseInt(selectedHandText);
+    } catch (error) {
+      handNumber = 0;
+    }
+
+    if (handNumber <= this.state.handsCount) {
+      return alert("Hand already dealt");
+    }
+
     this.setState({
       selectedHand: selectedHand.value,
       selectedHandNumber: selectedHand.textContent,
@@ -225,11 +238,12 @@ class AddHandCard extends Component {
     // event.preventDefault();
     event.target.reset();
 
-    if(!this.DEALING_ENABLED) {
-      return;
+    if (!this.DEALING_ENABLED) { 
+      return alert("Error dealing hand.  Try again.");
     }
 
     if (this.state.selectedHandNumber <= this.state.handsCount) {
+      this.DEALING_ENABLED = false;
       return alert(
         `ERROR:  Cards for selected hand number ${this.state.selectedHandNumber} have already been added. Choose a different hand`
       );
@@ -254,30 +268,33 @@ class AddHandCard extends Component {
   };
 
   postNewHandCard = (handCard) => {
-    var data = JSON.stringify(handCard);
-    var config = {
-      method: "post",
-      url: this.ADD_HAND_CARD_ARRAY_URL,
-      headers: {
-        "Content-Type": "Application/json",
-      },
-      data: data,
-    };
+    if (this.DEALING_ENABLED) {
+      var data = JSON.stringify(handCard);
+      var config = {
+        method: "post",
+        url: this.ADD_HAND_CARD_ARRAY_URL,
+        headers: {
+          "Content-Type": "Application/json",
+        },
+        data: data,
+      };
 
-    console.log(config.data);
+      console.log(config.data);
 
-    axios(config)
-      .then((response) => {
-        console.log(`New five-card hand added to hand`);
-      })
+      axios(config)
+        .then((response) => {
+          console.log(`New five-card hand added to hand`);
+        })
 
-      .catch((error) => {
-        console.log(error);
-      });
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   };
 
   componentDidUpdate = () => {
     this.saveLocal();
+    console.log(this.state.randomDeck);
   };
 
   saveLocal = () => {
@@ -353,7 +370,7 @@ class AddHandCard extends Component {
           <p>{this.DISPLAY_USER_INFO}</p>
           <p>
             There are {this.state.randomDeck.length} cards remaining in the deck
-          </p>          
+          </p>
         </section>
       </>
     );
