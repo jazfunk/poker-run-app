@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import SignUpComponent from "./Components/SignUpComponent";
+import SignUpComponent from "./Components/SignUpComponent.js";
 import { Redirect } from "react-router-dom";
 import { ADD_USER_URL, ADMIN_DASHBOARD } from "./API_Config";
 
