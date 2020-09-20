@@ -1,7 +1,7 @@
 import React from "react";
 import { MDBDataTable } from "mdbreact";
 
-const HandsCardsMDBTable = (props) => {
+const UsersListMDBTable = (props) => {
   const data = {
     columns: [
       {
@@ -15,18 +15,8 @@ const HandsCardsMDBTable = (props) => {
         sort: "asc",
       },
       {
-        label: "Hand ID",
-        field: "handId",
-        sort: "asc",
-      },
-      {
-        label: "Hand #",
-        field: "handNumber",
-        sort: "asc",
-      },
-      {
-        label: "Card",
-        field: "handDisplay",
+        label: "Email",
+        field: "email",
         sort: "asc",
       },
       {
@@ -35,7 +25,7 @@ const HandsCardsMDBTable = (props) => {
         sort: "asc",
       },
     ],
-    rows: props.handCards,
+    rows: props.users,
   };
 
   return (
@@ -44,7 +34,7 @@ const HandsCardsMDBTable = (props) => {
         className="md-table"
         responsive
         scrollY
-        maxHeight="60vh"
+        maxHeight="40vh"
         striped
         bordered
         small
@@ -54,4 +44,4 @@ const HandsCardsMDBTable = (props) => {
   );
 };
 
-export default HandsCardsMDBTable;
+export default UsersListMDBTable;

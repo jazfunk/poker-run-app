@@ -1,15 +1,14 @@
 import React, { Component } from "react";
 import axios from "axios";
+import moment from "moment";
 import SignupComponent from "./Components/SignupComponent";
+import UsersListMDBTable from "./Components/TableComponents/UsersListMDBTable";
 import { Redirect } from "react-router-dom";
 import { ADD_USER_URL, ADMIN_DASHBOARD } from "./API_Config";
 
 class SignUp extends Component {
   ADD_USER_URL = ADD_USER_URL;
-  ADMIN_DASHBOARD = ADMIN_DASHBOARD;
-
-  // What is going on?  12:02 09/19
-  
+  ADMIN_DASHBOARD = ADMIN_DASHBOARD;  
 
   constructor(props) {
     super(props);
@@ -50,8 +49,28 @@ class SignUp extends Component {
   componentDidMount = () => {
     if (this.state.isLoggedIn) {
       this.loadDashboard();
+      this.getUsersDisplay();
     }
   };
+
+  getUsersDisplay = () => {
+    const users = [...this.state.dashBoard.users]
+    const usersDisplay = [];
+    users.forEach((user) => {
+      let dateMoment = moment(user.created_at);
+      let name = `${user.first_name} ${user.last_name}`
+      const builtUser = {
+        id: user.id,
+        name: name,
+        email: user.email,
+        createdAt: dateMoment.format("MM-DD-YYYY hh:mm a"),
+      }
+      usersDisplay.push(builtUser)
+    })
+    this.setState({
+      usersDisplay: usersDisplay,
+    })
+  }
 
   loadDashboard = () => {
     axios
@@ -108,7 +127,7 @@ class SignUp extends Component {
       email: this.state.add_email.trim(),
       password: this.state.add_password.trim(),
     };
-
+    
     this.postNewUser(user);
 
     this.setState({
@@ -168,6 +187,9 @@ class SignUp extends Component {
             handleSubmit={this.handleSubmit}
             handleChange={this.handleChange}
           />
+           <section>
+            <UsersListMDBTable users={this.state.usersDisplay} />
+          </section>
         </section>
       </>
     );

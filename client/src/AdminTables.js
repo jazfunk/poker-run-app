@@ -139,7 +139,7 @@ class AdminTables extends Component {
         {isLoggedOut}
         <section>
           <section className="admin-tables">
-            AdminTables
+            {/* AdminTables
             <RawUsersTable
               users={this.state.dashBoard.users}
               deleteUser={this.deleteUser}
@@ -151,7 +151,7 @@ class AdminTables extends Component {
             <RawHandCardsTable
               handCards={this.state.dashBoard.handCards}
               deleteHandsCard={this.deleteHandsCard}
-            />
+            /> */}
             <RawRunsTable runs={this.state.dashBoard.runs} deleteRun={this.deleteRun} />
             <RawRunAdminsTable
               admins={this.state.dashBoard.runAdmins}
