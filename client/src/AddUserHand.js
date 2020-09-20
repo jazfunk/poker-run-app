@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import RawHandsTable from "./Components/TableComponents/RawHandsTable";
+import moment from "moment";
+import HandsMDBTable from "./Components/TableComponents/HandsMDBTable";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
 import {
@@ -78,16 +79,29 @@ class AddUserHand extends Component {
 
   componentDidMount = () => {
     if (this.state.isLoggedIn) {
-      this.loadDashboard();      
+      this.loadDashboard();
+      this.getHandsDisplay();
     }
   };
 
-  filterHandsBySelectedUser = (userId) => {
-    const hands = [this.state.dashBoard.hands]
-    const userHands = hands.filter((hand) => {
-      return hand.user_id === userId;
+  getHandsDisplay = () => {    
+    const hands = [...this.state.dashBoard.hands];
+    const displayHands = [];
+    hands.forEach((hand) => {
+      let dateMoment = moment(hand.created_at);
+      const builtHand = {
+        id: hand.id,
+        name: hand.full_name,
+        handNumber: hand.hand_number,
+        runName: hand.run_name,
+        createdAt: dateMoment.format("MM-DD-YYYY hh:mm a"),
+      };
+      displayHands.push(builtHand);
+    });
+    this.setState({
+      displayHands: displayHands,
     })
-  }
+  };
 
   handleUserSelect = async (event) => {
     event.preventDefault();
@@ -135,7 +149,6 @@ class AddUserHand extends Component {
   handleSubmit = (event) => {
     // event.preventDefault();
     event.target.reset();
-
 
     if (!this.DEALING_ENABLED) {
       return;
@@ -257,7 +270,7 @@ class AddUserHand extends Component {
             <p>{this.DISPLAY_USER_INFO}</p>
           </section>
           <section>
-            <RawHandsTable hands={this.state.dashBoard.hands} />
+            <HandsMDBTable hands={this.state.displayHands} />
           </section>
         </section>
       </>

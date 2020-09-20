@@ -109,8 +109,16 @@ ul.dropdown-menu {
   border-radius: 8px;
   filter: drop-shadow(0 0 0.5rem #d1e8e2);
   padding: 20px;
-  width: 75vw;
+  width: 90vw;
   color: #ffcb9a;
+}
+
+.md-table {
+  margin: 0 auto;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+  width: 90vw;
 }
 
 .submitbtn-formgroup {

@@ -1,6 +1,6 @@
 import React from "react";
 import Table from "react-bootstrap/Table";
-import Button from "react-bootstrap/Button";
+// import Button from "react-bootstrap/Button";
 import moment from "moment";
 
 const RawHandsTable = (props) => {
@@ -37,7 +37,6 @@ const RawHandsTable = (props) => {
   return (
     <section className="form-container">
       <section className="body-main-table table-responsive">
-        Hands Table
         <Table className="table-dark table-striped table-borderless table-hover table-bg-trans text-nowrap">
           <thead className="thead-dark">
             <tr>

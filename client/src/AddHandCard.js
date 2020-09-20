@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import HandsCardsMDBTable from "./Components/TableComponents/HandsCardsMDBTable";
+import moment from "moment";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
 import {
@@ -84,16 +86,35 @@ class AddHandCard extends Component {
   componentDidMount = () => {
     if (this.state.isLoggedIn) {
       this.loadDashboard();
+      this.getHandCardsDisplay();
 
-      // check localState.randomDeck.length < 5
-      // load a new deck here
       if (this.state.randomDeck.length < 5) {
         this.setState({
           randomDeck: this.getRandomDeck(52),
         });
-        //
       }
     }
+  };
+
+  getHandCardsDisplay = () => {   
+    const handCards = [...this.state.dashBoard.handCards];
+    const displayHandCards = [];
+    handCards.forEach((handCard) => {
+      let dateMoment = moment(handCard.created_at);
+      let handDisplay = `${handCard.card_face}${handCard.card_suit}`;
+      const builtHandCard = {
+        id: handCard.id,
+        name: handCard.full_name,
+        handId: handCard.hand_id,
+        handNumber: handCard.hand_number,
+        handDisplay: handDisplay,
+        createdAt: dateMoment.format("MM-DD-YYYY hh:mm a"),
+      };
+      displayHandCards.push(builtHandCard);
+    });
+    this.setState({
+      displayHandCards: displayHandCards,
+    })
   };
 
   addCardsToHand = () => {
@@ -238,7 +259,7 @@ class AddHandCard extends Component {
     // event.preventDefault();
     event.target.reset();
 
-    if (!this.DEALING_ENABLED) { 
+    if (!this.DEALING_ENABLED) {
       return alert("Error dealing hand.  Try again.");
     }
 
@@ -260,9 +281,9 @@ class AddHandCard extends Component {
       console.log(cardsToSubmit);
 
       this.postNewHandCard(cardsToSubmit);
-      
+
       this.DEALING_ENABLED = false;
-      
+
       alert(`SUCCESS:  Hand #${this.state.selectedHandNumber} has been dealt`);
     }
   };
@@ -308,69 +329,74 @@ class AddHandCard extends Component {
     return (
       <>
         {isLoggedOut}
-        <section className="form-container">
-          <Form onSubmit={this.handleSubmit}>
-            <Form.Row>
-              <Form.Group controlId="frmRunSelect">
-                <select
-                  name="selectedRun"
-                  className="form-control"
-                  defaultValue={this.state.selectedRun}
-                  onChange={this.handleRunSelect}
-                >
-                  <option>Select Run</option>
-                  {this.state.dashBoard.runs.map((run) => (
-                    <option key={run.id} value={run.id}>
-                      {run.run_name}
-                    </option>
-                  ))}
-                </select>
-              </Form.Group>
-              &nbsp;&nbsp;&nbsp;
-              <Form.Group controlId="frmUserSelect">
-                <select
-                  name="selectedUser"
-                  className="form-control"
-                  defaultValue={this.state.selectedUser}
-                  onChange={this.handleUserSelect}
-                >
-                  <option>Select User</option>
-                  {this.state.dashBoard.users.map((user) => (
-                    <option key={user.id} value={user.id}>
-                      {user.first_name} {user.last_name}
-                    </option>
-                  ))}
-                </select>
-              </Form.Group>
-              &nbsp;&nbsp;&nbsp;
-              <Form.Group controlId="frmUserHandSelect">
-                <select
-                  name="selectedHand"
-                  className="form-control"
-                  defaultValue={this.state.selectedHand}
-                  onChange={this.handleHandSelect}
-                >
-                  <option>Select Hand</option>
-                  {this.state.userHands.map((hand) => (
-                    <option key={hand.id} value={hand.id}>
-                      {hand.hand_number}
-                    </option>
-                  ))}
-                </select>
-              </Form.Group>
-              &nbsp;&nbsp;&nbsp;
-              <Form.Group controlId="frmAddUserHandButton">
-                <Button variant="light" type="submit">
-                  Deal Hand
-                </Button>
-              </Form.Group>
-            </Form.Row>
-          </Form>
-          {/* TODO:  Add Table */}
-          <p>{this.DISPLAY_USER_INFO}</p>
-          <p>
-            There are {this.state.randomDeck.length} cards remaining in the deck
-          </p>
+        <section>
+          <section className="form-container">
+            <Form onSubmit={this.handleSubmit}>
+              <Form.Row>
+                <Form.Group controlId="frmRunSelect">
+                  <select
+                    name="selectedRun"
+                    className="form-control"
+                    defaultValue={this.state.selectedRun}
+                    onChange={this.handleRunSelect}
+                  >
+                    <option>Select Run</option>
+                    {this.state.dashBoard.runs.map((run) => (
+                      <option key={run.id} value={run.id}>
+                        {run.run_name}
+                      </option>
+                    ))}
+                  </select>
+                </Form.Group>
+                &nbsp;&nbsp;&nbsp;
+                <Form.Group controlId="frmUserSelect">
+                  <select
+                    name="selectedUser"
+                    className="form-control"
+                    defaultValue={this.state.selectedUser}
+                    onChange={this.handleUserSelect}
+                  >
+                    <option>Select User</option>
+                    {this.state.dashBoard.users.map((user) => (
+                      <option key={user.id} value={user.id}>
+                        {user.first_name} {user.last_name}
+                      </option>
+                    ))}
+                  </select>
+                </Form.Group>
+                &nbsp;&nbsp;&nbsp;
+                <Form.Group controlId="frmUserHandSelect">
+                  <select
+                    name="selectedHand"
+                    className="form-control"
+                    defaultValue={this.state.selectedHand}
+                    onChange={this.handleHandSelect}
+                  >
+                    <option>Select Hand</option>
+                    {this.state.userHands.map((hand) => (
+                      <option key={hand.id} value={hand.id}>
+                        {hand.hand_number}
+                      </option>
+                    ))}
+                  </select>
+                </Form.Group>
+                &nbsp;&nbsp;&nbsp;
+                <Form.Group controlId="frmAddUserHandButton">
+                  <Button variant="light" type="submit">
+                    Deal Hand
+                  </Button>
+                </Form.Group>
+              </Form.Row>
+            </Form>
+            <p>{this.DISPLAY_USER_INFO}</p>
+            <p>
+              There are {this.state.randomDeck.length} cards remaining in the
+              deck
+            </p>
+          </section>
+          <section>
+            <HandsCardsMDBTable handCards={this.state.displayHandCards} />
+          </section>
         </section>
       </>
     );
