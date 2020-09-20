@@ -10,7 +10,6 @@ import { Redirect } from "react-router-dom";
 import { ADMIN_DASHBOARD } from "./API_Config";
 
 class AdminTables extends Component {
-  // port = API_PORT;
   ADMIN_DASHBOARD = ADMIN_DASHBOARD;
 
   constructor(props) {

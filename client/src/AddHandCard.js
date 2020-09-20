@@ -259,10 +259,10 @@ class AddHandCard extends Component {
       });
       console.log(cardsToSubmit);
 
-      this.DEALING_ENABLED = false;
-
       this.postNewHandCard(cardsToSubmit);
-
+      
+      this.DEALING_ENABLED = false;
+      
       alert(`SUCCESS:  Hand #${this.state.selectedHandNumber} has been dealt`);
     }
   };

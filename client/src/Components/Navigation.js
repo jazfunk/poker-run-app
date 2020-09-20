@@ -38,16 +38,7 @@ const Navigation = () => {
               </NavDropdown.Item>
               <NavDropdown.Item href="/adduserhand">Add User Hand</NavDropdown.Item>
               <NavDropdown.Item href="/addhandcard">Add Cards to Hand</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#">
-                TODO: Standings Endpoint
-              </NavDropdown.Item>
-              <NavDropdown.Item href="#">
-                TODO: UserHome list runs
-              </NavDropdown.Item>
-              <NavDropdown.Item href="#">
-                TODO: RunHome list hands
-              </NavDropdown.Item>
+              <NavDropdown.Divider />              
               <NavDropdown.Item href="/admin">Root Admin</NavDropdown.Item>
             </NavDropdown>
           </Nav>

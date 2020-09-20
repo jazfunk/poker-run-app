@@ -11,16 +11,16 @@ const RawHandsTable = (props) => {
         <td>{hand.id}</td>
         <td>{hand.full_name}</td>
         <td>{hand.run_name}</td>
-        <td>{hand.hand_rank}</td>
+        {/* <td>{hand.hand_rank}</td> */}
         <td>{hand.hand_number}</td>
         <td>{dateMoment.format("MM-DD-YYYY hh:mm a")}</td>
-        <td>
+        {/* <td>
           {
             <Button onClick={props.deleteHand} variant="light">
               Remove
             </Button>
           }
-        </td>
+        </td> */}
       </tr>
     );
   });
@@ -28,7 +28,7 @@ const RawHandsTable = (props) => {
   handsRows =
     handsRows.length === 0 ? (
       <tr>
-        <td coolspan="3">No hands found!</td>
+        <td coolspan="6">No hands found!</td>
       </tr>
     ) : (
       handsRows
@@ -41,13 +41,13 @@ const RawHandsTable = (props) => {
         <Table className="table-dark table-striped table-borderless table-hover table-bg-trans text-nowrap">
           <thead className="thead-dark">
             <tr>
-              <th>hands.id</th>
-              <th>users.full_name</th>
-              <th>runs.run_name</th>
-              <th>hands.hand_rank</th>
-              <th>hands.hand_number</th>
-              <th>hands.created_at</th>
-              <th>Action</th>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Run</th>
+              {/* <th>hands.hand_rank</th> */}
+              <th>Hand #</th>
+              <th>Created</th>
+              {/* <th>Action</th> */}
             </tr>
           </thead>
           <tbody>{handsRows}</tbody>

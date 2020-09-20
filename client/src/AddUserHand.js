@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import RawHandsTable from "./Components/TableComponents/RawHandsTable";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
 import {
@@ -21,8 +22,6 @@ class AddUserHand extends Component {
   DISPLAY_USER_INFO = "";
 
   DEALING_ENABLED = false;
-
-  
 
   constructor(props) {
     super(props);
@@ -79,9 +78,16 @@ class AddUserHand extends Component {
 
   componentDidMount = () => {
     if (this.state.isLoggedIn) {
-      this.loadDashboard();
+      this.loadDashboard();      
     }
   };
+
+  filterHandsBySelectedUser = (userId) => {
+    const hands = [this.state.dashBoard.hands]
+    const userHands = hands.filter((hand) => {
+      return hand.user_id === userId;
+    })
+  }
 
   handleUserSelect = async (event) => {
     event.preventDefault();
@@ -99,9 +105,8 @@ class AddUserHand extends Component {
       selectedUser: selectedUser.value,
       selectedUserName: selectedUser.textContent,
     });
-    
-    this.DEALING_ENABLED = true;
 
+    this.DEALING_ENABLED = true;
   };
 
   handleRunSelect = (event) => {
@@ -131,7 +136,8 @@ class AddUserHand extends Component {
     // event.preventDefault();
     event.target.reset();
 
-    if(!this.DEALING_ENABLED) {
+
+    if (!this.DEALING_ENABLED) {
       return;
     }
 
@@ -157,7 +163,9 @@ class AddUserHand extends Component {
       .then((response) => {
         const handCount = response.data.length;
         // console.log(response.data.length);
-        this.DISPLAY_USER_INFO = `Total Hands:  ${handCount} - Click Submit to add #${handCount + 1}`;
+        this.DISPLAY_USER_INFO = `Total Hands:  ${handCount} - Click Submit to add #${
+          handCount + 1
+        }`;
         this.setState({
           handsCount: handCount,
         });
@@ -203,51 +211,54 @@ class AddUserHand extends Component {
     return (
       <>
         {isLoggedOut}
-        <section className="form-container">
-          <Form onSubmit={this.handleSubmit}>
-            <Form.Row>
-              <Form.Group controlId="frmRunSelect">
-                <select
-                  name="selectedRun"
-                  className="form-control"
-                  defaultValue={this.state.selectedRun}
-                  onChange={this.handleRunSelect}
-                >
-                  <option>Select Run</option>
-                  {this.state.dashBoard.runs.map((run) => (
-                    <option key={run.id} value={run.id}>
-                      {run.run_name}
-                    </option>
-                  ))}
-                </select>
-              </Form.Group>
-              &nbsp;&nbsp;&nbsp;
-              <Form.Group controlId="frmUserSelect">
-                <select
-                  name="selectedUser"
-                  className="form-control"
-                  defaultValue={this.state.selectedUser}
-                  onChange={this.handleUserSelect}
-                >
-                  <option>Select User</option>
-                  {this.state.dashBoard.users.map((user) => (
-                    <option key={user.id} value={user.id}>
-                      {user.first_name} {user.last_name}
-                    </option>
-                  ))}
-                </select>
-              </Form.Group>
-              &nbsp;&nbsp;&nbsp;
-              <Form.Group controlId="frmAddUserHandButton">
-                <Button variant="light" type="submit">
-                  Submit Hand
-                </Button>
-              </Form.Group>
-            </Form.Row>
-          </Form>
-          <p>
-            {this.DISPLAY_USER_INFO}
-          </p>
+        <section>
+          <section className="form-container">
+            <Form onSubmit={this.handleSubmit}>
+              <Form.Row>
+                <Form.Group controlId="frmRunSelect">
+                  <select
+                    name="selectedRun"
+                    className="form-control"
+                    defaultValue={this.state.selectedRun}
+                    onChange={this.handleRunSelect}
+                  >
+                    <option>Select Run</option>
+                    {this.state.dashBoard.runs.map((run) => (
+                      <option key={run.id} value={run.id}>
+                        {run.run_name}
+                      </option>
+                    ))}
+                  </select>
+                </Form.Group>
+                &nbsp;&nbsp;&nbsp;
+                <Form.Group controlId="frmUserSelect">
+                  <select
+                    name="selectedUser"
+                    className="form-control"
+                    defaultValue={this.state.selectedUser}
+                    onChange={this.handleUserSelect}
+                  >
+                    <option>Select User</option>
+                    {this.state.dashBoard.users.map((user) => (
+                      <option key={user.id} value={user.id}>
+                        {user.first_name} {user.last_name}
+                      </option>
+                    ))}
+                  </select>
+                </Form.Group>
+                &nbsp;&nbsp;&nbsp;
+                <Form.Group controlId="frmAddUserHandButton">
+                  <Button variant="light" type="submit">
+                    Submit Hand
+                  </Button>
+                </Form.Group>
+              </Form.Row>
+            </Form>
+            <p>{this.DISPLAY_USER_INFO}</p>
+          </section>
+          <section>
+            <RawHandsTable hands={this.state.dashBoard.hands} />
+          </section>
         </section>
       </>
     );
