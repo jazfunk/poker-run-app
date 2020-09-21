@@ -7,26 +7,28 @@ const UserHandShowHideComponent = (props) => {
   let handsRows = props.handCards.map((card, index) => {
     return (
       <Draggable key={index} axis="x" grid={[10, 10]} bounds="parent">
-        <section
-          onClick={(event) => props.handleCardClick(event, card)}
-          className={card.isDealt ? "card-shown" : "card-hidden"}
-        >
-          <Card
-            className="hands-cards border-gradient border-gradient-light"
-            key={index}
+          <div
+            onClick={(event) => props.handleCardClick(event, card)}
+            className={card.isDealt ? "card-shown" : "card-hidden"}
           >
-            <Card.Img
-              className="hands-img card-glow"
-              variant="top"
-              src={require(`../Images/${card.card_suit}.png`)}
-              alt=""
-            />
-            <Card.Body className="hands-body">
-              <Card.Title className="card-face">{card.card_face}</Card.Title>
-              <Card.Text className="hands-number">{card.hand_number}</Card.Text>
-            </Card.Body>
-          </Card>
-        </section>
+            <Card
+              className="hands-cards border-gradient border-gradient-light"
+              key={index}
+            >
+              <Card.Img
+                className="hands-img card-glow"
+                variant="top"
+                src={require(`../Images/${card.card_suit}.png`)}
+                alt=""
+              />
+              <Card.Body className="hands-body">
+                <Card.Title className="card-face">{card.card_face}</Card.Title>
+                <Card.Text className="hands-number">
+                  {card.hand_number}
+                </Card.Text>
+              </Card.Body>
+            </Card>
+          </div>
       </Draggable>
     );
   });
@@ -46,8 +48,8 @@ const UserHandShowHideComponent = (props) => {
 
   return (
     <section className="dashboard">
-        <h3>{`${props.fullName} - ${props.handsCount} hands`}</h3>
-        <p>Click to deal a card at each stop</p>
+      <h3>{`${props.fullName} - ${props.handsCount} hands`}</h3>
+      <p>Click to deal a card at each stop</p>
       <section className="hands-header">
         <div>Stop #1</div>
         <div>Stop #2</div>

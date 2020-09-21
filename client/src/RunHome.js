@@ -93,7 +93,7 @@ class RunHome extends Component {
       });
   };
 
-  // Raw table data for form select element
+  // data for form select element
   loadHandsUser = () => {
     axios
       .get(`${this.USER_HANDS_URL}${this.state.userId}`)
