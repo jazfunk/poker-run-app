@@ -14,6 +14,7 @@ import AdminTables from "../AdminTables";
 import AddUserHand from "../AddUserHand";
 import AddHandCard from "../AddHandCard";
 import CardDeck from "../CardDeck";
+import ValidateStop from "../ValidateStop";
 
 const Header = () => {
   return (
@@ -34,6 +35,7 @@ const Header = () => {
           <Route path="/logout" exact component={Logout} />
           <Route path="/admin" exact component={AdminTables} />
           <Route path="/deck" exact component={CardDeck} />
+          <Route path="/validatestop" exact component={ValidateStop} />
         </Switch>
       </section>
     </BrowserRouter>
