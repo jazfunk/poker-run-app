@@ -111,8 +111,6 @@ class RunHome extends Component {
     const cardSection = event.currentTarget;
     console.log(cardSection.className)
 
-    debugger;
-
     if (card.isDealt) {
       cardSection.className = "card-hidden"
       card.isDealt = false;
@@ -120,8 +118,6 @@ class RunHome extends Component {
       cardSection.className = "card-shown"
       card.isDealt = true;
     }
-    
-    debugger;
 
     console.log(card);
   };

@@ -173,6 +173,7 @@ ul.dropdown-menu {
   filter: drop-shadow(0 0 0.5rem #2c3531);
   color: #116466;
   width: 16vw;
+  cursor: pointer;
 }
 
 .hands-img {
