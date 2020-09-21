@@ -53,6 +53,7 @@ class AddUserHand extends Component {
         selectedRun: localState.selectedRun || 1,
         handsCount: localState.handsCount || 0,
         randomDeck: localState.randomDeck || [],
+        stopId: localState.stopId || 1,
       };
     } else {
       this.state = {

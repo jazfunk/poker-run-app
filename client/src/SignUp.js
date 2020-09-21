@@ -38,6 +38,7 @@ class SignUp extends Component {
         passwordConfirm: localState.passwordConfirm || "",
         userId: localState.userId || 0,
         randomDeck: localState.randomDeck || [],
+        stopId: localState.stopId || 1,
       };
     } else {
       this.state = {

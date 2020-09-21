@@ -41,6 +41,7 @@ class UsersList extends Component {
         hands: localState.hands || [],
         userSearch: localState.userSearch || "",
         randomDeck: localState.randomDeck || [],
+        stopId: localState.stopId || 1,
       };
     } else {
       this.state = {

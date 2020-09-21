@@ -39,6 +39,7 @@ class AdminTables extends Component {
         password: localState.password || "",
         userId: localState.userId || 0,
         randomDeck: localState.randomDeck || [],
+        stopId: localState.stopId || 1,
         // users: localState.users || [],
         // handCards: localState.handCards || [],
         // admins: localState.admins || [],

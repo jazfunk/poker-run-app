@@ -59,6 +59,7 @@ class AddHandCard extends Component {
         randomDeck: localState.randomDeck || [],
         newHand: localState.newHand || [],
         handsCount: localState.handsCount || 0,
+        stopId: localState.stopId || 1,
       };
     } else {
       this.state = {
