@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import UserHandComponent from "./Components/UserHandComponent";
+import UserHandShowHideComponent from "./Components/UserHandShowHideComponent";
 import { Redirect } from "react-router-dom";
 import { USERS_HAND_URL, USER_HANDS_URL } from "./API_Config";
 
@@ -49,7 +50,6 @@ class RunHome extends Component {
 
   componentDidMount = async () => {
     if (this.state.isLoggedIn) {
-
       // Cover each card until user "Deals"
 
       this.loadAllHandsByUser();
@@ -62,9 +62,30 @@ class RunHome extends Component {
     axios
       .get(`${this.USERS_HAND_URL}${this.state.userId}`)
       .then((response) => {
+        // Loop response.data
+        // add isDealt property
+        let allCards = response.data;
+        let cardsWithStatus = [];
+        allCards.forEach((card) => {
+          const builtCard = {
+            card_face: card.card_face,
+            card_id: card.card_id,
+            card_suit: card.card_suit,
+            card_value: card.card_value,
+            first_name: card.first_name,
+            hand_id: card.hand_id,
+            hand_number: card.hand_number,
+            hand_rank: card.hand_rank,
+            last_name: card.last_name,
+            isDealt: false,
+          };
+          cardsWithStatus.push(builtCard);
+        });
+
         this.setState({
-          allCards: response.data,
-          handsCount: (response.data.length / 5),
+          allCards: cardsWithStatus,
+          // allCards: response.data,
+          handsCount: response.data.length / 5,
         });
       })
       .catch((error) => {
@@ -84,6 +105,25 @@ class RunHome extends Component {
       .catch((error) => {
         console.log(error);
       });
+  };
+
+  handleCardClick = (event, card) => {
+    const cardSection = event.currentTarget;
+    console.log(cardSection.className)
+
+    debugger;
+
+    if (card.isDealt) {
+      cardSection.className = "card-hidden"
+      card.isDealt = false;
+    } else {
+      cardSection.className = "card-shown"
+      card.isDealt = true;
+    }
+    
+    debugger;
+
+    console.log(card);
   };
 
   handleChange = (event) => {};
@@ -106,12 +146,20 @@ class RunHome extends Component {
         {isLoggedOut}
         <section>
           <section>
-            <UserHandComponent
+            <UserHandShowHideComponent
+              handleCardClick={this.handleCardClick}
               handCards={this.state.allCards}
               handsCount={this.state.handsCount}
               fullName={this.state.full_name}
             />
           </section>
+          {/* <section>
+            <UserHandComponent
+              handCards={this.state.allCards}
+              handsCount={this.state.handsCount}
+              fullName={this.state.full_name}
+            />
+          </section> */}
         </section>
       </>
     );

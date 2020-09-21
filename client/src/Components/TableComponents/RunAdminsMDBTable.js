@@ -20,7 +20,7 @@ const RunAdminsMDBTable = (props) => {
         sort: "asc",
       },
       {
-        label: "Rol",
+        label: "Role",
         field: "admin_role",
         sort: "asc",
       },

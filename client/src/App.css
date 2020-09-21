@@ -31,6 +31,15 @@
   text-align: center;
 }
 
+.hands-header {
+  display: flex;
+  justify-content: space-evenly;
+  text-align: center;
+  width: 100%;
+  margin: 0 auto;
+  width: 100vw;
+}
+
 .admin-tables {
   padding: 10px;
   color: #ffcb9a;
@@ -121,6 +130,17 @@ ul.dropdown-menu {
   width: 90vw;
 }
 
+.card-hidden {  
+  opacity: 0.2;
+  filter: blur(20px) grayscale(100%);
+  /* visibility: hidden; */
+  /* background-color: black; */
+}
+
+.card-shown {
+  visibility: visible;
+  /* background-color: yellow; */
+}
 .submitbtn-formgroup {
   justify-content: flex-start;
 }
