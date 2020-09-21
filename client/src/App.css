@@ -130,6 +130,11 @@ ul.dropdown-menu {
   width: 90vw;
 }
 
+.temp-stop-id {
+  margin: 0 auto;
+  width: 150px;
+}
+
 .card-hidden {  
   opacity: 0.2;
   filter: blur(20px) grayscale(100%);

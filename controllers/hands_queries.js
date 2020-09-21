@@ -101,6 +101,37 @@ const updateHand = async (id, body) => {
   });
 };
 
+
+
+
+// // PUT updated data in an existing hand Endpoint
+// // async/await - check out a client
+// const updateHandRank = async (id, body) => {
+//   return pool.connect().then(async (client) => {
+//     const { user_id, run_id, hand_rank, hand_number } = body;
+//     try {
+//       const handUpdated = await client.query(
+//         "UPDATE hands SET user_id = $1, run_id = $2, hand_rank = $3, hand_number = $4 WHERE id = $5",
+//         [user_id, run_id, hand_rank, hand_number, id]
+//       );
+//       client.release();
+//       return handUpdated.rows;
+//     } catch (err) {
+//       client.release();
+//       console.log(err.stack);
+//       return [];
+//     }
+//   });
+// };
+
+
+
+
+
+
+
+
+
 // DELETE a hand Endpoint
 // async/await - check out a client
 const deleteHand = async (id) => {

@@ -38,6 +38,7 @@ class RunHome extends Component {
         allCards: localState.allCards || [],
         allHands: localState.allHands || [],
         randomDeck: localState.randomDeck || [],
+        stopId: localState.stopId || 1,
       };
     } else {
       this.state = {
@@ -60,35 +61,33 @@ class RunHome extends Component {
     axios
       .get(`${this.USERS_HAND_URL}${this.state.userId}`)
       .then((response) => {
-
-        
         // Loop response.data
         // add isDealt property
-        
-        // Only allow isDealt to be true if 
+
+        // Only allow isDealt to be true if
         // hand.hand_rank >= hand_number
 
         const allCards = response.data;
         const cardsWithStatus = [];
         let previousHand = 1;
-        let cardCounter = 0
+        let cardCounter = 0;
         let handCounter = 0;
         let isDealt = false;
 
         allCards.forEach((card) => {
-          if(previousHand === card.hand_number) {
-            cardCounter++
+          if (previousHand === card.hand_number) {
+            cardCounter++;
           }
 
-          isDealt = cardCounter <= card.hand_rank
+          // isDealt = cardCounter <= card.hand_rank
+          isDealt = cardCounter <= this.state.stopId;
 
           if (cardCounter >= 5) {
-            handCounter++
-            cardCounter = 1
+            handCounter++;
+            cardCounter = 1;
           }
-                    
-          previousHand = card.hand_number;
 
+          previousHand = card.hand_number;
 
           const builtCard = {
             card_face: card.card_face,
@@ -98,12 +97,11 @@ class RunHome extends Component {
             first_name: card.first_name,
             hand_id: card.hand_id,
             hand_number: card.hand_number,
-            hand_rank: card.hand_rank,
+            hand_rank: this.state.stopId,
             last_name: card.last_name,
             isDealt: isDealt,
           };
           cardsWithStatus.push(builtCard);
-          
         });
 
         this.setState({
@@ -133,13 +131,13 @@ class RunHome extends Component {
 
   handleCardClick = (event, card) => {
     const cardSection = event.currentTarget;
-    console.log(cardSection.className)
+    console.log(cardSection.className);
 
     if (card.isDealt) {
-      cardSection.className = "card-hidden"
+      cardSection.className = "card-hidden";
       card.isDealt = false;
     } else {
-      cardSection.className = "card-shown"
+      cardSection.className = "card-shown";
       card.isDealt = true;
     }
 
@@ -148,6 +146,13 @@ class RunHome extends Component {
 
   handleChange = (event) => {};
   handleSubmit = (event) => {};
+
+  handleStopSelect = (event) => {
+    const stopId = parseInt(event.target.selectedOptions[0].textContent);
+    this.setState({
+      stopId: stopId,
+    });
+  };
 
   componentDidUpdate = () => {
     this.saveLocal();
@@ -165,6 +170,20 @@ class RunHome extends Component {
       <>
         {isLoggedOut}
         <section>
+          <section className="temp-stop-id">
+            <select
+              name="selectStopId"
+              className="form-control"
+              defaultValue={this.state.stopId}
+              onChange={this.handleStopSelect}
+            >
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
+          </section>
           <section>
             <UserHandShowHideComponent
               handleCardClick={this.handleCardClick}
