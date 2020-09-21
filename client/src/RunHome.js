@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import UserHandComponent from "./Components/UserHandComponent";
+// import UserHandComponent from "./Components/UserHandComponent";
 import UserHandShowHideComponent from "./Components/UserHandShowHideComponent";
 import { Redirect } from "react-router-dom";
 import { USERS_HAND_URL, USER_HANDS_URL } from "./API_Config";
@@ -50,8 +50,6 @@ class RunHome extends Component {
 
   componentDidMount = async () => {
     if (this.state.isLoggedIn) {
-      // Cover each card until user "Deals"
-
       this.loadAllHandsByUser();
       this.loadHandsUser();
     }

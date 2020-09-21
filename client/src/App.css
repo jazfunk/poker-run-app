@@ -133,6 +133,7 @@ ul.dropdown-menu {
 .card-hidden {  
   opacity: 0.2;
   filter: blur(20px) grayscale(100%);
+  /* filter: grayscale(100%); */
   /* visibility: hidden; */
   /* background-color: black; */
 }
