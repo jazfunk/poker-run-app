@@ -60,11 +60,36 @@ class RunHome extends Component {
     axios
       .get(`${this.USERS_HAND_URL}${this.state.userId}`)
       .then((response) => {
+
+        
         // Loop response.data
         // add isDealt property
-        let allCards = response.data;
-        let cardsWithStatus = [];
+        
+        // Only allow isDealt to be true if 
+        // hand.hand_rank >= hand_number
+
+        const allCards = response.data;
+        const cardsWithStatus = [];
+        let previousHand = 1;
+        let cardCounter = 0
+        let handCounter = 0;
+        let isDealt = false;
+
         allCards.forEach((card) => {
+          if(previousHand === card.hand_number) {
+            cardCounter++
+          }
+
+          isDealt = cardCounter <= card.hand_rank
+
+          if (cardCounter >= 5) {
+            handCounter++
+            cardCounter = 1
+          }
+                    
+          previousHand = card.hand_number;
+
+
           const builtCard = {
             card_face: card.card_face,
             card_id: card.card_id,
@@ -75,9 +100,10 @@ class RunHome extends Component {
             hand_number: card.hand_number,
             hand_rank: card.hand_rank,
             last_name: card.last_name,
-            isDealt: false,
+            isDealt: isDealt,
           };
           cardsWithStatus.push(builtCard);
+          
         });
 
         this.setState({
