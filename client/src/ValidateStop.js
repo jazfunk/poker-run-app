@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 
 class ValidateStop extends Component {
+  STOP_ID = 1;
+
   constructor(props) {
     super(props);
     this.importSavedState();
+    // this.STOP_ID = props.stopId > 0 ? props.stopId : 1;
   }
 
   componentDidMount = () => {
@@ -65,7 +68,6 @@ class ValidateStop extends Component {
     localStorage.setItem("localState", JSON.stringify(this.state));
   };
 
-
   render() {
     return (
       <section className="form-container">
@@ -84,6 +86,7 @@ class ValidateStop extends Component {
         <div onClick={this.handleClick} id="5">
           Stop #5
         </div>
+        <h1>{this.state.stopId}</h1>
       </section>
     );
   }

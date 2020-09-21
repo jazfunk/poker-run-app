@@ -16,7 +16,7 @@ import AddHandCard from "../AddHandCard";
 import CardDeck from "../CardDeck";
 import ValidateStop from "../ValidateStop";
 
-const Header = () => {
+const Header = (props) => {
   return (
     <BrowserRouter>
       <section>
@@ -36,6 +36,7 @@ const Header = () => {
           <Route path="/admin" exact component={AdminTables} />
           <Route path="/deck" exact component={CardDeck} />
           <Route path="/validatestop" exact component={ValidateStop} />
+          {/* <Route path="/validatestop" render={(props) => <ValidateStop {...props} stopId={props.stopId} />} /> */}
         </Switch>
       </section>
     </BrowserRouter>
