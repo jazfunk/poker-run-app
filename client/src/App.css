@@ -34,6 +34,7 @@
 .hands-header {
   display: flex;
   justify-content: space-evenly;
+  padding-bottom: 20px;
   text-align: center;
   width: 100%;
   margin: 0 auto;
@@ -149,8 +150,8 @@ ul.dropdown-menu {
 }
 
 .card-hidden {  
-  opacity: 0.2;
-  filter: blur(20px) grayscale(100%);
+  opacity: 0.6;
+  filter: blur(22px) grayscale(100%);
   /* filter: grayscale(100%); */
   /* visibility: hidden; */
   /* background-color: black; */

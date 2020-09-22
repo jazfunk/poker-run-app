@@ -48,7 +48,7 @@ const UserHandShowHideComponent = (props) => {
   return (
     <section className="dashboard">
       <h3>{`${props.fullName} - ${props.handsCount} hands`}</h3>
-      <p>Click to deal a card at each stop</p>
+      <p>Click a card to show, or select number of cards to display, above.</p>
       <section className="hands-header">
         <div>Stop #1</div>
         <div>Stop #2</div>

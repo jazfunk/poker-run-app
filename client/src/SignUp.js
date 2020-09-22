@@ -97,12 +97,12 @@ class SignUp extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
 
-    // Validate if email already exists
-    // Maybe create separate function
+    
     const users = [...this.state.dashBoard.users]
     const userEmail = users.filter((user) => {
       return user.email === this.state.add_email;      
     })
+    
     if (userEmail.length > 0) {
       this.setState({
         add_email: "",
@@ -110,8 +110,6 @@ class SignUp extends Component {
       return alert("An account with that email address already exists")
     }
 
-    // Validate entered PW
-    // Maybe create separate function
     const passwordTrimmed = this.state.add_password.trim();
     const passwordConfirmTrimmed = this.state.add_passwordConfirm.trim();
 
