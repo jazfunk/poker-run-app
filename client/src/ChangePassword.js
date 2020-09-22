@@ -53,12 +53,14 @@ class ChangePassword extends Component {
   };
 
   componentDidMount = () => {
-    this.buildUser();
-    this.setState({
-      edit_password: "",
-      edit_passwordConfirm: "",
-      hasBeenUpdated: false,
-    });
+    if (this.state.isLoggedIn) {
+      this.buildUser();
+      this.setState({
+        edit_password: "",
+        edit_passwordConfirm: "",
+        hasBeenUpdated: false,
+      });
+    }
   };
 
   validatePassword = () => {
@@ -99,7 +101,7 @@ class ChangePassword extends Component {
       };
 
       axios(config)
-        .then((response) => { 
+        .then((response) => {
           alert(`Your account has been updated.`);
           this.setState({
             password: "hidden",
@@ -143,7 +145,6 @@ class ChangePassword extends Component {
   };
 
   render() {
-
     const hasBeenUpdated = this.state.hasBeenUpdated ? (
       <Redirect to="/runhome" />
     ) : null;
