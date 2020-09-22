@@ -13,6 +13,7 @@ const USER_HANDS_URL = "/api/handsuser/";
 const USERS_HAND_URL = "/api/usershand/";
 const CARDS_URL = "/api/cards";
 const LOGIN_URL = "/api/user/login";
+const UPDATE_USER_URL = "/api/users/"
 
 module.exports = {
   API_PORT,
@@ -30,4 +31,5 @@ module.exports = {
   USERS_HAND_URL,
   CARDS_URL,
   LOGIN_URL,
+  UPDATE_USER_URL
 };

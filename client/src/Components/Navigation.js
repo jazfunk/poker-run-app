@@ -26,6 +26,7 @@ const Navigation = () => {
             <Nav.Link href="/standings">Standings</Nav.Link>
             <NavDropdown title="My Account" id="basic-nav-dropdown">
               <NavDropdown.Item href="/login">Log In</NavDropdown.Item>
+              <NavDropdown.Item href="/updateuser">Manage Account</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item href="/logout">Log Out</NavDropdown.Item>
             </NavDropdown>

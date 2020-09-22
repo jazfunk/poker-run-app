@@ -122,6 +122,19 @@ ul.dropdown-menu {
   color: #ffcb9a;
 }
 
+.login-form {
+  margin: 0 auto;
+  margin-top: 10px;
+  margin-bottom: 50px;
+  border: 1px #116466 solid;
+  background-image: linear-gradient(to bottom right, #116466, #2c3531);
+  border-radius: 8px;
+  filter: drop-shadow(0 0 0.5rem #d1e8e2);
+  padding: 20px;
+  width: 400px;
+  color: #ffcb9a;
+}
+
 .md-table {
   margin: 0 auto;
   padding: 10px;

@@ -41,7 +41,7 @@ const getRawUsers = async () => {
   });
 };
 
-// Check if user password exists Endpoint
+// Check if user email exists Endpoint
 // async/await - check out a client
 const checkUser = async (email) => {
   return pool.connect().then(async (client) => {

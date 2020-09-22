@@ -59,7 +59,6 @@ app.get("/api/users/:id", async (req, res) => {
 });
 
 app.post("/api/users", (req, res) => {
-  debugger;
   try {
     bcrypt.hash(req.body.password, saltRounds, (err, hash) => {
       usersDb
@@ -80,13 +79,54 @@ app.post("/api/users", (req, res) => {
   }
 });
 
+
+
+
+
+
+
 app.put("/api/users/:id", async (req, res) => {
   try {
-    res.send(await usersDb.updateUser(req.params.id, req.body));
+    bcrypt.hash(req.body.password, saltRounds, (err, hash) => {
+      usersDb
+        .updateUser(req.params.id, {
+          first_name: req.body.first_name,
+          last_name: req.body.last_name,
+          email: req.body.email,
+          password: hash,
+        })
+        .then((data) => {
+          if (data) {
+            res.status(200).send("User Created");
+          }
+        });
+    });
+
+    // res.send(await usersDb.updateUser(req.params.id, req.body));
+
   } catch (error) {
     res.status(500).send(error);
   }
 });
+
+
+
+// // Old put method
+// app.put("/api/users/:id", async (req, res) => {
+//   try {
+//     res.send(await usersDb.updateUser(req.params.id, req.body));
+//   } catch (error) {
+//     res.status(500).send(error);
+//   }
+// });
+
+
+
+
+
+
+
+
 
 app.delete("/api/users/:id", async (req, res) => {
   try {

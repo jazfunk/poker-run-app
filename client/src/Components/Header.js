@@ -8,6 +8,7 @@ import AddRunAdmin from "../AddRunAdmin";
 import Standings from "./Standings";
 import RunHome from "../RunHome";
 import LogIn from "../Login";
+import UpdateUser from "../ChangePassword";
 import SignUp from "../SignUp";
 import Logout from "../Logout";
 import AdminTables from "../AdminTables";
@@ -31,6 +32,7 @@ const Header = (props) => {
           <Route path="/runhome" exact component={RunHome} />
           <Route path="/standings" exact component={Standings} />
           <Route path="/login" exact component={LogIn} />
+          <Route path="/updateuser" exact component={UpdateUser} />
           <Route path="/signup" exact component={SignUp} />
           <Route path="/logout" exact component={Logout} />
           <Route path="/admin" exact component={AdminTables} />

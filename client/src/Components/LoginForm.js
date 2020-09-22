@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 
 const LoginForm = (props) => {
   return (
-    <section className="form-container">
+    <section className="login-form">
       <Form onSubmit={props.handleSubmit}>
         <Form.Group controlId="formLoginEmail">
           <Form.Label>Email address</Form.Label>
