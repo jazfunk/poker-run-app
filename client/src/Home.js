@@ -32,6 +32,7 @@ class Home extends Component {
         email: localState.email || "",
         full_name: localState.full_name || "",
         isLoggedIn: localState.isLoggedIn || false,
+        isAdmin: localState.isAdmin || false,
         password: localState.password || "",
         userId: localState.userId || 0,
         randomDeck: localState.randomDeck || [],
@@ -48,6 +49,7 @@ class Home extends Component {
     // Load up dashBoard here, instead of only in AdminTables
     if (this.state.isLoggedIn) {
       this.loadDashboard();
+      this.setAdminStatus();
       // Load up runs by user
       // Display each run signed up in a Card
     }
@@ -66,6 +68,17 @@ class Home extends Component {
         console.log(error);
       });
   };
+
+  setAdminStatus = () => {
+    const runAdmins = [...this.state.dashBoard.runAdmins];
+    runAdmins.forEach((admin) => {
+      if (admin.user_id == this.state.userId) {
+        this.setState({
+          isAdmin: true,
+        })
+      }
+    })
+  }
 
   handleSubmit = (event) => {};
   handleChange = (event) => {};

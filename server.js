@@ -82,9 +82,6 @@ app.post("/api/users", (req, res) => {
 
 
 
-
-
-
 app.put("/api/users/:id", async (req, res) => {
   try {
     bcrypt.hash(req.body.password, saltRounds, (err, hash) => {

@@ -6,6 +6,10 @@ import Col from "react-bootstrap/Col";
 const ChangePasswordComponent = (props) => {
   return (
     <section className="form-container">
+       <section className="heading-directions">
+        <h4>Update information. Enter/Confirm password (or new password).  Click the "Update User" button.</h4>        
+        <hr></hr>
+      </section>
       <Form onSubmit={props.handleSubmit}>
         <Form.Row>
           <Form.Group as={Col} controlId="formAddUserFirstName">

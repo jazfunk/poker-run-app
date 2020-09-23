@@ -34,6 +34,7 @@ class SignUp extends Component {
         email: localState.email || "",
         full_name: localState.full_name || "",
         isLoggedIn: localState.isLoggedIn || false,
+        isAdmin: localState.isAdmin || false,
         password: localState.password || "",
         passwordConfirm: localState.passwordConfirm || "",
         userId: localState.userId || 0,
@@ -171,12 +172,17 @@ class SignUp extends Component {
   };
 
   render() {
+    const isAdmin = !this.state.isAdmin ? (
+      <Redirect to="/" />
+    ) : null;
+
     const isLoggedOut = !this.state.isLoggedIn ? (
       <Redirect to="/login" />
     ) : null;
     return (
       <>
         {isLoggedOut}
+        {isAdmin}
         <section>
           <SignupComponent
             add_first_name={this.state.add_first_name}

@@ -33,6 +33,7 @@ class RunHome extends Component {
         email: localState.email || "",
         full_name: localState.full_name || "",
         isLoggedIn: localState.isLoggedIn || false,
+        isAdmin: localState.isAdmin || false,
         password: localState.password || "",
         userId: localState.userId || 0,
         allCards: localState.allCards || [],
@@ -148,7 +149,7 @@ class RunHome extends Component {
   handleSubmit = (event) => {};
 
   handleStopSelect = (event) => {
-    const stopId = parseInt(event.target.selectedOptions[0].textContent);
+    const stopId = parseInt(event.target.selectedOptions[0].value);
     this.setState({
       stopId: stopId,
     });
@@ -162,7 +163,7 @@ class RunHome extends Component {
     localStorage.setItem("localState", JSON.stringify(this.state));
   };
 
-  render() {
+  render() {  
     const isLoggedOut = !this.state.isLoggedIn ? (
       <Redirect to="/login" />
     ) : null;
@@ -177,14 +178,20 @@ class RunHome extends Component {
               defaultValue={this.state.stopId}
               onChange={this.handleStopSelect}
             >
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
+              <option value="1">Stop #1</option>
+              <option value="2">Stop #2</option>
+              <option value="3">Stop #3</option>
+              <option value="4">Stop #4</option>
+              <option value="5">Stop #5</option>
             </select>
           </section>
           <section>
+            {/* <UserHandFlipComponent
+              handleCardClick={this.handleCardClick}
+              handCards={this.state.allCards}
+              handsCount={this.state.handsCount}
+              fullName={this.state.full_name}
+            /> */}
             <UserHandShowHideComponent
               handleCardClick={this.handleCardClick}
               handCards={this.state.allCards}

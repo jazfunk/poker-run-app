@@ -50,6 +50,7 @@ class AddHandCard extends Component {
         email: localState.email || "",
         full_name: localState.full_name || "",
         isLoggedIn: localState.isLoggedIn || false,
+        isAdmin: localState.isAdmin || false,
         password: localState.password || "",
         userId: localState.userId || 0,
         // selectedUser: localState.selectedUser || "",
@@ -324,12 +325,17 @@ class AddHandCard extends Component {
   };
 
   render() {
+    const isAdmin = !this.state.isAdmin ? (
+      <Redirect to="/" />
+    ) : null;
+
     const isLoggedOut = !this.state.isLoggedIn ? (
       <Redirect to="/login" />
     ) : null;
     return (
       <>
         {isLoggedOut}
+        {isAdmin}
         <section>
           <section className="form-container">
             <Form onSubmit={this.handleSubmit}>

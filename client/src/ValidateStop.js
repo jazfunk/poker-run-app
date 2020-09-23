@@ -33,6 +33,7 @@ class ValidateStop extends Component {
         email: localState.email || "",
         full_name: localState.full_name || "",
         isLoggedIn: localState.isLoggedIn || false,
+        isAdmin: localState.isAdmin || false,
         password: localState.password || "",
         userId: localState.userId || 0,
         allCards: localState.allCards || [],

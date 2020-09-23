@@ -5,6 +5,9 @@ import logo from "../Images/PokerRunKingLOGO_NEW.png";
 
 const UserHandShowHideComponent = (props) => {
   let handsRows = props.handCards.map((card, index) => {
+    // const cardSuit = card.isDealt ? card.card_suit : "none";
+    // const cardFace = card.isDealt ? card.card_face : "";
+    // const handNumber = card.isDealt ? card.hand_number : "";
     return (
       // <Draggable key={index} axis="x" grid={[10, 10]} bounds="parent">
       <div
@@ -20,7 +23,7 @@ const UserHandShowHideComponent = (props) => {
             className="hands-img card-glow"
             variant="top"
             src={require(`../Images/${card.card_suit}.png`)}
-            alt=""
+            alt="Poker Run Card"
           />
           <Card.Body className="hands-body">
             <Card.Title className="card-face">{card.card_face}</Card.Title>

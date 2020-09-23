@@ -34,6 +34,7 @@ class ChangePassword extends Component {
         edit_first_name: localState.edit_first_name || "",
         edit_last_name: localState.edit_last_name || "",
         isLoggedIn: localState.isLoggedIn || false,
+        isAdmin: localState.isAdmin || false,
         password: localState.password || "",
         edit_password: localState.edit_password || "",
         passwordConfirm: localState.passwordConfirm || "",
@@ -146,7 +147,7 @@ class ChangePassword extends Component {
 
   render() {
     const hasBeenUpdated = this.state.hasBeenUpdated ? (
-      <Redirect to="/runhome" />
+      <Redirect to="/" />
     ) : null;
 
     const isLoggedOut = !this.state.isLoggedIn ? (

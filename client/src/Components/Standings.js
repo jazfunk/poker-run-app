@@ -7,8 +7,7 @@ import HandEvaluationTable from "../Components/TableComponents/HandEvaluationTab
 class Standings extends Component {
   constructor(props) {
     super(props);
-    this.importSavedState();    
-    // this.loadDashboard();
+    this.importSavedState();  
   }
 
   importSavedState = () => {
@@ -396,7 +395,7 @@ class Standings extends Component {
     return (
       <>
         {isLoggedOut}
-        <section className="form-container">
+        <section>
           <HandEvaluationTable evaluations={this.state.evaluations} />
         </section>
       </>
