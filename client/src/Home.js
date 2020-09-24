@@ -109,7 +109,7 @@ class Home extends Component {
             <Card.Body>
               <Card.Title>Welcome {this.state.full_name}!</Card.Title>
               <Card.Text>
-                Events you are signed up for, click 'My Hands' above, to view:
+                Events you are signed up for, click 'My Hand' above, to view:
               </Card.Text>
               <UserRunsComponent
                 run={this.state.dashBoard.runs[0]}

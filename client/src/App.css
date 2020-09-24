@@ -55,16 +55,16 @@
   margin: 0 auto;
   margin-top: 10px;
   padding: 5px;
-  /* background-image: linear-gradient(to bottom right, #116466, #2c3531); */
-  background-color: rgba(17, 100, 102, 0.6);
+  background-image: linear-gradient(to bottom right, #116466, #2c3531);
+  /* background-color: rgba(17, 100, 102, 0.9); */
   border-color: #116466;
   color: #d1e8e2;
-  width: 50vw;
+  width: 90vw;
 }
 
 .app-home > img {
   margin: 0 auto;
-  width: 18vw;
+  width: 12vw;
   filter: drop-shadow(0 0 0.5rem #d9b08c);
 }
 
