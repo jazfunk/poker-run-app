@@ -202,6 +202,24 @@ ul.dropdown-menu {
   cursor: pointer;
 }
 
+.user-runs {
+  text-align: center;
+  margin: 0px 5px 10px 5px;
+  padding: 5px 0px 0px 0px;
+  background-image: linear-gradient(
+    to top left,
+    #d1e8e2,
+    #feffff,
+    #ffffff,
+    #def2f1,
+    #d1e8e2
+  );
+  filter: drop-shadow(0 0 0.5rem #2c3531);
+  color: #116466;
+  width: 100%;
+  cursor: pointer;
+}
+
 .hands-img {
   width: 7vw;
   margin: 0 auto;

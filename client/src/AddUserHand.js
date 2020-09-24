@@ -28,6 +28,7 @@ class AddUserHand extends Component {
     super(props);
     this.importSavedState();
   }
+  
   importSavedState = () => {
     const localState =
       JSON.parse(window.localStorage.getItem("localState")) || [];

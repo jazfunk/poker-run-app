@@ -4,6 +4,7 @@ import logo from "./Images/PokerRunKingLOGO_NEW.png";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
 import { ADMIN_DASHBOARD } from "./API_Config";
+import UserRunsComponent from "./Components/UserRunsComponent";
 
 class Home extends Component {
   ADMIN_DASHBOARD = ADMIN_DASHBOARD;
@@ -11,7 +12,7 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.importSavedState();
-  }  
+  }
 
   importSavedState = () => {
     const localState =
@@ -53,7 +54,6 @@ class Home extends Component {
       // Load up runs by user
       // Display each run signed up in a Card
     }
-
   };
 
   loadDashboard = () => {
@@ -75,12 +75,16 @@ class Home extends Component {
       if (admin.user_id == this.state.userId) {
         this.setState({
           isAdmin: true,
-        })
+        });
       }
-    })
-  }
+    });
+  };
 
-  handleSubmit = (event) => {};
+  handleSubmit = (event) => {
+    event.preventDefault();
+   
+  };
+
   handleChange = (event) => {};
 
   componentDidUpdate = () => {
@@ -95,6 +99,7 @@ class Home extends Component {
     const isLoggedOut = !this.state.isLoggedIn ? (
       <Redirect to="/login" />
     ) : null;
+
     return (
       <>
         {isLoggedOut}
@@ -103,7 +108,12 @@ class Home extends Component {
             <Card.Img variant="top" src={logo} />
             <Card.Body>
               <Card.Title>Welcome {this.state.full_name}!</Card.Title>
-              <Card.Text>Go to 'My Hand' to see your cards</Card.Text>
+              <Card.Text>
+                Events you are signed up for, click 'My Hands' above, to view:
+              </Card.Text>
+              <UserRunsComponent
+                run={this.state.dashBoard.runs[0]}
+              />
             </Card.Body>
           </Card>
         </section>
