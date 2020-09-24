@@ -7,7 +7,7 @@ import HandEvaluationTable from "../Components/TableComponents/HandEvaluationTab
 class Standings extends Component {
   constructor(props) {
     super(props);
-    this.importSavedState();  
+    this.importSavedState();
   }
 
   importSavedState = () => {
@@ -236,58 +236,61 @@ class Standings extends Component {
     const handEvaluations = [];
 
     hands.forEach((hand) => {
-      handId = hand.id;
-      let faces = [];
-      let suits = [];
-      let displayItems = [];
-      let handValue = 0;
+      // TEMP conditional to hide manually set hands, and all of my hands
+      if (hand.user_id != 1 && hand.id != 43 && hand.id != 99) {
+        handId = hand.id;
+        let faces = [];
+        let suits = [];
+        let displayItems = [];
+        let handValue = 0;
 
-      handCards.forEach((card) => {
-        if (card.hand_id == handId) {
-          let suit = 0;
-          switch (card.card_suit) {
-            case "C":
-              suit = 1;
-              break;
-            case "D":
-              suit = 2;
-              break;
-            case "H":
-              suit = 4;
-              break;
-            case "S":
-              suit = 8;
-              break;
-            default:
-              break;
+        handCards.forEach((card) => {
+          if (card.hand_id == handId) {
+            let suit = 0;
+            switch (card.card_suit) {
+              case "C":
+                suit = 1;
+                break;
+              case "D":
+                suit = 2;
+                break;
+              case "H":
+                suit = 4;
+                break;
+              case "S":
+                suit = 8;
+                break;
+              default:
+                break;
+            }
+
+            faces.push(card.card_value);
+            suits.push(suit);
+            displayItems.push(`${card.card_face}${card.card_suit}`);
+
+            handValue += card.card_value;
           }
+        });
 
-          faces.push(card.card_value);
-          suits.push(suit);
-          displayItems.push(`${card.card_face}${card.card_suit}`);
+        displayItems.sort();
 
-          handValue += card.card_value;
-        }
-      });
+        const handEvaluation = evaluateHand(faces, suits);
+        const handRank = this.rankEvaluation(handEvaluation);
 
-      displayItems.sort();
-
-      const handEvaluation = evaluateHand(faces, suits);
-      const handRank = this.rankEvaluation(handEvaluation);
-
-      const compiledHandEvaluation = {
-        hand_rank: handRank,
-        hand_evaluation: handEvaluation,
-        full_name: hand.full_name,
-        hand_number: hand.hand_number,
-        hand_id: handId,
-        hand_display: displayItems.toString(),
-        hand_value: handValue,
-        weighted_value: 0,
-        high_pair: 0,
-        high_card: 0,
-      };
-      handEvaluations.push(compiledHandEvaluation);
+        const compiledHandEvaluation = {
+          hand_rank: handRank,
+          hand_evaluation: handEvaluation,
+          full_name: hand.full_name,
+          hand_number: hand.hand_number,
+          hand_id: handId,
+          hand_display: displayItems.toString(),
+          hand_value: handValue,
+          weighted_value: 0,
+          high_pair: 0,
+          high_card: 0,
+        };
+        handEvaluations.push(compiledHandEvaluation);
+      }
     });
 
     // Clear out un-dealt hands
@@ -300,7 +303,12 @@ class Standings extends Component {
       let highPair = 0;
       let highCard = 0;
 
-      if (hand.hand_rank === "6" || hand.hand_rank === "7" || hand.hand_rank === "8" || hand.hand_rank === "9") {
+      if (
+        hand.hand_rank === "6" ||
+        hand.hand_rank === "7" ||
+        hand.hand_rank === "8" ||
+        hand.hand_rank === "9"
+      ) {
         highCard = 0;
 
         const cards = hand.hand_display.split(",");
@@ -390,9 +398,9 @@ class Standings extends Component {
   };
 
   render() {
-    const isAdmin = !this.state.isAdmin ? (
-      <Redirect to="/" />
-    ) : null;
+    // const isAdmin = !this.state.isAdmin ? (
+    //   <Redirect to="/" />
+    // ) : null;
 
     const isLoggedOut = !this.state.isLoggedIn ? (
       <Redirect to="/login" />
@@ -400,7 +408,7 @@ class Standings extends Component {
     return (
       <>
         {isLoggedOut}
-        {isAdmin}
+        {/* {isAdmin} */}
         <section>
           <HandEvaluationTable evaluations={this.state.evaluations} />
         </section>
