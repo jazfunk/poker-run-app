@@ -37,7 +37,7 @@ const UserRunsComponent = (props) => {
             <Card.Body className="hands-body">
               <Card.Title>{runName}</Card.Title>
               <Card.Text>{runDescription}</Card.Text>
-              <Card.Text>{runDate.format("MM-DD-YYYY")}</Card.Text>
+              <Card.Text>{runDate.format("MM-DD-YYYY h:mm a")}</Card.Text>
               {/* <Button variant="primary">View hands for the {props.run.run_name} run</Button> */}
             </Card.Body>
           </Card>
