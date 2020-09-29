@@ -236,8 +236,6 @@ class Standings extends Component {
     const handEvaluations = [];
 
     hands.forEach((hand) => {
-      // TEMP conditional to hide manually set hands, and all of my hands
-      if (hand.user_id != 1 && hand.id != 43 && hand.id != 99) {
         handId = hand.id;
         let faces = [];
         let suits = [];
@@ -290,7 +288,6 @@ class Standings extends Component {
           high_card: 0,
         };
         handEvaluations.push(compiledHandEvaluation);
-      }
     });
 
     // Clear out un-dealt hands
