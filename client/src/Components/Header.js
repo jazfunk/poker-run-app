@@ -9,6 +9,7 @@ import Standings from "./Standings";
 import RunHome from "../RunHome";
 import LogIn from "../Login";
 import UpdateUser from "../ChangePassword";
+import AdminUser from "../AdminUser";
 import SignUp from "../SignUp";
 import Logout from "../Logout";
 import AdminTables from "../AdminTables";
@@ -53,6 +54,7 @@ const Header = (props) => {
           <Route path="/signup" exact component={SignUp} />
           <Route path="/logout" exact component={Logout} />
           <Route path="/admin" exact component={AdminTables} />
+          <Route path="/adminuser" exact component={AdminUser} />
           {/* <Route path="/admin" exact component={adminDisplay} /> */}
           <Route path="/deck" exact component={CardDeck} />
           <Route path="/validatestop" exact component={ValidateStop} />

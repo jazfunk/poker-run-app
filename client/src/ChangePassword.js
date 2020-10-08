@@ -40,6 +40,7 @@ class ChangePassword extends Component {
         passwordConfirm: localState.passwordConfirm || "",
         edit_passwordConfirm: localState.edit_passwordConfirm || "",
         userId: localState.userId || 0,
+        // userId: 2,
         allCards: localState.allCards || [],
         allHands: localState.allHands || [],
         randomDeck: localState.randomDeck || [],

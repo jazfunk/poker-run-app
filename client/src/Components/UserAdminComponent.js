@@ -1,15 +1,10 @@
 import React from "react";
 import Card from "react-bootstrap/Card";
-// import Draggable from "react-draggable";
 import logo from "../Images/PokerRunKingLOGO_NEW.png";
 
-const UserHandShowHideComponent = (props) => {
+const UserAdminComponent = (props) => {
   let handsRows = props.handCards.map((card, index) => {
-    // const cardSuit = card.isDealt ? card.card_suit : "none";
-    // const cardFace = card.isDealt ? card.card_face : "";
-    // const handNumber = card.isDealt ? card.hand_number : "";
     return (
-      // <Draggable key={index} axis="x" grid={[10, 10]} bounds="parent">
       <div
         key={index}
         onClick={(event) => props.handleCardClick(event, card)}
@@ -31,7 +26,6 @@ const UserHandShowHideComponent = (props) => {
           </Card.Body>
         </Card>
       </div>
-      // </Draggable>
     );
   });
 
@@ -51,12 +45,6 @@ const UserHandShowHideComponent = (props) => {
   return (
     <section className="dashboard">
       <h3>{`${props.fullName} - ${props.handsCount} hands`}</h3>
-      <p>
-      Congratulations, Your Poker Hands have been dealt and submitted! 
-      Please click on your cards below to reveal your hand.  
-      To reveal multiple cards at once, choose the number of cards per hand 
-      you want, then refresh your screen to reveal those cards.
-      </p>
       <section className="hands-header">
         <div>Stop #1</div>
         <div>Stop #2</div>
@@ -69,4 +57,4 @@ const UserHandShowHideComponent = (props) => {
   );
 };
 
-export default UserHandShowHideComponent;
+export default UserAdminComponent;

@@ -41,6 +41,7 @@ const Navigation = () => {
               <NavDropdown.Item href="/addhandcard">Add Cards to Hand</NavDropdown.Item>
               <NavDropdown.Divider />              
               <NavDropdown.Item href="/admin">Root Admin</NavDropdown.Item>
+              <NavDropdown.Item href="/adminuser">Admin User</NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
