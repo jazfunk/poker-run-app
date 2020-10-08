@@ -66,6 +66,7 @@ class AdminUser extends Component {
   componentDidMount = async () => {
     if (this.state.isLoggedIn) {
       this.setState({
+        edit_Id: "",
         edit_first_name: "",
         edit_last_name: "",
         edit_email: "",
@@ -127,29 +128,30 @@ class AdminUser extends Component {
     }
   };
 
+  // Method not needed, delete on deployment
   handleLoadUser = (event) => {
     event.preventDefault();
-    this.loadAllHandsByUser(this.state.selectedUser);
-    this.loadHandsUser(this.state.selectedUser);
+    // this.loadAllHandsByUser(this.state.selectedUser);
+    // this.loadHandsUser(this.state.selectedUser);
   };
 
   handleUserSelect = async (event) => {
     event.preventDefault();
     const selectedUser = event.target.selectedOptions[0];
+    
     if (selectedUser.textContent === "Select User") {
       return alert("Select a valid user");
     }
-    console.log(
-      `Selected user: ${selectedUser.textContent} - ${selectedUser.value}`
-    );
-
-    this.buildUser(parseInt(selectedUser.value));
 
     this.setState({
       selectedUser: selectedUser.value,
       edit_Id: selectedUser.value,
       selectedUserName: selectedUser.textContent,
     });
+
+    this.buildUser(parseInt(selectedUser.value));
+    this.loadAllHandsByUser(selectedUser.value);
+    this.loadHandsUser(selectedUser.value);
   };
 
   // Joined data
@@ -241,6 +243,7 @@ class AdminUser extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
+    event.target.reset();
     const updatedUser = {
       first_name: this.state.edit_first_name,
       last_name: this.state.edit_last_name,
@@ -274,7 +277,7 @@ class AdminUser extends Component {
       <Redirect to="/" />
     ) : null;
 
-    const hasBeenUpdated = this.state.hasBeenUpdated ? (
+    const hasBeenUpdated = this.state.edit_hasBeenUpdated ? (
       <Redirect to="/" />
     ) : null;
 
@@ -310,12 +313,12 @@ class AdminUser extends Component {
                     ))}
                   </select>
                 </Form.Group>
-                &nbsp;&nbsp;&nbsp;
+                {/* &nbsp;&nbsp;&nbsp;
                 <Form.Group controlId="frmLoadUserButton">
                   <Button variant="light" type="submit">
                     Load Hands
                   </Button>
-                </Form.Group>
+                </Form.Group> */}
               </Form.Row>
             </Form>
           </section>
