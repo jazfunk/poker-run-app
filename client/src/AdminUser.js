@@ -5,11 +5,12 @@ import Button from "react-bootstrap/Button";
 import UserAdminComponent from "./Components/UserAdminComponent";
 import ChangePasswordComponent from "./Components/ChangePasswordComponent";
 import { Redirect } from "react-router-dom";
-import { USERS_HAND_URL, USER_HANDS_URL } from "./API_Config";
+import { USERS_HAND_URL, USER_HANDS_URL, UPDATE_USER_URL } from "./API_Config";
 
 class AdminUser extends Component {
   USERS_HAND_URL = USERS_HAND_URL;
   USER_HANDS_URL = USER_HANDS_URL;
+  UPDATE_USER_URL = UPDATE_USER_URL;
 
   constructor(props) {
     super(props);
@@ -98,6 +99,10 @@ class AdminUser extends Component {
 
   updateUser = (user) => {
     const doPasswordsMatch = this.validatePassword();
+
+    console.log(user);
+
+    debugger;
 
     if (doPasswordsMatch) {
       return alert("Passwords do not match");
@@ -245,6 +250,8 @@ class AdminUser extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
 
+    debugger;
+
     const updatedUser = {
       first_name: this.state.edit_first_name,
       last_name: this.state.edit_last_name,
@@ -253,7 +260,7 @@ class AdminUser extends Component {
     };
 
     // Prohibit changing of MY password (JK)
-    if (!this.state.selectedUser == 1) {
+    if (this.state.selectedUser != 1) {
       this.updateUser(updatedUser);
     }
   };
