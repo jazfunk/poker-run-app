@@ -99,11 +99,6 @@ class AdminUser extends Component {
 
   updateUser = (user) => {
     const doPasswordsMatch = this.validatePassword();
-
-    console.log(user);
-
-    debugger;
-
     if (doPasswordsMatch) {
       return alert("Passwords do not match");
     } else {
@@ -134,7 +129,6 @@ class AdminUser extends Component {
 
   handleLoadUser = (event) => {
     event.preventDefault();
-    console.log("Load User button clicked");
     this.loadAllHandsByUser(this.state.selectedUser);
     this.loadHandsUser(this.state.selectedUser);
   };
@@ -235,8 +229,6 @@ class AdminUser extends Component {
       cardSection.className = "card-shown";
       card.isDealt = true;
     }
-
-    console.log(card);
   };
 
   handleChange = (event) => {
@@ -249,9 +241,6 @@ class AdminUser extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-
-    debugger;
-
     const updatedUser = {
       first_name: this.state.edit_first_name,
       last_name: this.state.edit_last_name,
@@ -300,6 +289,11 @@ class AdminUser extends Component {
         <section>
           <section className="form-container">
             <Form onSubmit={this.handleLoadUser}>
+              <Form.Row>                
+              <Form.Group>
+                  <Form.Label>Select User to Modify, then Load Hands</Form.Label>
+                </Form.Group>
+              </Form.Row>
               <Form.Row>
                 <Form.Group controlId="frmUserSelect">
                   <select

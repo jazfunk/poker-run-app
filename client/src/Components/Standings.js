@@ -40,6 +40,7 @@ class Standings extends Component {
         newHand: localState.newHand || [],
         handsCount: localState.handsCount || 0,
         evaluations: localState.evaluations || [],
+        stopId: localState.stopId || 1,
       };
     } else {
       this.state = {
