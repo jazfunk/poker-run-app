@@ -39,7 +39,8 @@ class RunHome extends Component {
         allCards: localState.allCards || [],
         allHands: localState.allHands || [],
         randomDeck: localState.randomDeck || [],
-        stopId: localState.stopId || 1,
+        stopId: localState.stopId || 0,
+        stopChanged: localState.stopChanged|| false,
       };
     } else {
       this.state = {
@@ -54,6 +55,10 @@ class RunHome extends Component {
     if (this.state.isLoggedIn) {
       this.loadAllHandsByUser();
       this.loadHandsUser();
+
+      this.setState({
+        stopChanged: false,
+      })
     }
   };
 
@@ -62,12 +67,6 @@ class RunHome extends Component {
     axios
       .get(`${this.USERS_HAND_URL}${this.state.userId}`)
       .then((response) => {
-        // Loop response.data
-        // add isDealt property
-
-        // Only allow isDealt to be true if
-        // hand.hand_rank >= hand_number
-
         const allCards = response.data;
         const cardsWithStatus = [];
         let previousHand = 1;
@@ -107,7 +106,6 @@ class RunHome extends Component {
 
         this.setState({
           allCards: cardsWithStatus,
-          // allCards: response.data,
           handsCount: response.data.length / 5,
         });
       })
@@ -116,7 +114,6 @@ class RunHome extends Component {
       });
   };
 
-  // data for form select element
   loadHandsUser = () => {
     axios
       .get(`${this.USER_HANDS_URL}${this.state.userId}`)
@@ -132,7 +129,6 @@ class RunHome extends Component {
 
   handleCardClick = (event, card) => {
     const cardSection = event.currentTarget;
-    console.log(cardSection.className);
 
     if (card.isDealt) {
       cardSection.className = "card-hidden";
@@ -141,22 +137,29 @@ class RunHome extends Component {
       cardSection.className = "card-shown";
       card.isDealt = true;
     }
-
-    console.log(card);
   };
 
-  handleChange = (event) => {};
-  handleSubmit = (event) => {};
-
-  handleStopSelect = (event) => {
-    const stopId = parseInt(event.target.selectedOptions[0].value);
+  handleStopReset = (event) => {
     this.setState({
-      stopId: stopId,
-    });
-  };
+      stopId: 0,
+    })
+  }
+
+  handleStopClick = (event) => {
+    this.setState({
+      stopId: event.target.id,
+      stopChanged: true,
+    })
+
+  }
 
   componentDidUpdate = () => {
     this.saveLocal();
+
+    if(this.state.stopChanged) {
+      this.loadAllHandsByUser();
+      this.loadHandsUser();
+    }
   };
 
   saveLocal = () => {
@@ -171,41 +174,16 @@ class RunHome extends Component {
       <>
         {isLoggedOut}
         <section>
-          <section className="temp-stop-id">
-            <select
-              name="selectStopId"
-              className="form-control"
-              defaultValue={this.state.stopId}
-              onChange={this.handleStopSelect}
-            >
-              <option value="1">Stop #1</option>
-              <option value="2">Stop #2</option>
-              <option value="3">Stop #3</option>
-              <option value="4">Stop #4</option>
-              <option value="5">Stop #5</option>
-            </select>
-          </section>
           <section>
-            {/* <UserHandFlipComponent
-              handleCardClick={this.handleCardClick}
-              handCards={this.state.allCards}
-              handsCount={this.state.handsCount}
-              fullName={this.state.full_name}
-            /> */}
             <UserHandShowHideComponent
               handleCardClick={this.handleCardClick}
+              handleStopClick={this.handleStopClick}
+              handleStopReset={this.handleStopReset}
               handCards={this.state.allCards}
               handsCount={this.state.handsCount}
               fullName={this.state.full_name}
             />
           </section>
-          {/* <section>
-            <UserHandComponent
-              handCards={this.state.allCards}
-              handsCount={this.state.handsCount}
-              fullName={this.state.full_name}
-            />
-          </section> */}
         </section>
       </>
     );

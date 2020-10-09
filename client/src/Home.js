@@ -37,22 +37,21 @@ class Home extends Component {
         password: localState.password || "",
         userId: localState.userId || 0,
         randomDeck: localState.randomDeck || [],
-        stopId: localState.stopId || 1,
+        stopId: localState.stopId || 0,
+        showHands: false,
       };
     } else {
       this.state = {
         isLoggedIn: false,
+        dashBoard: dashBoardInitial,
       };
     }
   };
 
   componentDidMount = async () => {
-    // Load up dashBoard here, instead of only in AdminTables
     if (this.state.isLoggedIn) {
       this.loadDashboard();
       this.setAdminStatus();
-      // Load up runs by user
-      // Display each run signed up in a Card
     }
   };
 
@@ -87,6 +86,13 @@ class Home extends Component {
 
   handleChange = (event) => {};
 
+  handleCardClick = (event) => {
+    this.setState({
+      showHands: true,
+    })
+
+  }
+
   componentDidUpdate = () => {
     this.saveLocal();
   };
@@ -96,6 +102,10 @@ class Home extends Component {
   };
 
   render() {
+    const loadHandsPage = this.state.showHands ? (
+      <Redirect to="/runhome" />      
+    ) : null;
+
     const isLoggedOut = !this.state.isLoggedIn ? (
       <Redirect to="/login" />
     ) : null;
@@ -103,13 +113,14 @@ class Home extends Component {
     return (
       <>
         {isLoggedOut}
+        {loadHandsPage}
         <section>
-          <Card className="app-home">
+          <Card className="app-home" onClick={this.handleCardClick}>
             <Card.Img variant="top" src={logo} />
             <Card.Body>
               <Card.Title>Welcome {this.state.full_name}!</Card.Title>
               <Card.Text>
-                Events you are signed up for, click 'My Hand' above, to view:
+                You are signed up for the events listed below.  Click an event to view your hands:
               </Card.Text>
               <UserRunsComponent
                 run={this.state.dashBoard.runs[0]}

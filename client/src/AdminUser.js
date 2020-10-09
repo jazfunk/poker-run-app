@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
 import UserAdminComponent from "./Components/UserAdminComponent";
 import ChangePasswordComponent from "./Components/ChangePasswordComponent";
 import { Redirect } from "react-router-dom";
@@ -43,16 +42,16 @@ class AdminUser extends Component {
         allHands: localState.allHands || [],
         allCardsSelectedUser: localState.allCardsSelectedUser || [],
         allHandsSelectedUser: localState.allHandsSelectedUser || [],
-        selectedUserName: localState.selectedUserName || "",
+        selectedUserName: "",
         randomDeck: localState.randomDeck || [],
         stopId: 5,
-        edit_Id: localState.edit_Id || 0,
-        edit_first_name: localState.edit_first_name || "",
-        edit_last_name: localState.edit_last_name || "",
-        edit_email: localState.edit_email || "",
-        edit_password: localState.edit_password || "",
-        edit_passwordConfirm: localState.edit_passwordConfirm || "",
-        edit_hasBeenUpdated: localState.edit_hasBeenUpdated || false,
+        edit_Id: 0,
+        edit_first_name: "",
+        edit_last_name: "",
+        edit_email: "",
+        edit_password: "",
+        edit_passwordConfirm: "",
+        edit_hasBeenUpdated: false,
       };
     } else {
       this.state = {
@@ -73,6 +72,7 @@ class AdminUser extends Component {
         edit_password: "",
         edit_passwordConfirm: "",
         edit_hasBeenUpdated: false,
+        selectedUserName: "",
       });
     }
   };
@@ -128,17 +128,14 @@ class AdminUser extends Component {
     }
   };
 
-  // Method not needed, delete on deployment
   handleLoadUser = (event) => {
     event.preventDefault();
-    // this.loadAllHandsByUser(this.state.selectedUser);
-    // this.loadHandsUser(this.state.selectedUser);
   };
 
   handleUserSelect = async (event) => {
     event.preventDefault();
     const selectedUser = event.target.selectedOptions[0];
-    
+
     if (selectedUser.textContent === "Select User") {
       return alert("Select a valid user");
     }
@@ -198,7 +195,6 @@ class AdminUser extends Component {
 
         this.setState({
           allCardsSelectedUser: cardsWithStatus,
-          // allCards: response.data,
           handsCountSelectedUser: response.data.length / 5,
         });
       })
@@ -244,16 +240,21 @@ class AdminUser extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     event.target.reset();
-    const updatedUser = {
-      first_name: this.state.edit_first_name,
-      last_name: this.state.edit_last_name,
-      email: this.state.edit_email,
-      password: this.state.edit_password,
-    };
 
-    // Prohibit changing of MY password (JK)
-    if (this.state.selectedUser != 1) {
-      this.updateUser(updatedUser);
+    if (this.state.selectedUser != "") {
+      const updatedUser = {
+        first_name: this.state.edit_first_name,
+        last_name: this.state.edit_last_name,
+        email: this.state.edit_email,
+        password: this.state.edit_password,
+      };
+
+      // Prohibit changing of ADMIN password (JK)
+      if (this.state.selectedUser != 1) {
+        this.updateUser(updatedUser);
+      }
+    } else {
+      console.log("No user selected");
     }
   };
 
@@ -272,10 +273,8 @@ class AdminUser extends Component {
     localStorage.setItem("localState", JSON.stringify(this.state));
   };
 
-  render() {  
-    const isAdmin = !this.state.isAdmin ? (
-      <Redirect to="/" />
-    ) : null;
+  render() {
+    const isAdmin = !this.state.isAdmin ? <Redirect to="/" /> : null;
 
     const hasBeenUpdated = this.state.edit_hasBeenUpdated ? (
       <Redirect to="/" />
@@ -292,9 +291,9 @@ class AdminUser extends Component {
         <section>
           <section className="form-container">
             <Form onSubmit={this.handleLoadUser}>
-              <Form.Row>                
-              <Form.Group>
-                  <Form.Label>Select User to Modify, then Load Hands</Form.Label>
+              <Form.Row>
+                <Form.Group>
+                  <Form.Label>Select User to Modify</Form.Label>
                 </Form.Group>
               </Form.Row>
               <Form.Row>
@@ -313,12 +312,6 @@ class AdminUser extends Component {
                     ))}
                   </select>
                 </Form.Group>
-                {/* &nbsp;&nbsp;&nbsp;
-                <Form.Group controlId="frmLoadUserButton">
-                  <Button variant="light" type="submit">
-                    Load Hands
-                  </Button>
-                </Form.Group> */}
               </Form.Row>
             </Form>
           </section>

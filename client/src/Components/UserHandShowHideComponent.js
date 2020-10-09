@@ -1,15 +1,11 @@
 import React from "react";
 import Card from "react-bootstrap/Card";
-// import Draggable from "react-draggable";
+import Button from "react-bootstrap/Button";
 import logo from "../Images/PokerRunKingLOGO_NEW.png";
 
 const UserHandShowHideComponent = (props) => {
   let handsRows = props.handCards.map((card, index) => {
-    // const cardSuit = card.isDealt ? card.card_suit : "none";
-    // const cardFace = card.isDealt ? card.card_face : "";
-    // const handNumber = card.isDealt ? card.hand_number : "";
     return (
-      // <Draggable key={index} axis="x" grid={[10, 10]} bounds="parent">
       <div
         key={index}
         onClick={(event) => props.handleCardClick(event, card)}
@@ -31,7 +27,6 @@ const UserHandShowHideComponent = (props) => {
           </Card.Body>
         </Card>
       </div>
-      // </Draggable>
     );
   });
 
@@ -40,7 +35,7 @@ const UserHandShowHideComponent = (props) => {
       <Card className="hands-cards">
         <Card.Img variant="top" src={logo} />
         <Card.Body>
-          <Card.Title className="card-face">!</Card.Title>
+          <Card.Title className="card-face"></Card.Title>
           <Card.Text className="hands-number">No cards found</Card.Text>
         </Card.Body>
       </Card>
@@ -48,23 +43,79 @@ const UserHandShowHideComponent = (props) => {
       handsRows
     );
 
+  let displayText = () => {
+    let handOrHands = props.handsCount > 1 ? "hands" : "hand";
+    let countDisplay = props.handsCount
+      ? `${props.handsCount} ${handOrHands}`
+      : "Loading...";
+    let nameDisplay = props.fullName ? props.fullName : "Loading";
+    return `${nameDisplay} - ${countDisplay}`;
+  };
+
   return (
     <section className="dashboard">
-      <h3>{`${props.fullName} - ${props.handsCount} hands`}</h3>
-      <p>
-      Congratulations, Your Poker Hands have been dealt and submitted! 
-      Please click on your cards below to reveal your hand.  
-      To reveal multiple cards at once, choose the number of cards per hand 
-      you want, then refresh your screen to reveal those cards.
-      </p>
-      <section className="hands-header">
-        <div>Stop #1</div>
-        <div>Stop #2</div>
-        <div>Stop #3</div>
-        <div>Stop #4</div>
-        <div>Stop #5</div>
+      <section className="form-container">
+        <h5>{displayText()}</h5>
+        <h5>Congratulations, Your Poker Hands have been dealt and submitted!</h5>
+        <p>Click on a card to reveal it</p>
+        <h3>-Or-</h3>
+        <p>Click the "Stop #" button at each stop to view.</p>    
+      <Button onClick={props.handleStopReset}>Cover All</Button>
       </section>
-      <section className="hands">{handsRows}</section>
+      <section className="hands-header">
+        <div>
+          <Button
+            className="stop-button"
+            variant="info"
+            id="1"
+            onClick={props.handleStopClick}
+          >
+            Stop #1
+          </Button>
+        </div>
+        <div>
+          <Button
+            className="stop-button"
+            variant="info"
+            id="2"
+            onClick={props.handleStopClick}
+          >
+            Stop #2
+          </Button>
+        </div>
+        <div>
+          <Button
+            className="stop-button"
+            variant="info"
+            id="3"
+            onClick={props.handleStopClick}
+          >
+            Stop #3
+          </Button>
+        </div>
+        <div>
+          <Button
+            className="stop-button"
+            variant="info"
+            id="4"
+            onClick={props.handleStopClick}
+          >
+            Stop #4
+          </Button>
+        </div>
+        <div>
+          {" "}
+          <Button
+            className="stop-button"
+            variant="info"
+            id="5"
+            onClick={props.handleStopClick}
+          >
+            Stop #5
+          </Button>
+        </div>
+      </section>
+      <section className="hands">{handsRows}</section>  
     </section>
   );
 };

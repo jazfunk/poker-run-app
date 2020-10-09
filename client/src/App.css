@@ -31,16 +31,6 @@
   text-align: center;
 }
 
-.hands-header {
-  display: flex;
-  justify-content: space-evenly;
-  padding-bottom: 20px;
-  text-align: center;
-  width: 100%;
-  margin: 0 auto;
-  width: 100vw;
-}
-
 .admin-tables {
   padding: 10px;
   color: #ffcb9a;
@@ -121,7 +111,7 @@ ul.dropdown-menu {
 .form-container {
   margin: 0 auto;
   margin-top: 10px;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
   border: 1px #116466 solid;
   background-image: linear-gradient(to bottom right, #116466, #2c3531);
   border-radius: 8px;
@@ -200,6 +190,31 @@ ul.dropdown-menu {
   color: #116466;
   width: 16vw;
   cursor: pointer;
+}
+
+.hands-header {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;  
+  padding-bottom: 20px;
+  text-align: center;
+  width: 100%;
+}
+
+.hands-text-header {
+  display: flex;
+  justify-content: space-evenly;
+  padding-bottom: 20px;
+  text-align: center;
+  width: 100%;
+  margin: 0 auto;
+  width: 100vw;
+}
+
+.stop-button {
+  width: 16vw;
+  margin: 0px 7px 0px 7px;
 }
 
 .user-runs {

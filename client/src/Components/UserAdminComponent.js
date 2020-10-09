@@ -34,7 +34,7 @@ const UserAdminComponent = (props) => {
       <Card className="hands-cards">
         <Card.Img variant="top" src={logo} />
         <Card.Body>
-          <Card.Title className="card-face">!</Card.Title>
+          <Card.Title className="card-face"></Card.Title>
           <Card.Text className="hands-number">No cards found</Card.Text>
         </Card.Body>
       </Card>
@@ -45,7 +45,7 @@ const UserAdminComponent = (props) => {
   return (
     <section className="dashboard">
       <h3>{`${props.fullName} - ${props.handsCount} hands`}</h3>
-      <section className="hands-header">
+      <section className="hands-text-header">
         <div>Stop #1</div>
         <div>Stop #2</div>
         <div>Stop #3</div>
