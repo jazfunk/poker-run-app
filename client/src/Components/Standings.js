@@ -297,7 +297,6 @@ class Standings extends Component {
     });
 
     handsDealtEvaluations.forEach((hand) => {
-      // let weightedValue = 0;
       let highPair = 0;
       let highCard = 0;
 
@@ -316,7 +315,6 @@ class Standings extends Component {
 
         hand.high_pair = highPair;
         hand.high_card = highCard;
-        // hand.weighted_value = weightedValue;
       }
     });
 
@@ -371,10 +369,9 @@ class Standings extends Component {
   };
 
   componentDidMount = () => {
-    // this.loadDashboard();
     this.evaluateHands();
     if (this.state.loggedIn) {
-      // this.loadDashboard();
+      // For Hard Coded algorithm testing
       // const J = 11,
       //   Q = 12,
       //   K = 13,

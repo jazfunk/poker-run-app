@@ -5,7 +5,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Links
 [View Application on Heroku](https://poker-run-king.herokuapp.com/)  
-[View GitHub Repository](https://github.com/jazfunk/poker-run-app)
+[Clone GitHub Repository](https://github.com/jazfunk/poker-run-app.git)
 
 
 ## Application Images
@@ -16,9 +16,15 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Summary
 A full-stack, RESTful API, built using Node.js, serving a React front-end, styled with Bootstrap 4.  Quite a challenging application to build, and it turned out to have more features than I initially intended.
 
-By crafting robust, and secure endpoints, I've honed my Node.js skills, and solidifed my knowledge of the Web API paradigm.  
+By crafting robust, and secure endpoints, I've honed my Node.js skills, and solidifed my knowledge of the Web API paradigm.  With FluentNHIbernate for the ORM (Object Relational Mapping) duties, the API connects to a PostgreSQL database, hosted on an ElephantSQL server, allowing the application data to exist fully in the cloud.
 
-With the use of class-based stateful components, and reusable functional components, the code is clean, and easy to interpet.
+With the use of React's class-based stateful components, and reusable functional components, the code is clean, and easy to interpet, for any experienced React developer
+
+While brainstorming this app, I fully expected the algorithm to define the hand would be the most challenging aspect.  It wasn't.  From this [StaockOverFlow Post](https://stackoverflow.com/questions/10363927/the-simplest-algorithm-for-poker-hand-evaluation), I was able to build a function which uses bit comparison, and returns a string, defining the poker hand.
+
+What turned out to be the most difficult part of the functions, was ranking the hands; first by poker hand, then, by high card.  I learned a great deal about number comparisons, data sorting, and bit comparisons, while refining this logic.
+
+As the application evolves over the next few months, it will incorporate features such as, importing data to add users, automatically adding a pre-determined number of hands when a user is added, and sending out notifications.
 
 ## Prerequisites, Development Dependencies, & Installation
 This project requires the following to be installed to run locally:
@@ -36,6 +42,7 @@ npm run dev
 ```
 
 Run app in development mode:  Open [http://localhost:5000](http://localhost:5000) to view it in the browser.
+
 
 
 ## Built With
