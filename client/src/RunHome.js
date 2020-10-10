@@ -167,9 +167,9 @@ class RunHome extends Component {
   };
 
   render() {  
-    const isAdmin = !this.state.isAdmin ? (
-      <Redirect to="/" />
-    ) : null;
+    // const isAdmin = !this.state.isAdmin ? (
+    //   <Redirect to="/" />
+    // ) : null;
 
     const isLoggedOut = !this.state.isLoggedIn ? (
       <Redirect to="/login" />
@@ -178,7 +178,7 @@ class RunHome extends Component {
     return (
       <>
         {isLoggedOut}
-        {isAdmin}
+        {/* {isAdmin} */}
         <section>
           <section>
             <UserHandShowHideComponent
