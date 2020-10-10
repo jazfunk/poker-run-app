@@ -397,7 +397,7 @@ class Standings extends Component {
   };
 
   render() {
-    const isAdmin = !this.state.isAdmin ? <Redirect to="/" /> : null;
+    // const isAdmin = !this.state.isAdmin ? <Redirect to="/" /> : null;
 
     const isLoggedOut = !this.state.isLoggedIn ? (
       <Redirect to="/login" />
@@ -405,7 +405,7 @@ class Standings extends Component {
     return (
       <>
         {isLoggedOut}
-        {isAdmin}
+        {/* {isAdmin} */}
         <section>
           <HandEvaluationTable evaluations={this.state.evaluations} />
         </section>
