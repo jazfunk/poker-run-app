@@ -121,10 +121,11 @@ class SignUp extends Component {
       return alert("Passwords do not match");
     }
 
+    let loweredEmail = this.state.add_email.toLowerCase();
     const user = {
       first_name: this.state.add_first_name.trim(),
       last_name: this.state.add_last_name.trim(),
-      email: this.state.add_email.trim(),
+      email: loweredEmail.trim(),
       password: this.state.add_password.trim(),
     };
     

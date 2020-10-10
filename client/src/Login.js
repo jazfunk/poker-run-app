@@ -56,7 +56,7 @@ class Login extends Component {
     event.preventDefault();
     event.target.reset();
     const user = {
-      email: this.state.email,
+      email: this.state.email.toLowerCase(),
       password: this.state.password,
     };
     this.validateUser(user);
