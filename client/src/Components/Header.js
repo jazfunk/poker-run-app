@@ -19,23 +19,6 @@ import CardDeck from "../CardDeck";
 import ValidateStop from "../ValidateStop";
 
 const Header = (props) => {
-  // let isAdmin = false;
-  // const getAndSetStatus = () => {
-  //   const localState =
-  //     JSON.parse(window.localStorage.getItem("localState")) || [];
-
-  //   if (localState.length > 0 || localState.constructor === Object) {
-  //     isAdmin = localState.isAdmin;
-  //   } else {
-  //     isAdmin = false;
-  //   }
-  // };
-
-  // let adminDisplay = () => {
-  //   return isAdmin ? AdminTables : Home;
-  // }
-
-
   return (
     <BrowserRouter>
       <section>
@@ -55,7 +38,6 @@ const Header = (props) => {
           <Route path="/logout" exact component={Logout} />
           <Route path="/admin" exact component={AdminTables} />
           <Route path="/adminuser" exact component={AdminUser} />
-          {/* <Route path="/admin" exact component={adminDisplay} /> */}
           <Route path="/deck" exact component={CardDeck} />
           <Route path="/validatestop" exact component={ValidateStop} />
           {/* <Route path="/validatestop" render={(props) => <ValidateStop {...props} stopId={props.stopId} />} /> */}

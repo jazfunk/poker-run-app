@@ -237,6 +237,9 @@ class Standings extends Component {
     const handEvaluations = [];
 
     hands.forEach((hand) => {
+      // Hide Jeff and Tom's hands for this run
+      // As we are ineliglbe admins
+      if (hand.user_id > 2) {
         handId = hand.id;
         let faces = [];
         let suits = [];
@@ -289,6 +292,7 @@ class Standings extends Component {
           high_card: 0,
         };
         handEvaluations.push(compiledHandEvaluation);
+      }
     });
 
     // Clear out un-dealt hands
@@ -393,9 +397,7 @@ class Standings extends Component {
   };
 
   render() {
-    // const isAdmin = !this.state.isAdmin ? (
-    //   <Redirect to="/" />
-    // ) : null;
+    const isAdmin = !this.state.isAdmin ? <Redirect to="/" /> : null;
 
     const isLoggedOut = !this.state.isLoggedIn ? (
       <Redirect to="/login" />
@@ -403,19 +405,13 @@ class Standings extends Component {
     return (
       <>
         {isLoggedOut}
-        {/* {isAdmin} */}
+        {isAdmin}
         <section>
           <HandEvaluationTable evaluations={this.state.evaluations} />
         </section>
       </>
     );
   }
-}
-
-{
-  /* <section className="form-container">
-        <HandEvaluationTable evaluations={this.state.evaluations} />
-      </section> */
 }
 
 export default Standings;

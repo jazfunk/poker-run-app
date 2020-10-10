@@ -58,7 +58,7 @@ const UserHandShowHideComponent = (props) => {
         <h5>{displayText()}</h5>
         <h5>Congratulations, Your Poker Hands have been dealt and submitted!</h5>
         <p>Click on a card to reveal it</p>
-        <h3>-Or-</h3>
+        <h3>-OR-</h3>
         <p>Click the "Stop #" button at each stop to view.</p>    
       <Button onClick={props.handleStopReset}>Cover All</Button>
       </section>

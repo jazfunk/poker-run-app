@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-// import Button from "react-bootstrap/Button";
-// import UsersTable from "./Components/TableComponents/UsersTable";
 import UsersListMDBTable from "./Components/TableComponents/UsersListMDBTable";
 import moment from "moment";
 import axios from "axios";
@@ -128,6 +126,7 @@ class UsersList extends Component {
     const isLoggedOut = !this.state.isLoggedIn ? (
       <Redirect to="/login" />
     ) : null;
+
     return (
       <>
         {isLoggedOut}

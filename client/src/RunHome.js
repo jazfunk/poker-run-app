@@ -167,12 +167,18 @@ class RunHome extends Component {
   };
 
   render() {  
+    const isAdmin = !this.state.isAdmin ? (
+      <Redirect to="/" />
+    ) : null;
+
     const isLoggedOut = !this.state.isLoggedIn ? (
       <Redirect to="/login" />
     ) : null;
+
     return (
       <>
         {isLoggedOut}
+        {isAdmin}
         <section>
           <section>
             <UserHandShowHideComponent
